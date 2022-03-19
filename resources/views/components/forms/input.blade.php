@@ -3,7 +3,7 @@
 </div>
 <div class="col-md-8 form-group">
     <input 
-        class="form-control @error($name) is-invalid @enderror" 
+        class="form-control @if (old('_token') != null) @error($name) is-invalid @else is-valid @enderror @endif" 
         type="{{ $type }}" 
         id="{{ $name }}" 
         name="{{ $name }}" 
