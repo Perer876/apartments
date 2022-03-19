@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between">
-                        <a class="btn btn-info" href="#">Detalle</a>
+                        <a class="btn btn-info" href="/buildings/{{ $building->id }}">Detalle</a>
                     </div>
                 </div>
             </div>
