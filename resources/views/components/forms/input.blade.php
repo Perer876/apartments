@@ -3,7 +3,7 @@
 </div>
 <div class="col-md-8 form-group">
     <input 
-        class="form-control" 
+        class="form-control @error($name) is-invalid @enderror" 
         type="{{ $type }}" 
         id="{{ $name }}" 
         name="{{ $name }}" 
@@ -12,7 +12,10 @@
             value="{{ old($name) }}"
         @endif
     >
+    @error($name)
+    <div class="invalid-feedback">
+        <i class="bx bx-radio-circle"></i>
+        {{ $message }}
+    </div>
+    @enderror
 </div>
-@error($name)
-<div class="alert alert-danger">{{ $message }}</div>
-@enderror
