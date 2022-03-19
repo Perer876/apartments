@@ -8,5 +8,11 @@
         id="{{ $name }}" 
         name="{{ $name }}" 
         placeholder="{{ $placeholder }}" 
+        @if (strlen(old($name)) > 0)
+            value="{{ old($name) }}"
+        @endif
     >
 </div>
+@error($name)
+<div class="alert alert-danger">{{ $message }}</div>
+@enderror
