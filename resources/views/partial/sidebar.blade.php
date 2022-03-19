@@ -16,8 +16,8 @@
                 Dashboard
             </x-sidebar-item>
 
-            <x-sidebar-item route="prueba" href="/prueba">
-                Prueba
+            <x-sidebar-item icon="house" route="buildings" href="/buildings">
+                Edificios
             </x-sidebar-item>
 
         </ul>
