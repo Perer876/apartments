@@ -17,7 +17,7 @@ class CreateBuildingsTable extends Migration
             $table->id();
             $table->string('alias')->unique();
             $table->string('street')->nullable();
-            $table->string('number')->nullable();
+            $table->string('number', 6)->nullable();
             $table->string('postcode', 5)->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
