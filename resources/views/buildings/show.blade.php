@@ -51,7 +51,7 @@
                     <div class="card-body">
                         <div class="buttons">
                             <a href="/buildings" class="btn btn-primary">Ver todos</a>
-                            <a href="#" class="btn btn-warning">Editar</a>
+                            <a href="/buildings/{{$building->id}}/edit" class="btn btn-warning">Editar</a>
                             <x-modal type="danger" title="Eliminar edificio" close="Cancelar" accept="Eliminar" href="/buildings">
                                 ¿Estas seguro que quieres eliminar este edificio?
                             </x-modal>

@@ -1,26 +1,43 @@
 <x-base>
     <div class="page-heading">
+        @isset($building)
+        <h3>Editar edificio</h3>
+        <p class="text-subtitle text-muted">Modifica los campos que desees cambiar.</p>
+        @else
         <h3>Agregar edificio</h3>
-        <p class="text-subtitle text-muted">Indica los datos del nuevo edificio.</p>
+        <p class="text-subtitle text-muted">Indica los datos del nuevo edificio..</p>
+        @endisset
     </div>
     <div class="page-content">
         <section class="row justify-content-center">
             <div class="col-md-6 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Formulario nuevo edificio</h4>
+                        <h4 class="card-title">
+                            @isset($building)
+                            Formulario editar edificio
+                            @else
+                            Formulario nuevo edificio
+                            @endisset
+                        </h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
+                        @isset($building)
+                            <form class="form form-horizontal" action="/buildings/{{$building->id}}" method="post">
+                            @method('PATCH')
+                        @else
                             <form class="form form-horizontal" action="/buildings" method="post">
+                        @endisset
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
                                         <x-forms.input 
-                                            label="Alias"
-                                            name="alias"
-                                            type="text"
-                                            placeholder="Nombre representativo"
+                                            label="Alias" 
+                                            name="alias" 
+                                            type="text" 
+                                            placeholder="Nombre representativo" 
+                                            :object="isset($building) ? $building : null" 
                                         />
 
                                         <x-forms.input 
@@ -28,6 +45,7 @@
                                             name="street"
                                             type="text"
                                             placeholder="Calle"
+                                            :object="isset($building) ? $building : null"
                                         />
 
                                         <x-forms.input 
@@ -35,6 +53,7 @@
                                             name="number"
                                             type="number"
                                             placeholder="Número"
+                                            :object="isset($building) ? $building : null"
                                         />
                                         
                                         <x-forms.input 
@@ -42,6 +61,7 @@
                                             name="postcode"
                                             type="number"
                                             placeholder="00000"
+                                            :object="isset($building) ? $building : null"
                                         />
 
                                         <x-forms.input 
@@ -49,6 +69,7 @@
                                             name="city"
                                             type="text"
                                             placeholder="Nombre municipio"
+                                            :object="isset($building) ? $building : null"
                                         />
 
                                         <x-forms.input 
@@ -56,6 +77,7 @@
                                             name="state"
                                             type="text"
                                             placeholder="Estado"
+                                            :object="isset($building) ? $building : null"
                                         />
 
                                         <x-forms.input 
@@ -63,6 +85,7 @@
                                             name="builded_at"
                                             type="number"
                                             placeholder="Año de construcción"
+                                            :object="isset($building) ? $building : null"
                                         />
 
                                         <div class="col-sm-12 d-flex justify-content-end">

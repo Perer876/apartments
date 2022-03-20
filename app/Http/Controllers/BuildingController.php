@@ -47,7 +47,7 @@ class BuildingController extends Controller
     {
         $request->validate($this->form_rules);
         
-        $building = Building::create($request->all());
+        Building::create($request->all());
         
         return redirect('/buildings');
     }

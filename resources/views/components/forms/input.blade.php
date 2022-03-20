@@ -10,6 +10,8 @@
         placeholder="{{ $placeholder }}" 
         @if (strlen(old($name)) > 0)
             value="{{ old($name) }}"
+        @elseif (isset($attributes['object']))
+            value="{{$attributes['object'][$name]}}"
         @endif
     >
     @error($name)
