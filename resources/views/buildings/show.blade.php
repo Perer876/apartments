@@ -33,8 +33,13 @@
                             @endif
                         </div>
                     </div>
-                    <div class="card-footer d-flex justify-content-between">
-                        <!-- <a class="btn btn-info" href="#">Detalle</a> -->
+                    <div class="card-footer">
+                        <small class="text-muted d-flex justify-content-end">
+                            Creado el {{ $building->created_at->format('d/m/Y') }} a las {{ $building->created_at->format('H:i') }}
+                        </small>
+                        <small class="text-muted d-flex justify-content-end">
+                            Actualizado el {{ $building->updated_at->format('d/m/Y') }} a las {{ $building->updated_at->format('H:i') }}
+                        </small>
                     </div>
                 </div>
             </div>
@@ -46,6 +51,10 @@
                     <div class="card-body">
                         <div class="buttons">
                             <a href="/buildings" class="btn btn-primary">Ver todos</a>
+                            <a href="#" class="btn btn-warning">Editar</a>
+                            <x-modal type="danger" title="Eliminar edificio" close="Cancelar" accept="Eliminar" href="/buildings">
+                                ¿Estas seguro que quieres eliminar este edificio?
+                            </x-modal>
                         </div>
                     </div>
                 </div>
