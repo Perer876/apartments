@@ -4,19 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Building;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class BuildingController extends Controller
 {
-    private $form_rules = [
-        'alias' => 'required|max:255|unique:App\Models\Building',
-        'street' => 'required|max:255',
-        'number' => 'required|integer|min:0|max:999999',
-        'postcode' => 'required|integer|min:1|max:99999',
-        'city' => 'required|max:255',
-        'state' => 'required|max:255',
-        'builded_at' => 'nullable|integer|min:1902|max:2022'
-    ];
-
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +36,17 @@ class BuildingController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate($this->form_rules);
+        $form_rules = [
+            'alias' => ['required','max:255','unique:App\Models\Building'],
+            'street' => 'required|max:255',
+            'number' => 'required|integer|min:0|max:999999',
+            'postcode' => 'required|integer|min:1|max:99999',
+            'city' => 'required|max:255',
+            'state' => 'required|max:255',
+            'builded_at' => 'nullable|integer|min:1902|max:2022'
+        ];
+
+        $request->validate($form_rules);
         
         Building::create($request->all());
         
@@ -83,7 +84,21 @@ class BuildingController extends Controller
      */
     public function update(Request $request, Building $building)
     {
-        //
+        $form_rules = [
+            'alias' => ['required','max:255', Rule::unique('buildings')->ignore($building->id),],
+            'street' => 'required|max:255',
+            'number' => 'required|integer|min:0|max:999999',
+            'postcode' => 'required|integer|min:1|max:99999',
+            'city' => 'required|max:255',
+            'state' => 'required|max:255',
+            'builded_at' => 'nullable|integer|min:1902|max:2022',
+        ];
+
+        $request->validate($form_rules);
+        
+        Building::where('id', $building->id)->update($request->except(['_method', '_token']));
+
+        return redirect('/buildings/'.$building->id);
     }
 
     /**
