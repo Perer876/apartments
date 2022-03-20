@@ -52,8 +52,21 @@
                         <div class="buttons">
                             <a href="/buildings" class="btn btn-primary">Ver todos</a>
                             <a href="/buildings/{{$building->id}}/edit" class="btn btn-warning">Editar</a>
-                            <x-modal type="danger" title="Eliminar edificio" close="Cancelar" accept="Eliminar" href="/buildings">
-                                ¿Estas seguro que quieres eliminar este edificio?
+                            <x-modal type="danger" title="Eliminar edificio">
+                                <div class="modal-body">
+                                    ¿Estas seguro que quieres eliminar este edificio?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                        <i class="bx bx-x d-block d-sm-none"></i>
+                                        <span class="d-none d-sm-block">Cancelar</span>
+                                    </button>
+                                    <form action="/buildings/{{$building->id}}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input class="btn btn-danger" type="submit" value="Eliminar">
+                                    </form>
+                                </div>
                             </x-modal>
                         </div>
                     </div>

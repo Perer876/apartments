@@ -10,22 +10,16 @@ class Modal extends Component
     public $uuid;
     public $type;
     public $title;
-    public $close;
-    public $accept;
-    public $href;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($type, $title, $close, $accept, $href)
+    public function __construct($type, $title)
     {
         $this->uuid = (string) Str::uuid();
         $this->type = $type;
         $this->title = $title;
-        $this->close = $close;
-        $this->accept = $accept;
-        $this->href = $href;
     }
 
     /**

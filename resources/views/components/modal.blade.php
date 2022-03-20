@@ -13,16 +13,7 @@
                         {{ $title }}
                     </h5>
                 </div>
-                <div class="modal-body">
-                    {{ $slot }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                        <i class="bx bx-x d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">{{ $close }}</span>
-                    </button>
-                    <a href="{{ $href }}" class="btn btn-{{$type}}">{{ $accept }}</a>
-                </div>
+                {{ $slot }}
             </div>
         </div>
     </div>
