@@ -6,7 +6,7 @@
         type="{{ $type }}" 
         id="{{ $name }}" 
         name="{{ $name }}" 
-        placeholder="{{ $placeholder }}" 
+        placeholder="{{ $attributes['placeholder'] }}" 
         @if (strlen(old($name)) > 0)
             value="{{ old($name) }}"
         @elseif ($attributes['object'])
