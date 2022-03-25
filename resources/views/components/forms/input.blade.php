@@ -1,6 +1,5 @@
-<div class="col-md-4">
-    <label for="{{ $name }}">{{ $label }}</label>
-</div>
+<label class="col-md-4" for="{{ $name }}">{{ $label }}</label>
+
 <div class="col-md-8 form-group">
     <input 
         class="form-control @if (old('_token') != null) @error($name) is-invalid @else is-valid @enderror @endif" 
@@ -10,8 +9,11 @@
         placeholder="{{ $placeholder }}" 
         @if (strlen(old($name)) > 0)
             value="{{ old($name) }}"
-        @elseif (isset($attributes['object']))
+        @elseif ($attributes['object'])
             value="{{$attributes['object'][$name]}}"
+        @endif
+        @if ($attributes['readonly'])
+            readonly
         @endif
     >
     @error($name)
