@@ -24,75 +24,74 @@
                     <div class="card-content">
                         <div class="card-body">
                         @isset($building)
-                            <form class="form form-horizontal" action="/buildings/{{$building->id}}" method="post">
+                            <form action="/buildings/{{$building->id}}" method="post">
                             @method('PATCH')
                         @else
-                            <form class="form form-horizontal" action="/buildings" method="post">
+                            <form action="/buildings" method="post">
                         @endisset
                                 @csrf
-                                <div class="form-body">
-                                    <div class="row">
-                                        <x-forms.input 
-                                            label="Alias" 
-                                            name="alias" 
-                                            type="text" 
-                                            placeholder="Nombre representativo" 
-                                            :object="isset($building) ? $building : null" 
-                                        />
+                                <x-forms.input 
+                                    label="Alias" 
+                                    name="alias" 
+                                    type="text" 
+                                    placeholder="Nombre representativo" 
+                                    :object="isset($building) ? $building : null" 
+                                />
+                                <div class="row">
+                                    <x-forms.input 
+                                        label="Calle"
+                                        name="street"
+                                        type="text"
+                                        placeholder="Calle"
+                                        :object="isset($building) ? $building : null"
+                                        size=8
+                                    />
+                                    
+                                    <x-forms.input 
+                                        label="Número"
+                                        name="number"
+                                        type="number"
+                                        placeholder="#"
+                                        :object="isset($building) ? $building : null"
+                                        size=4
+                                    />
+                                </div>
+                                
+                                <x-forms.input 
+                                    label="Código postal"
+                                    name="postcode"
+                                    type="number"
+                                    placeholder="00000"
+                                    :object="isset($building) ? $building : null"
+                                />
 
-                                        <x-forms.input 
-                                            label="Calle"
-                                            name="street"
-                                            type="text"
-                                            placeholder="Calle"
-                                            :object="isset($building) ? $building : null"
-                                        />
+                                <x-forms.input 
+                                    label="Municipio"
+                                    name="city"
+                                    type="text"
+                                    placeholder="Nombre municipio"
+                                    :object="isset($building) ? $building : null"
+                                />
 
-                                        <x-forms.input 
-                                            label="Número"
-                                            name="number"
-                                            type="number"
-                                            placeholder="Número"
-                                            :object="isset($building) ? $building : null"
-                                        />
-                                        
-                                        <x-forms.input 
-                                            label="Código postal"
-                                            name="postcode"
-                                            type="number"
-                                            placeholder="00000"
-                                            :object="isset($building) ? $building : null"
-                                        />
+                                <x-forms.input 
+                                    label="Estado"
+                                    name="state"
+                                    type="text"
+                                    placeholder="Estado"
+                                    :object="isset($building) ? $building : null"
+                                />
 
-                                        <x-forms.input 
-                                            label="Municipio"
-                                            name="city"
-                                            type="text"
-                                            placeholder="Nombre municipio"
-                                            :object="isset($building) ? $building : null"
-                                        />
+                                <x-forms.input 
+                                    label="Año"
+                                    name="builded_at"
+                                    type="number"
+                                    placeholder="Año de construcción"
+                                    :object="isset($building) ? $building : null"
+                                />
 
-                                        <x-forms.input 
-                                            label="Estado"
-                                            name="state"
-                                            type="text"
-                                            placeholder="Estado"
-                                            :object="isset($building) ? $building : null"
-                                        />
-
-                                        <x-forms.input 
-                                            label="Año"
-                                            name="builded_at"
-                                            type="number"
-                                            placeholder="Año de construcción"
-                                            :object="isset($building) ? $building : null"
-                                        />
-
-                                        <div class="col-sm-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1">Guardar</button>
-                                            <button type="reset" class="btn btn-light-secondary me-1 mb-1">Limpiar</button>
-                                        </div>
-                                    </div>
+                                <div class="col-sm-12 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary me-1 mb-1">Guardar</button>
+                                    <button type="reset" class="btn btn-light-secondary me-1 mb-1">Limpiar</button>
                                 </div>
                             </form>
                         </div>
