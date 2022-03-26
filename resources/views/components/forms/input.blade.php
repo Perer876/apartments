@@ -15,7 +15,7 @@ $size = $attributes['size'] ?? ($attributes['horizontal-form'] ? 8 : 12)
     <div class="col-md-{{$size}}">
     @endif
         <input 
-            class="form-control @if (old('_token') != null) @error($name) is-invalid @else is-valid @enderror @endif" 
+            class="form-control{{ $attributes['plaintext'] ? '-plaintext' : null }} @if (old('_token') != null) @error($name) is-invalid @else is-valid @enderror @endif" 
             type="{{ $type }}" 
             id="{{ $name }}" 
             name="{{ $name }}" 
