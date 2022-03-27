@@ -263,5 +263,8 @@
                 </div>
             </div>
         </section>
-    </div>    
+    </div>
+    
+    <script src="{{ asset('assets/vendors/apexcharts/apexcharts.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
 </x-base>
