@@ -28,6 +28,6 @@ class Input extends Component
      */
     public function render()
     {
-        return view('components.forms.input');
+        return view('components.forms.input.index');
     }
 }
