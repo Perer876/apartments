@@ -52,21 +52,21 @@
                         <div class="buttons">
                             <a href="/buildings" class="btn btn-primary">Ver todos</a>
                             <a href="/buildings/{{$building->id}}/edit" class="btn btn-warning">Editar</a>
-                            <x-modal type="danger" title="Eliminar edificio">
-                                <div class="modal-body">
-                                    ¿Estas seguro que quieres eliminar este edificio?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                                        <i class="bx bx-x d-block d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Cancelar</span>
-                                    </button>
+                            <x-modal name="confirm-delete" type="danger">
+                                <x-slot name="title">
+                                    Eliminar edificio
+                                </x-slot>
+                                ¿Estas seguro que quieres eliminar este edificio?
+                                <x-slot name="footer">
+                                    <x-modal.dismiss-button class="btn btn-light-secondary">
+                                        Cancelar
+                                    </x-modal.dismiss-button>
                                     <form action="/buildings/{{$building->id}}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <input class="btn btn-danger" type="submit" value="Eliminar">
                                     </form>
-                                </div>
+                                </x-slot>
                             </x-modal>
                         </div>
                     </div>

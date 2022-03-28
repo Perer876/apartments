@@ -7,19 +7,17 @@ use Illuminate\Support\Str;
 
 class Modal extends Component
 {
-    public $uuid;
+    public $name;
     public $type;
-    public $title;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($type, $title)
+    public function __construct($type, $name)
     {
-        $this->uuid = (string) Str::uuid();
+        $this->name = $name;
         $this->type = $type;
-        $this->title = $title;
     }
 
     /**
