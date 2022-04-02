@@ -13,9 +13,12 @@ class BuildingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('buildings.index', ['buildings' => Building::all()]);
+        return view('buildings.index', [
+            'buildings' => Building::all(),
+            'view' => $request->query('view') ?? 'cards',
+        ]);
     }
 
     /**
