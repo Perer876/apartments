@@ -49,9 +49,8 @@
                         <h4>Opciones</h4>
                     </div>
                     <div class="card-body">
-                        <div class="buttons">
-                            <a href="/buildings" class="btn btn-primary">Ver todos</a>
-                            <a href="/buildings/{{$building->id}}/edit" class="btn btn-warning">Editar</a>
+                        <div class="btn-group mb-3" role="group" aria-label="Basic example">
+                            <a href="/buildings" class="btn btn-primary">Todos</a>
                             <x-modal name="confirm-delete" type="danger">
                                 <x-slot name="title">
                                     Eliminar edificio
@@ -68,6 +67,7 @@
                                     </form>
                                 </x-slot>
                             </x-modal>
+                            <a href="/buildings/{{$building->id}}/edit" class="btn btn-warning">Editar</a>
                         </div>
                     </div>
                 </div>

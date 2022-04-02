@@ -1,4 +1,4 @@
-<div class="modal-{{$type}} me-1 mb-1 d-inline-block">
+{{-- <div class="modal-{{$type}} me-1 mb-1 d-inline-block"> --}}
     <!-- Button trigger for modal -->
     <button type="button" class="btn btn-{{$type}}" data-bs-toggle="modal" data-bs-target="#m-{{$type}}-{{$name}}">
         Eliminar
@@ -21,4 +21,4 @@
             </div>
         </div>
     </div>
-</div>
+{{-- </div> --}}
