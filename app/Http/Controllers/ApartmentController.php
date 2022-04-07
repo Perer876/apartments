@@ -24,9 +24,9 @@ class ApartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($buildingId)
+    public function create(Building $building)
     {
-        return view('apartments.form', ['building_id' => $buildingId]);
+        return view('apartments.form', compact('building'));
     }
 
     /**

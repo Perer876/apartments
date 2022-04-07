@@ -33,6 +33,8 @@ $size = $attributes['size'] ?? ($attributes['horizontal-form'] ? 8 : 12)
             value="{{ old($name) }}"
         @elseif ($attributes['object'])
             value="{{$attributes['object'][$name]}}"
+        @elseif ($attributes['value'])
+            value="{{$attributes['value']}}"
         @endif
         @if ($attributes['readonly'])
             readonly

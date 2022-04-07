@@ -27,6 +27,6 @@ class Apartment extends Model
 
     public function building()
     {
-        return $this->hasOne(Building::class);
+        return $this->belongsTo(Building::class);
     }
 }

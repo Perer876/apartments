@@ -11,8 +11,6 @@
                         <div class="card-body">
                             <h4 class="card-title">Detalles</h4>
                             <hr>
-                            <h6 class="card-subtitle">ID</h6>
-                            <p class="card-text">{{ $building->id }}</p>
                             <h6 class="card-subtitle">Alias</h6>
                             <p class="card-text">{{ $building->alias }}</p>
                             <h6 class="card-subtitle">Calle</h6>
@@ -69,40 +67,25 @@
                         <div class="card-body">
                             <h4 class="card-title">Departamentos</h4>
                             <hr>
+                            @if (count($building->apartments) == 0) 
+                            <p>No hay ningun departamento<p>
+                            @endif
                             <div class="list-group">
-                                <a href="#" class="list-group-item list-group-item-action">
+                                @foreach ($building->apartments as $apartment)
+                                <a href="/apartments/{{$apartment->id}}" class="list-group-item list-group-item-action">
                                     <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">List group item heading</h5>
-                                        <small>3 days ago</small>
+                                        <h5 class="mb-1">{{$apartment->number}}</h5>
+                                        <small>$ {{$apartment->monthly_rent}}</small>
                                     </div>
-                                    <p class="mb-1">
-                                        Donec id elit non mi porta gravida at eget metus. Maecenas sed
-                                        diam eget risus varius blandit.
-                                    </p>
-                                    <small>Donec id elit non mi porta.</small>
+                                    <span class="badge bg-light-success">
+                                        @if ($apartment->floor == 0)
+                                        Planta baja
+                                        @else
+                                        {{$apartment->floor}}° piso
+                                        @endif
+                                    </span>
                                 </a>
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">List group item heading</h5>
-                                        <small>3 days ago</small>
-                                    </div>
-                                    <p class="mb-1">
-                                        Donec id elit non mi porta gravida at eget metus. Maecenas sed
-                                        diam eget risus varius blandit.
-                                    </p>
-                                    <small>Donec id elit non mi porta.</small>
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">List group item heading</h5>
-                                        <small>3 days ago</small>
-                                    </div>
-                                    <p class="mb-1">
-                                        Donec id elit non mi porta gravida at eget metus. Maecenas sed
-                                        diam eget risus varius blandit.
-                                    </p>
-                                    <small>Donec id elit non mi porta.</small>
-                                </a>
+                                @endforeach
                             </div>
                             <div class="text-center">
                                 <a href="/buildings/{{$building->id}}/apartments/create" class="btn btn-outline-primary mt-3">+ Agregar departamento</a>

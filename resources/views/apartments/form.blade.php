@@ -14,7 +14,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">
-                            @isset($building)
+                            @isset($apartment)
                             Formulario editar departamento
                             @else
                             Formulario nuevo departamento
@@ -27,7 +27,7 @@
                             <form action="/apartments/{{$apartment->id}}" method="post">
                             @method('PATCH')
                         @else
-                            <form action="/buildings/{{$building_id}}/apartments" method="post">
+                            <form action="/buildings/{{$building->id}}/apartments" method="post">
                         @endisset
                                 @csrf
                                 <x-forms.input 
@@ -35,6 +35,7 @@
                                     name="number" 
                                     type="text" 
                                     placeholder="Denominación o identificador" 
+                                    value="{{$building->number}}-"
                                     horizontal-form
                                     :object="isset($apartment) ? $apartment : null" 
                                 >
@@ -95,9 +96,9 @@
                                 <div class="col-sm-12 mt-3 d-flex justify-content-end">
                                     <button type="submit" class="btn btn-primary ms-3">Guardar</button>
                                     @isset ($apartment)
-                                        <a class="btn btn-light-secondary ms-3" href="/buildings/{{$building_id}}/apartments/{{$apartment->id}}">Regresar</a>
+                                        <a class="btn btn-light-secondary ms-3" href="/buildings/{{$building->id}}/apartments/{{$apartment->id}}">Regresar</a>
                                     @else
-                                        <a class="btn btn-light-secondary ms-3" href="/buildings/{{$building_id}}">Cancelar</a>
+                                        <a class="btn btn-light-secondary ms-3" href="/buildings/{{$building->id}}">Cancelar</a>
                                     @endisset
                                 </div>
                             </form>
