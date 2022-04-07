@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apartment;
+use App\Models\Building;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ApartmentController extends Controller
 {
@@ -22,9 +24,9 @@ class ApartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($buildingId)
     {
-        return view('apartments.form');
+        return view('apartments.form', ['building_id' => $buildingId]);
     }
 
     /**
@@ -33,9 +35,27 @@ class ApartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Building $building)
     {
-        //
+        $form_rules = [
+            'number' => [
+                'required',
+                'string',
+                'max:255', 
+                Rule::unique('apartments')->where(fn ($query) => $query->where('building_id', $building->id))
+            ],
+            'floor' => ['nullable','integer','between:0,255'],
+            'garages' => ['nullable','integer','between:0,255'],
+            'bathrooms' => ['nullable','integer','between:0,255'],
+            'bedrooms' => ['nullable','integer','between:0,255'],
+            'monthly_rent' => ['nullable','numeric', 'between:0,99999.99'],
+        ];
+
+        $request->validate($form_rules);
+
+        $building->apartments()->create(array_filter($request->all()));
+
+        return redirect('/buildings/'.$building->id);
     }
 
     /**

@@ -16,11 +16,11 @@ class CreateApartmentsTable extends Migration
         Schema::create('apartments', function (Blueprint $table) {
             $table->id();
             $table->string('number');
-            $table->unsignedTinyInteger('floor');
-            $table->unsignedTinyInteger('garages');
-            $table->unsignedTinyInteger('bathrooms');
-            $table->unsignedTinyInteger('bedrooms');
-            $table->decimal('monthly_rent', 7, 2);
+            $table->unsignedTinyInteger('floor')->default(0);
+            $table->unsignedTinyInteger('garages')->default(0);
+            $table->unsignedTinyInteger('bathrooms')->default(0);
+            $table->unsignedTinyInteger('bedrooms')->default(0);
+            $table->decimal('monthly_rent', 7, 2)->default(0.0);
             $table->foreignId('building_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BuildingController;
+use App\Http\Controllers\ApartmentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::resource('buildings', BuildingController::class);
+
+Route::resource('buildings.apartments', ApartmentController::class)->shallow();
 
 Route::get('/bienvenido', function () {
     return view('bienvenido');

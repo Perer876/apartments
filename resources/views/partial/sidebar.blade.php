@@ -12,14 +12,17 @@
         <ul class="menu">
             <li class="sidebar-title">Menu</li>
             
-            <x-sidebar-item icon="egg" route="bienvenido" href="/bienvenido">
+            <x-sidebar-item icon="bi bi-egg-fill" route="bienvenido" href="/bienvenido">
                 Dashboard
             </x-sidebar-item>
 
-            <x-sidebar-item icon="house" route="buildings" href="/buildings">
+            <x-sidebar-item icon="bi bi-house-fill" route="buildings" href="/buildings">
                 Edificios
             </x-sidebar-item>
-
+            
+            <x-sidebar-item icon="bi bi-door-closed-fill" route="apartments" href="/apartments">
+                Departamentos
+            </x-sidebar-item>
         </ul>
     </div>
     <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
