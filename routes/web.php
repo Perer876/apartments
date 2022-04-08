@@ -29,4 +29,4 @@ Route::resource('buildings.apartments', ApartmentController::class)->shallow();
 
 Route::get('/bienvenido', function () {
     return view('bienvenido');
-});
+})->name('home');
