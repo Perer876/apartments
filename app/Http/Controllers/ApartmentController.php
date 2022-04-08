@@ -121,6 +121,7 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
-        //
+        $apartment->delete();
+        return redirect('/buildings/' . $apartment->building_id);
     }
 }
