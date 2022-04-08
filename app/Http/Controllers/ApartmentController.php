@@ -77,7 +77,8 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        //
+        $building = $apartment->building;
+        return view('apartments.form', compact('apartment', 'building'));
     }
 
     /**
@@ -89,7 +90,27 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
-        //
+        $form_rules = [
+            'number' => [
+                'required',
+                'string',
+                'max:255', 
+                Rule::unique('apartments')
+                    ->where(fn ($query) => $query->where('building_id', $apartment->building->id))
+                    ->ignore($apartment->id)
+            ],
+            'floor' => ['nullable','integer','between:0,255'],
+            'garages' => ['nullable','integer','between:0,255'],
+            'bathrooms' => ['nullable','integer','between:0,255'],
+            'bedrooms' => ['nullable','integer','between:0,255'],
+            'monthly_rent' => ['nullable','numeric', 'between:0,99999.99'],
+        ];
+
+        $request->validate($form_rules);
+
+        Apartment::where('id', $apartment->id)->update(array_filter($request->except(['_method', '_token'])));
+
+        return redirect('/apartments/' . $apartment->id);
     }
 
     /**

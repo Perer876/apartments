@@ -96,7 +96,7 @@
                                 <div class="col-sm-12 mt-3 d-flex justify-content-end">
                                     <button type="submit" class="btn btn-primary ms-3">Guardar</button>
                                     @isset ($apartment)
-                                        <a class="btn btn-light-secondary ms-3" href="/buildings/{{$building->id}}/apartments/{{$apartment->id}}">Regresar</a>
+                                        <a class="btn btn-light-secondary ms-3" href="/apartments/{{$apartment->id}}">Regresar</a>
                                     @else
                                         <a class="btn btn-light-secondary ms-3" href="/buildings/{{$building->id}}">Cancelar</a>
                                     @endisset
