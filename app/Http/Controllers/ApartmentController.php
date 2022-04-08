@@ -14,9 +14,25 @@ class ApartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, Building $building)
     {
-        
+        if ($building->id) 
+        {
+            return view('apartments.index', [
+                'apartments' => $building->apartments,
+                'building' => $building,
+                'view' => $request->query('view') ?? 'table',
+                'request' => $request,
+            ]);
+        }
+        else 
+        {
+            return view('apartments.index', [
+                'apartments' => Apartment::all(),
+                'view' => $request->query('view') ?? 'table',
+                'request' => $request,
+            ]);
+        }
     }
 
     /**
