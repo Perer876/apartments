@@ -39,6 +39,9 @@ $size = $attributes['size'] ?? ($attributes['horizontal-form'] ? 8 : 12)
         @if ($attributes['readonly'])
             readonly
         @endif
+        @if ($attributes['step'])
+            step="{{$attributes['step']}}"
+        @endif
     >
 
     @if (isset($addonsRight))

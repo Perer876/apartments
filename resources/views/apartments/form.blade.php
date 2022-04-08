@@ -84,6 +84,7 @@
                                     label="Renta mensual" 
                                     name="monthly_rent" 
                                     type="number" 
+                                    step="any" 
                                     placeholder="0.00" 
                                     horizontal-form
                                     :object="isset($apartment) ? $apartment : null" 
