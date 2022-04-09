@@ -28,7 +28,7 @@
                         <h4>Listado de departamentos @isset($building)de {{$building->alias}}@endif</h4>
                     </div>
                     <div class="card-body">
-                        <div class="buttons">
+                        <div class="col-12 mb-2 d-flex justify-content-end">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="view-dropdown-button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Vista
                             </button>
@@ -78,8 +78,26 @@
                             </script>
                         </x-slot>
                         @elseif ($view == 'list')
-                        
-
+                            @if (count($apartments) == 0) 
+                            <p>No hay ningun departamento<p>
+                            @endif
+                            <div class="list-group">
+                                @foreach ($apartments as $apartment)
+                                <a href="/apartments/{{$apartment->id}}" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{$apartment->number}}</h5>
+                                        <small>$ {{$apartment->monthly_rent}}</small>
+                                    </div>
+                                    <span class="badge bg-light-success">
+                                        @if ($apartment->floor == 0)
+                                        Planta baja
+                                        @else
+                                        {{$apartment->floor}}° piso
+                                        @endif
+                                    </span>
+                                </a>
+                                @endforeach
+                            </div>
                         @endif
                     </div>
                 </div>

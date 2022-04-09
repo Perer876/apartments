@@ -21,7 +21,7 @@ class ApartmentController extends Controller
             return view('apartments.index', [
                 'apartments' => $building->apartments,
                 'building' => $building,
-                'view' => $request->query('view') ?? 'table',
+                'view' => $request->query('view') ?? 'list',
                 'request' => $request,
             ]);
         }

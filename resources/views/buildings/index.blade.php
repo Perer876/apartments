@@ -66,7 +66,6 @@
                             <table class="table table-hover" id="table1">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
                                         <th>Alias</th>
                                         <th>Calle</th>
                                         <th>Número</th>
@@ -79,8 +78,7 @@
                                 <tbody>
                                     @foreach ($buildings as $building)
                                     <tr>
-                                        <th><a href="/buildings/{{ $building->id }}">{{$building->id}}</a></th>
-                                        <td>{{$building->alias}}</td>
+                                        <th><a href="/buildings/{{ $building->id }}">{{$building->alias}}</a></th>
                                         <td>{{$building->street}}</td>
                                         <td>{{$building->number}}</td>
                                         <td>{{$building->city}}</td>

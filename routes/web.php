@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\ApartmentController;
-use App\Models\Apartment;
 use Illuminate\Support\Facades\Route;
 
 /*
