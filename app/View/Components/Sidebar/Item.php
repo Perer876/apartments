@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Sidebar;
 
 use Illuminate\View\Component;
 
-class SidebarItem extends Component
+class Item extends Component
 {
     public $route;
     public $href;
@@ -28,6 +28,6 @@ class SidebarItem extends Component
      */
     public function render()
     {
-        return view('components.sidebar-item');
+        return view('components.sidebar.item');
     }
 }
