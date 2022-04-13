@@ -32,7 +32,7 @@
                 Departamentos
             </x-sidebar.item>
             
-            <x-sidebar.item icon="bi bi-person-fill" route="tenents" href="/tenents">
+            <x-sidebar.item icon="bi bi-person-fill" route="tenants" href="/tenants">
                 Inquilinos
             </x-sidebar.item>
         </ul>

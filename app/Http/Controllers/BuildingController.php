@@ -15,7 +15,7 @@ class BuildingController extends Controller
      */
     public function index(Request $request)
     {
-        return view('buildings.index', [
+        return view('resources.buildings.index', [
             'buildings' => Building::all(),
             'view' => $request->query('view') ?? 'cards',
         ]);
@@ -28,7 +28,7 @@ class BuildingController extends Controller
      */
     public function create()
     {
-        return view('buildings.form');
+        return view('resources.buildings.form');
     }
 
     /**
@@ -64,7 +64,7 @@ class BuildingController extends Controller
      */
     public function show(Building $building)
     {
-        return view('buildings.show', compact('building'));
+        return view('resources.buildings.show', compact('building'));
     }
 
     /**
@@ -75,7 +75,7 @@ class BuildingController extends Controller
      */
     public function edit(Building $building)
     {
-        return view('buildings.form', compact('building'));
+        return view('resources.buildings.form', compact('building'));
     }
 
     /**

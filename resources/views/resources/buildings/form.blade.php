@@ -72,6 +72,7 @@
                                         label="Número"
                                         name="number"
                                         type="number"
+                                        placeholder="Número"
                                         :object="isset($building) ? $building : null"
                                         size=4
                                     >

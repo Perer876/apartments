@@ -18,7 +18,7 @@ class ApartmentController extends Controller
     {
         if ($building->id) 
         {
-            return view('apartments.index', [
+            return view('resources.apartments.index', [
                 'apartments' => $building->apartments,
                 'building' => $building,
                 'view' => $request->query('view') ?? 'list',
@@ -27,9 +27,9 @@ class ApartmentController extends Controller
         }
         else 
         {
-            return view('apartments.index', [
+            return view('resources.apartments.index', [
                 'apartments' => Apartment::all(),
-                'view' => $request->query('view') ?? 'table',
+                'view' => $request->query('view') ?? 'list',
                 'request' => $request,
             ]);
         }
@@ -42,7 +42,7 @@ class ApartmentController extends Controller
      */
     public function create(Building $building)
     {
-        return view('apartments.form', compact('building'));
+        return view('resources.apartments.form', compact('building'));
     }
 
     /**
@@ -82,7 +82,7 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        return view('apartments.show', compact('apartment'));
+        return view('resources.apartments.show', compact('apartment'));
     }
 
     /**
@@ -94,7 +94,7 @@ class ApartmentController extends Controller
     public function edit(Apartment $apartment)
     {
         $building = $apartment->building;
-        return view('apartments.form', compact('apartment', 'building'));
+        return view('resources.apartments.form', compact('apartment', 'building'));
     }
 
     /**
