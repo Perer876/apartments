@@ -14,10 +14,10 @@
                 <table class="table table-hover table-lg mb-0">
                     <thead>
                         <tr>
-                            <th wire:click="sort('name')" role="button" scope="col">
+                            <th wire:click="sort('first_name')" role="button" scope="col">
                                 <div class="d-flex w-100 justify-content-between">
                                     Nombre
-                                    <i class="{{ $this->sortIcon('name') }}"></i>
+                                    <i class="{{ $this->sortIcon('first_name') }}"></i>
                                 </div>
                             </th>
                             <th wire:click="sort('phone')" role="button" scope="col">
@@ -44,6 +44,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="text-center">
+                    {{ $tenants->links() }}
+                </div>
             </div>
 
             @if (count($tenants) == 0)
