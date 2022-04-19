@@ -5,10 +5,12 @@ namespace App\Http\Livewire\Tenants;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Tenant;
+use App\Traits\Views\WithSorting;
 
 class Index extends Component
 {
     use WithPagination;
+    use WithSorting;
 
     protected $paginationTheme = 'bootstrap';
 
@@ -24,10 +26,6 @@ class Index extends Component
 
     public function render()
     {
-        # Old way to retrive the records, without possibility to manage properly pagination and ordering at the same time.
-        /* $tenants = Tenant::search($this->search)->get()
-            ->sortBy($this->sortBy, SORT_REGULAR, $this->sortDesc); */
-
         # Retrieve only the ids of the records according to the search term
         $tenants = Tenant::search($this->search)->query(function ($query) {
             $query->select('id');
@@ -41,29 +39,6 @@ class Index extends Component
         return view('livewire.tenants.index', [
             'tenants' => $tenants,
         ]);
-    }
-
-    public function sort($column)
-    {
-        if ($this->sortBy == $column) {
-            $this->sortDesc = $this->sortDesc ? false : true;
-        } else {
-            $this->sortBy = $column;
-            $this->sortDesc = false;
-            $this->resetPage();
-        }
-    }
-
-    public function sortIcon($column)
-    {
-        if ($this->sortBy == $column) {
-            if ($this->sortDesc) {
-                return 'bi-sort-alpha-up';
-            } else {
-                return 'bi-sort-alpha-down';
-            }
-        }
-        return 'bi-arrow-down-up';
     }
 
     public function updatingSearch()
