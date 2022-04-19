@@ -22,10 +22,10 @@
 
 <body>
     <div id="app">
-
-        @include('partial.sidebar')
-
+        
         <div id="main">
+    
+            @include('partial.sidebar')
             
             {{ $slot }}
 

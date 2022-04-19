@@ -4,6 +4,60 @@ namespace App\Traits\Views;
 
 trait WithSorting
 {
+    public $sortBy;
+    public $sortDesc;
+
+    public function queryStringWithSorting()
+    {
+        return [
+            'sortBy' => ['except' => $this->defaultSortBy()],
+            'sortDesc' => ['except' => $this->defaultSortDesc()],
+        ];
+    }
+
+    public function mountWithSorting()
+    {
+        $this->resetSort();
+    }
+
+    /**
+     * Get default value sort by column
+     * 
+     * @return string
+     */
+    public function defaultSortBy()
+    {
+        return $this->defaultValue['sortBy'] ?? 'id';
+    }
+
+    /**
+     * Get default value for sort descending
+     * 
+     * @return boolean
+     */
+    public function defaultSortDesc()
+    {
+        return $this->defaultValue['sortDesc'] ?? false;
+    }
+
+    /**
+     * Change sort direcction from current state
+     */
+    public function swapSortDirection()
+    {
+        $this->sortDesc = $this->sortDesc ? false : true;
+    }
+
+    /**
+     * Get the actual sorting direccion 
+     * 
+     * @return string
+     */
+    public function sortDirection()
+    {
+        return $this->sortDesc ? 'desc' : 'asc';
+    }
+
     /**
      * Recive a column name to sort
      * 
@@ -13,10 +67,10 @@ trait WithSorting
     public function sort($column)
     {
         if ($this->sortBy == $column) {
-            $this->sortDesc = $this->sortDesc ? false : true;
+            $this->swapSortDirection();
         } else {
             $this->sortBy = $column;
-            $this->sortDesc = false;
+            $this->sortDesc = $this->defaultSortDesc();
             $this->resetPage();
         }
     }
@@ -36,5 +90,14 @@ trait WithSorting
             return 'bi-sort-alpha-down';
         }
         return 'bi-arrow-down-up';
+    }
+
+    /**
+     * Reset sorting propieties to their default value
+     */
+    public function resetSort()
+    {
+        $this->sortBy = $this->defaultSortBy();
+        $this->sortDesc = $this->defaultSortDesc();
     }
 }

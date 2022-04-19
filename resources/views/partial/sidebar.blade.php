@@ -1,6 +1,11 @@
+<header class="mb-3">
+    <a href="#" class="burger-btn d-block d-xl-none">
+        <i class="bi bi-justify fs-3"></i>
+    </a>
+</header>
 <div id="sidebar" class="active">
     <div class="sidebar-wrapper active">
-        <div class="logo px-5 py-2">
+        <div class="logo px-5 pt-3">
             <a href="/"><img src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo" class="img-fluid"></a>
         </div>
         <div class="sidebar-menu">
@@ -34,4 +39,3 @@
         </div>
     </div>
 </div>
-<button class="sidebar-toggler btn x"><i data-feather="x"></i></button>

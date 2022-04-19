@@ -3,25 +3,21 @@
 namespace App\Http\Livewire\Tenants;
 
 use Livewire\Component;
-use Livewire\WithPagination;
 use App\Models\Tenant;
+use Livewire\WithPagination;
 use App\Traits\Views\WithSorting;
+use App\Traits\Views\WithSearch;
 
 class Index extends Component
 {
     use WithPagination;
     use WithSorting;
+    use WithSearch;
 
     protected $paginationTheme = 'bootstrap';
-
-    public $search;
-    public $sortBy = 'first_name';
-    public $sortDesc = false;
-
-    protected $queryString = [
-        'search' => ['except' => ''],
-        'sortBy' => ['except' => 'first_name'],
-        'sortDesc' => ['except' => false],
+    
+    protected $defaultValue = [
+        'sortBy' => 'first_name',
     ];
 
     public function render()
@@ -33,16 +29,11 @@ class Index extends Component
 
         # Get all the records, and now they can be sorted at database level.
         $tenants = Tenant::whereIn('id', $tenants)
-            ->orderBy($this->sortBy, $this->sortDesc ? 'desc' : 'asc')
+            ->orderBy($this->sortBy, $this->sortDirection())
             ->paginate(10);
 
         return view('livewire.tenants.index', [
             'tenants' => $tenants,
         ]);
-    }
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
     }
 }
