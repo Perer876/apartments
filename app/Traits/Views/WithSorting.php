@@ -17,7 +17,17 @@ trait WithSorting
 
     public function mountWithSorting()
     {
-        $this->resetSort();
+        if ($this->sortBy)
+        {
+            if (!in_array($this->sortBy, $this->validSortByValues))
+            {
+                $this->sortBy = $this->defaultSortBy();
+            }
+        }
+        else if (!$this->sortBy)
+        {
+            $this->sortBy = $this->defaultSortBy();
+        }
     }
 
     /**
@@ -69,9 +79,12 @@ trait WithSorting
         if ($this->sortBy == $column) {
             $this->swapSortDirection();
         } else {
-            $this->sortBy = $column;
-            $this->sortDesc = $this->defaultSortDesc();
-            $this->resetPage();
+            if (in_array($column, $this->validSortByValues))
+            {
+                $this->sortBy = $column;
+                $this->sortDesc = $this->defaultSortDesc();
+                $this->resetPage();
+            }
         }
     }
 

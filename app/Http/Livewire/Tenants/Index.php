@@ -7,17 +7,31 @@ use App\Models\Tenant;
 use Livewire\WithPagination;
 use App\Traits\Views\WithSorting;
 use App\Traits\Views\WithSearch;
+use App\Traits\Views\WithViewTypes;
 
 class Index extends Component
 {
     use WithPagination;
     use WithSorting;
     use WithSearch;
+    use WithViewTypes;
 
     protected $paginationTheme = 'bootstrap';
     
     protected $defaultValue = [
         'sortBy' => 'first_name',
+        'view' => 'table',
+    ];
+
+    protected $validSortByValues = [
+        'first_name',
+        'phone',
+        'birthday',
+    ];
+
+    protected $validViewValues = [
+        'table',
+        'cards',
     ];
 
     public function render()
@@ -30,7 +44,7 @@ class Index extends Component
         # Get all the records, and now they can be sorted at database level.
         $tenants = Tenant::whereIn('id', $tenants)
             ->orderBy($this->sortBy, $this->sortDirection())
-            ->paginate(10);
+            ->paginate(12);
 
         return view('livewire.tenants.index', [
             'tenants' => $tenants,

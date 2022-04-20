@@ -10,6 +10,11 @@ trait WithSearch
         'search' => ['except' => ''],
     ];
 
+    public function keyWords()
+    {
+        return preg_split("/[\s,]+/", $this->search);
+    }
+
     public function updatingSearch()
     {
         $this->resetPage();
