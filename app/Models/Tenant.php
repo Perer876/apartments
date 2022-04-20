@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use Carbon\Carbon;
 
 class Tenant extends Model
 {
@@ -34,6 +35,7 @@ class Tenant extends Model
             'name' => $this->name,
             'phone' => $this->phone,
             'birthday' => $this->birthday,
+            'age' => $this->age,
         ];
     }
 
@@ -45,5 +47,26 @@ class Tenant extends Model
     public function getNameAttribute()
     {
         return ucwords($this->first_name . ' ' . $this->last_name);
+    }
+
+    /**
+     * Accesor to the computed attribute age
+     * 
+     * @return string
+     */
+    public function getAgeAttribute()
+    {
+        if ($this->birthday != null) 
+            return Carbon::create($this->birthday)->diffInYears(Carbon::now());
+    }
+
+    /**
+     * 
+     * 
+     */
+    public function getHrefAttribute()
+    {
+        /* return '/tenants/' . $this->id; */
+        return route('tenants.show', ['tenant' => $this], false);
     }
 }

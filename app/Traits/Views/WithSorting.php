@@ -94,9 +94,9 @@ trait WithSorting
      * @param string $column
      * @return string
      */
-    public function sortIcon($column)
+    public function sortIcon($column = null)
     {
-        if ($this->sortBy == $column) {
+        if ($this->sortBy == $column || !$column) {
             if ($this->sortDesc) {
                 return 'bi-sort-alpha-up';
             }
