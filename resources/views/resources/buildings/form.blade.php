@@ -26,9 +26,9 @@
     </div>
     <div class="page-content">
         <section class="row justify-content-center">
-            <div class="col-md-8 col-12">
-                <div class="card">
-                    <div class="card-header">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-light-primary">
                         <h4 class="card-title">
                             @isset($building)
                             Formulario editar edificio
@@ -121,13 +121,12 @@
                                         </x-slot>
                                     </x-forms.input>
                                 </div>
-
-                                <div class="col-sm-12 mt-3 d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary ms-3">Guardar</button>
+                                <div class="d-grid gap-2 d-sm-block my-3 text-end">
+                                    <button type="submit" class="btn btn-primary ms-sm-2">Guardar</button>
                                     @isset ($building)
-                                        <a class="btn btn-light-secondary ms-3" href="/buildings/{{$building->id}}">Regresar</a>
+                                        <a class="btn btn-light-secondary ms-sm-2" href="/buildings/{{$building->id}}">Regresar</a>
                                     @else
-                                        <a class="btn btn-light-secondary ms-3" href="/buildings">Cancelar</a>
+                                        <a class="btn btn-light-secondary ms-sm-2" href="/buildings">Cancelar</a>
                                     @endisset
                                 </div>
                             </form>

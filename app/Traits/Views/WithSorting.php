@@ -106,6 +106,17 @@ trait WithSorting
     }
 
     /**
+     * Check if the current sort by is the same
+     */
+    public function sortByIs($sortBy, $returnValue = true)
+    {
+        if ($this->sortBy == $sortBy) 
+        {
+            return $returnValue;
+        }
+    }
+
+    /**
      * Reset sorting propieties to their default value
      */
     public function resetSort()

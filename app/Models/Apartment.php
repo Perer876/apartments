@@ -5,12 +5,39 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Building;
+use Laravel\Scout\Searchable;
 
 class Apartment extends Model
 {
     use HasFactory;
+    use Searchable;
 
-    protected $fillable = ['number','floor','garages','bathrooms','bedrooms','monthly_rent'];
+    protected $fillable = [
+        'number',
+        'floor',
+        'garages',
+        'bathrooms',
+        'bedrooms',
+        'monthly_rent',
+    ];
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return [
+            'building' => $this->building->alias,
+            'number' => $this->number,
+            'floor' => $this->floor,
+            'garages' => $this->garages,
+            'bathrooms' => $this->bathrooms,
+            'bedrooms' => $this->bedrooms,
+            'monthly_rent' => $this->monthly_rent,
+        ];
+    }
 
     /**
      * The model's default values for attributes.
@@ -28,5 +55,10 @@ class Apartment extends Model
     public function building()
     {
         return $this->belongsTo(Building::class);
+    }
+
+    public function getHrefAttribute()
+    {
+        return route('apartments.show', ['apartment' => $this], false);
     }
 }

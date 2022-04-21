@@ -65,17 +65,13 @@
                             <tbody>
                                 @foreach ($tenants as $tenant)
                                     <tr>
-                                        <td><a href="{{ $tenant->href }}"
-                                                class="link-secondary">{{ $tenant->name }}</a></td>
+                                        <td><a href="{{ $tenant->href }}" class="link-secondary">{{ $tenant->name }}</a></td>
                                         <td>{{ $tenant->phone }}</td>
                                         <td>{{ $tenant->age }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="text-center">
-                            {{ $tenants->links() }}
-                        </div>
                     </div>
                 </div>
             </div>
@@ -99,9 +95,6 @@
                     </div>
                 @endforeach
             </div>
-            <div class="text-center">
-                {{ $tenants->links() }}
-            </div>
         @endif
     @else
         <div class="card shadow-sm">
@@ -112,4 +105,7 @@
             </div>
         </div>
     @endif
+    <div class="text-center">
+        {{ $tenants->links() }}
+    </div>
 </div>

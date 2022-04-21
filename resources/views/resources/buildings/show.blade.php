@@ -17,7 +17,7 @@
     <div class="page-content">
         <section class="row">
             <div class="col-md-6 col-sm-12">
-                <div class="card">
+                <div class="card shadow-sm">
                     <div class="card-content">
                         <div class="card-body">
                             <h4 class="card-title">Detalles</h4>
@@ -72,13 +72,12 @@
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
-                
-                <div class="card">
+                <div class="card shadow-sm">
                     <div class="card-content">
                         <div class="card-body">
                             <h4 class="card-title">Departamentos</h4>
                             <hr>
-                            @if (count($building->apartments) == 0) 
+                            @if (!$building->apartments->count()) 
                             <p>No hay ningun departamento<p>
                             @endif
                             <div class="list-group">
@@ -93,6 +92,33 @@
                                         Planta baja
                                         @else
                                         {{$apartment->floor}}° piso
+                                        @endif
+                                    </span>
+                                    <span class="badge bg-light-warning">
+                                        @if ($apartment->garages == 0)
+                                            Sin cocheras
+                                        @elseif ($apartment->garages == 1)
+                                            1 cochera
+                                        @else
+                                            {{$apartment->garages}} cocheras
+                                        @endif
+                                    </span>
+                                    <span class="badge bg-light-info">
+                                        @if ($apartment->bathrooms == 0)
+                                            Sin baños
+                                        @elseif ($apartment->bathrooms == 1)
+                                            1 baño
+                                        @else
+                                            {{$apartment->bathrooms}} baños
+                                        @endif
+                                    </span>
+                                    <span class="badge bg-light-danger">
+                                        @if ($apartment->bedrooms == 0)
+                                            Sin dormitorios :c
+                                        @elseif ($apartment->bedrooms == 1)
+                                            1 dormitorio
+                                        @else
+                                            {{$apartment->bedrooms}} dormitorios
                                         @endif
                                     </span>
                                 </a>

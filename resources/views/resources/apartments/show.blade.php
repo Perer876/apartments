@@ -19,7 +19,7 @@
     <div class="page-content">
         <section class="row">
             <div class="col-md-6 col-sm-12">
-                <div class="card">
+                <div class="card shadow-sm">
                     <div class="card-content">
                         <div class="card-body">
                             <h4 class="card-title">Detalles</h4>
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
-                <div class="card">
+                <div class="card shadow-sm">
                     <div class="card-content">
                         <div class="card-body">
                             <h4 class="card-title">

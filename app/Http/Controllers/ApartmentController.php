@@ -19,19 +19,12 @@ class ApartmentController extends Controller
         if ($building->id) 
         {
             return view('resources.apartments.index', [
-                'apartments' => $building->apartments,
-                'building' => $building,
-                'view' => $request->query('view') ?? 'list',
-                'request' => $request,
+                'building' => $building
             ]);
         }
         else 
         {
-            return view('resources.apartments.index', [
-                'apartments' => Apartment::all(),
-                'view' => $request->query('view') ?? 'list',
-                'request' => $request,
-            ]);
+            return view('resources.apartments.index');
         }
     }
 
