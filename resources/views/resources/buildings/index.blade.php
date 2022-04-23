@@ -1,4 +1,5 @@
 <x-base>
+    @include('partial.sidebar')
     <div class="page-heading">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
@@ -20,10 +21,4 @@
             </div>
         </section>
     </div>
-    <x-slot name="styles">
-        @livewireStyles
-    </x-slot>
-    <x-slot name="scripts">
-        @livewireScripts
-    </x-slot>
 </x-base>

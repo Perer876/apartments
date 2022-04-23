@@ -173,4 +173,10 @@
     <div class="text-center">
         {{ $apartments->links() }}
     </div>
+    @push('stylesheets')
+        @livewireStyles
+    @endpush
+    @push('scripts')
+        @livewireScripts
+    @endpush
 </div>

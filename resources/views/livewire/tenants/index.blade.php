@@ -108,4 +108,10 @@
     <div class="text-center">
         {{ $tenants->links() }}
     </div>
+    @push('stylesheets')
+        @livewireStyles
+    @endpush
+    @push('scripts')
+        @livewireScripts
+    @endpush
 </div>

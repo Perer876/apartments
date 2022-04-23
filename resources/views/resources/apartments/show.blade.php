@@ -1,4 +1,5 @@
 <x-base>
+    @include('partial.sidebar')
     <div class="page-heading">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
@@ -78,9 +79,9 @@
                                 </div>
                             </h4>
                             <p class="card-text">
-                                {{$apartment->building->street . ' ' . $apartment->building->number}}
+                                {{$apartment->building->address}}
                                 <br>
-                                {{$apartment->building->city . ', ' . $apartment->building->state}}
+                                {{$apartment->building->location}}
                                 <br>
                                 {{$apartment->building->postcode}}
                             </p>

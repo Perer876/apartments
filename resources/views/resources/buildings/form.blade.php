@@ -1,13 +1,14 @@
 <x-base>
+    @include('partial.sidebar')
     <div class="page-heading">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 @isset($building)
-                <h3>Editar edificio</h3>
-                <p class="text-subtitle text-muted">Modifica los campos que desees cambiar.</p>
+                    <h3>Editar edificio</h3>
+                    <p class="text-subtitle text-muted">Modifica los campos que desees cambiar.</p>
                 @else
-                <h3>Agregar edificio</h3>
-                <p class="text-subtitle text-muted">Indica los datos del nuevo edificio.</p>
+                    <h3>Agregar edificio</h3>
+                    <p class="text-subtitle text-muted">Indica los datos del nuevo edificio.</p>
                 @endisset
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
@@ -31,20 +32,20 @@
                     <div class="card-header bg-light-primary">
                         <h4 class="card-title">
                             @isset($building)
-                            Formulario editar edificio
+                                Formulario editar edificio
                             @else
-                            Formulario nuevo edificio
+                                Formulario nuevo edificio
                             @endisset
                         </h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                        @isset($building)
-                            <form action="/buildings/{{$building->id}}" method="post">
-                            @method('PATCH')
-                        @else
-                            <form action="/buildings" method="post">
-                        @endisset
+                            @isset($building)
+                                <form action="/buildings/{{$building->id}}" method="post">
+                                @method('PATCH')
+                            @else
+                                <form action="/buildings" method="post">
+                            @endisset
                                 @csrf
                                 <x-forms.input 
                                     label="Alias" 

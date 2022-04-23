@@ -1,11 +1,22 @@
-<li class="sidebar-item {{ isset($submenu) ? 'has-sub' : null }}{{ Request::segment(1) == $route ? ' active' : null }}">
+<li 
+    @class([
+        'sidebar-item',
+        'has-sub' => isset($submenu),
+        'active' => Request::segment(1) == $route,
+    ])
+>
     <a href="{{ $href }}" class='sidebar-link'>
         <i class="{{ $icon }}"></i>
         <span>{{ $slot }}</span>
     </a>
     @isset($submenu)
-    <ul class="submenu{{ Request::segment(1) == $route ? ' active' : null }}">
-        {{ $submenu }}
-    </ul>
+        <ul
+            @class([
+                'submenu',
+                'active' => Request::segment(1) == $route,
+            ])
+        >
+            {{ $submenu }}
+        </ul>
     @endif
 </li>

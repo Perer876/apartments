@@ -1,4 +1,5 @@
 <x-base>
+    @include('partial.sidebar')
     <div class="page-heading">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
@@ -7,13 +8,12 @@
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <x-breadcrumb align="right">
+                    <x-breadcrumb.item href="{{route('home')}}">Dashboard</x-breadcrumb.item>
                     @isset ($building)
-                        <x-breadcrumb.item href="{{route('home')}}">Dashboard</x-breadcrumb.item>
                         <x-breadcrumb.item href="/buildings">Edificios</x-breadcrumb.item>
                         <x-breadcrumb.item href="/buildings/{{$building->id}}">{{$building->alias}}</x-breadcrumb.item>
                         <x-breadcrumb.item>Departamentos</x-breadcrumb.item>
                     @else
-                        <x-breadcrumb.item href="{{route('home')}}">Dashboard</x-breadcrumb.item>
                         <x-breadcrumb.item>Departamentos</x-breadcrumb.item>
                     @endif
                 </x-breadcrumb>
@@ -27,10 +27,4 @@
             </div>
         </section>
     </div>
-    <x-slot name="styles">
-        @livewireStyles
-    </x-slot>
-    <x-slot name="scripts">
-        @livewireScripts
-    </x-slot>
 </x-base>

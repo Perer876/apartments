@@ -1,4 +1,5 @@
 <x-base>
+    @include('partial.sidebar')
     <div class="page-heading">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
@@ -127,7 +128,4 @@
             </div>
         </section>
     </div> 
-    <x-slot name="stylesheets">
-        <link rel="stylesheet" href="{{asset('assets/vendors/fontawesome/all.min.css')}}">
-    </x-slot>
 </x-base>

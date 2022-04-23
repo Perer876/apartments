@@ -164,4 +164,10 @@
     <div class="text-center">
         {{ $buildings->links() }}
     </div>
+    @push('stylesheets')
+        @livewireStyles
+    @endpush
+    @push('scripts')
+        @livewireScripts
+    @endpush
 </div>

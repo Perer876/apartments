@@ -1,4 +1,5 @@
 <x-base>
+    @include('partial.sidebar')
     <div class="page-heading">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
@@ -36,9 +37,9 @@
                             <p class="card-text">{{ $building->state }}</p>
                             <h6 class="card-subtitle">Año de construcción</h6>
                             @if ($building->builded_at)
-                            <p class="card-text">{{ $building->builded_at }}</p>
+                                <p class="card-text">{{ $building->builded_at }}</p>
                             @else
-                            <span class="badge bg-light-warning">Sin fecha</span>
+                                <span class="badge bg-light-warning">Sin fecha</span>
                             @endif
                             <div class="buttons text-center">
                                 <a href="/buildings/{{$building->id}}/edit" class="btn btn-outline-warning">Editar</a>
@@ -89,9 +90,9 @@
                                     </div>
                                     <span class="badge bg-light-success">
                                         @if ($apartment->floor == 0)
-                                        Planta baja
+                                            Planta baja
                                         @else
-                                        {{$apartment->floor}}° piso
+                                            {{$apartment->floor}}° piso
                                         @endif
                                     </span>
                                     <span class="badge bg-light-warning">

@@ -1,7 +1,6 @@
 @php
     $size = $attributes['size'] ?? ($attributes['horizontal-form'] ? 8 : 12);
     $name = $attributes->whereStartsWith('wire:model')->first() ?? $attributes['name'];
-
 @endphp
 <div class="form-group {{ $attributes['horizontal-form'] ? 'row' : 'col-md-'.$size}}">
     <label
@@ -17,18 +16,13 @@
         <div class="col-md-{{$size}}">
     @endif
 
-    @if (isset($addonsLeft) or isset($addonsRight) or $attributes['datepicker'])
-        <div 
-            class="input-group{{$attributes['datepicker'] ? ' date' : null}}"
-            @if ($attributes['datepicker'])
-                id="{{$attributes['datepicker']}}"
-            @endif
-        >
+    @if (isset($addonsLeft) or isset($addonsRight))
+        <div class="input-group">
     @endif
 
-    @if (isset($addonsLeft))
+    @isset($addonsLeft)
         {{ $addonsLeft }}
-    @endif
+    @endisset
 
     <input
         @class([
@@ -53,24 +47,16 @@
         @if ($attributes->has('readonly'))
             readonly 
         @endif
-        @if($attributes['datepicker'])
+        @isset($datepicker)
             data-provide="datepicker"                      
             onchange="this.dispatchEvent(new InputEvent('input'))"
-            @if(isset($datepicker))
-                {{$datepicker->attributes}}
-            @endif 
-        @endif
+            {{$datepicker->attributes}}
+        @endisset
     >
 
-    @if($attributes['datepicker'])
-        <span class="input-group-append" role="button">
-    @endif
-    @if (isset($addonsRight))
+    @isset($addonsRight)
         {{ $addonsRight }}
-    @endif
-    @if($attributes['datepicker'])
-        </span>
-    @endif
+    @endisset
 
     @error($name)
         <div class="invalid-feedback text-end">
@@ -79,7 +65,7 @@
         </div>
     @enderror
 
-    @if (isset($addonsLeft) or isset($addonsRight) or $attributes['datepicker'])
+    @if (isset($addonsLeft) or isset($addonsRight))
         </div>
     @endif
 
@@ -88,10 +74,16 @@
     @endif
 </div>
 
-@if($attributes['datepicker'])
-    @once
-        <script src="{{ asset('assets\vendors\jquery\jquery.min.js')}}"></script>
-        <script src="{{ asset('assets\vendors\bootstrap-datepicker\bootstrap-datepicker.min.js')}}"></script>
-       {{--  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script> --}}
-    @endonce
-@endif
+@isset($datepicker)
+    @push('stylesheets')
+        @once
+            <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datepicker.min.css') }}">
+        @endonce
+    @endpush
+    @push('scripts')
+        @once
+            <script src="{{ asset('assets\vendors\jquery\jquery.min.js')}}"></script>
+            <script src="{{ asset('assets\vendors\bootstrap-datepicker\bootstrap-datepicker.min.js')}}"></script>
+        @endonce
+    @endpush
+@endisset

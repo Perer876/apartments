@@ -1,4 +1,4 @@
-<span class="input-group-text{{$attributes['datepicker'] ? ' d-block' : null }}">
+<span class="input-group-text">
     @if ($attributes['icon'])
         <span class="{{$attributes['icon']}}"></span>
     @endif

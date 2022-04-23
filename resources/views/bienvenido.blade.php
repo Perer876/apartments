@@ -1,4 +1,5 @@
 <x-base>
+    @include('partial.sidebar')
     <div class="page-heading">
         <h3>Bienvenido a mi pagina</h3>
     </div>
