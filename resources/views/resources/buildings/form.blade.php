@@ -60,10 +60,10 @@
 
                                 <div class="row">
                                     <x-forms.input 
-                                        label="Calle"
-                                        name="street"
-                                        type="text"
-                                        placeholder="Calle"
+                                        label="Calle" 
+                                        name="street" 
+                                        type="text" 
+                                        placeholder="Calle" 
                                         :object="isset($building) ? $building : null"
                                         size=8
                                     />
@@ -109,10 +109,10 @@
                                     />
 
                                     <x-forms.input 
-                                        label="Año"
+                                        label="Año de construcción"
                                         name="builded_at"
                                         type="number"
-                                        placeholder="Año de construcción"
+                                        placeholder="Año"
                                         :object="isset($building) ? $building : null"
                                         size="6"
                                     >
