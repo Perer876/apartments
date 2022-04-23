@@ -24,7 +24,7 @@ class TenantController extends Controller
      */
     public function create()
     {
-        //
+        return view('resources.tenants.form');
     }
 
     /**
