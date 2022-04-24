@@ -10,16 +10,15 @@
                 <x-breadcrumb align="right">
                     <x-breadcrumb.item href="{{route('home')}}">Dashboard</x-breadcrumb.item>
                     @isset ($building)
-                        <x-breadcrumb.item href="/buildings">Edificios</x-breadcrumb.item>
-                        <x-breadcrumb.item href="/buildings/{{$building->id}}">{{$building->alias}}</x-breadcrumb.item>
-                        <x-breadcrumb.item>Departamentos</x-breadcrumb.item>
-                    @else
-                        <x-breadcrumb.item>Departamentos</x-breadcrumb.item>
-                    @endif
+                        <x-breadcrumb.item href="{{route('buildings.index', [], false)}}">Edificios</x-breadcrumb.item>
+                        <x-breadcrumb.item href="{{$building->href}}">{{$building->alias}}</x-breadcrumb.item>
+                    @endisset
+                    <x-breadcrumb.item>Departamentos</x-breadcrumb.item>
                 </x-breadcrumb>
             </div>
         </div>
     </div>
+    @include('partial.messages')
     <div class="page-content">
         <section class="row">
             <div class="col-12">

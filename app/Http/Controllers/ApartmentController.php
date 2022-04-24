@@ -14,7 +14,7 @@ class ApartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Building $building)
+    public function index(Building $building)
     {
         if ($building->id) 
         {
@@ -63,6 +63,12 @@ class ApartmentController extends Controller
         $request->validate($form_rules);
 
         $building->apartments()->create(array_filter($request->all()));
+
+        session()->push('messages', [
+            'text' => 'Departamento agregado satisfactoriamente.',
+            'color' => 'light-primary',
+            'icon' => 'bi bi-check2-circle'
+        ]);
 
         return redirect('/buildings/'.$building->id);
     }
@@ -119,6 +125,12 @@ class ApartmentController extends Controller
 
         Apartment::where('id', $apartment->id)->update(array_filter($request->except(['_method', '_token'])));
 
+        session()->push('messages', [
+            'text' => 'Datos actualizados satisfactoriamente.',
+            'color' => 'light-success',
+            'icon' => 'bi bi-hand-thumbs-up'
+        ]);
+
         return redirect('/apartments/' . $apartment->id);
     }
 
@@ -131,6 +143,13 @@ class ApartmentController extends Controller
     public function destroy(Apartment $apartment)
     {
         $apartment->delete();
+
+        session()->push('messages', [
+            'text' => 'Departamento eliminado',
+            'color' => 'light-warning',
+            'icon' => 'bi bi-exclamation-circle'
+        ]);
+
         return redirect('/buildings/' . $apartment->building_id);
     }
 }

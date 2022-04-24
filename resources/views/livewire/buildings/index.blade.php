@@ -43,6 +43,9 @@
             </div>
         </div>
     </div>
+
+    @include('partial.messages')
+
     @if ($buildings->count())
         @if ($this->viewIs('table'))
             <div class="card shadow-sm">

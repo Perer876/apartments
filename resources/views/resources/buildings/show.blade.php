@@ -15,6 +15,7 @@
             </div>
         </div>
     </div>
+    @include('partial.messages')
     <div class="page-content">
         <section class="row">
             <div class="col-md-6 col-sm-12">

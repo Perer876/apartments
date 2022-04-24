@@ -49,6 +49,12 @@ class BuildingController extends Controller
         $request->validate($form_rules);
         
         Building::create($request->all());
+
+        session()->push('messages', [
+            'text' => 'Edificio agregado correctamente.',
+            'color' => 'light-primary',
+            'icon' => 'bi bi-check2-circle'
+        ]);
         
         return redirect('/buildings');
     }
@@ -98,6 +104,12 @@ class BuildingController extends Controller
         
         Building::where('id', $building->id)->update($request->except(['_method', '_token']));
 
+        session()->push('messages', [
+            'text' => 'Datos actualizados satisfactoriamente.',
+            'color' => 'light-success',
+            'icon' => 'bi bi-hand-thumbs-up'
+        ]);
+
         return redirect('/buildings/'.$building->id);
     }
 
@@ -110,6 +122,12 @@ class BuildingController extends Controller
     public function destroy(Building $building)
     {
         $building->delete();
+
+        session()->push('messages', [
+            'text' => 'Edificio eliminado',
+            'color' => 'light-warning',
+            'icon' => 'bi bi-exclamation-circle'
+        ]);
 
         return redirect('/buildings');
     }
