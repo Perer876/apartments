@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Buildings;
 
 use Livewire\Component;
 use App\Models\Building;
+use App\Traits\Views\RememberQueryString;
 use Livewire\WithPagination;
 use App\Traits\Views\WithSorting;
 use App\Traits\Views\WithSearch;
@@ -15,6 +16,7 @@ class Index extends Component
     use WithSorting;
     use WithSearch;
     use WithViewTypes;
+    use RememberQueryString;
 
     protected $paginationTheme = 'bootstrap';
     
@@ -37,6 +39,12 @@ class Index extends Component
     protected $validViewValues = [
         'table',
         'cards',
+    ];
+
+    protected $rememberQueryInput = [
+        'sortBy',
+        'sortDesc',
+        'view',
     ];
 
     public function render()
