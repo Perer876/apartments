@@ -14,12 +14,18 @@
                         Ordenar por
                     </button>
                     <ul class="dropdown-menu shadow">
-                        <li><button class="dropdown-item" type="button" wire:click="sort('first_name')">Nombre</button>
-                        </li>
-                        <li><button class="dropdown-item" type="button" wire:click="sort('phone')">Telefono</button>
-                        </li>
-                        <li><button class="dropdown-item" type="button" wire:click="sort('birthday')">Edad</button>
-                        </li>
+                        <li><button @class(['dropdown-item', 'active' => $this->sortByIs('first_name')]) 
+                            type="button" wire:click="sort('first_name')">
+                            Nombre
+                        </button></li>
+                        <li><button @class(['dropdown-item', 'active' => $this->sortByIs('phone')]) 
+                            type="button" wire:click="sort('phone')">
+                            Telefono
+                        </button></li>
+                        <li><button @class(['dropdown-item', 'active' => $this->sortByIs('birthday')]) 
+                            type="button" wire:click="sort('birthday')">
+                            Edad
+                        </button></li>
                     </ul>
                 </div>
                 <div class="btn-group mb-md-2 ms-md-2" role="group" aria-label="View type check group">
