@@ -36,6 +36,10 @@ class Form extends Component
 
         session()->push('messages', [
             'text' => 'Inquilino agregado exitosamente.',
+            'link' => [
+                'href' => '/tenants/'. $this->tenant->id, 
+                'text' => 'Ver inquilino.'
+            ],
             'color' => 'light-success',
             'icon' => 'bi bi-check-circle',
         ]);
