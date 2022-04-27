@@ -41,7 +41,7 @@
                                         <x-modal.dismiss-button class="btn btn-light-secondary">
                                             Cancelar
                                         </x-modal.dismiss-button>
-                                        <form action="/tenant/{{$tenant->id}}" method="post">
+                                        <form action="/tenants/{{$tenant->id}}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <input class="btn btn-danger" type="submit" value="Eliminar">

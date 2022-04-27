@@ -29,7 +29,7 @@ Route::resource('buildings', BuildingController::class);
 Route::get('/apartments', [ApartmentController::class, 'index']);
 Route::resource('buildings.apartments', ApartmentController::class)->shallow();
 
-Route::resource('tenants', TenantController::class);
+Route::resource('tenants', TenantController::class)->except(['store','update']);
 
 Route::get('/bienvenido', function () {
     return view('bienvenido');
