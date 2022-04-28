@@ -17,7 +17,9 @@
     @include('partial.sidebar')
     <div class="page-content">
         <section class="row">
-            @include('partial.messages')
+            <div class="col-12">
+                @include('partial.messages')
+            </div>
             <div class="col-md-6 col-sm-12">
                 <div class="card shadow-sm">
                     <div class="card-content">
@@ -31,7 +33,7 @@
                             <h6 class="card-subtitle">Edad</h6>
                             <p class="card-text">{{ $tenant->age }}</p>
                             <div class="buttons text-center">
-                                <a href="/buildings/{{$tenant->id}}/edit" class="btn btn-outline-warning">Editar</a>
+                                <a href="/tenants/{{$tenant->id}}/edit" class="btn btn-outline-warning">Editar</a>
                                 <x-modal name="confirm-delete" type="danger" class="btn btn-outline-danger">
                                     <x-slot name="title">
                                         Eliminar inquilino

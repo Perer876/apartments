@@ -1,10 +1,18 @@
 <div>
     <div class="card shadow-sm">
-        <div class="card-header bg-light-primary">
-            <h4 class="card-title">
-                Formulario nuevo inquilino
-            </h4>
-        </div>
+        @if($tenant->id)
+            <div class="card-header bg-light-success">
+                <h4 class="card-title">
+                    Formulario actualizar datos
+                </h4>
+            </div>
+        @else
+            <div class="card-header bg-light-primary">
+                <h4 class="card-title">
+                    Formulario nuevo inquilino
+                </h4>
+            </div>
+        @endif
         <div class="card-content">
             <div class="card-body">
                 <form wire:submit.prevent="save">
@@ -12,7 +20,7 @@
                         <x-forms.input 
                             label="Nombre" 
                             type="text" 
-                            wire:model="tenant.first_name"
+                            wire:model.debounce.900ms="tenant.first_name"
                             placeholder="Nombre"
                             validate="{{$this->showValidate('tenant.first_name') ?? null}}"
                             size=6
@@ -21,7 +29,7 @@
                         <x-forms.input 
                             label="Apellido" 
                             type="text" 
-                            wire:model="tenant.last_name"
+                            wire:model.debounce.900ms="tenant.last_name"
                             placeholder="Apellido"
                             validate="{{$this->showValidate('tenant.last_name') ?? null}}"
                             size=6
@@ -31,7 +39,7 @@
                     <x-forms.input 
                         label="Telefono" 
                         type="tel" 
-                        wire:model="tenant.phone"
+                        wire:model.debounce.900ms="tenant.phone"
                         placeholder="Telefono"
                         validate="{{$this->showValidate('tenant.phone') ?? null}}"
                         autocomplete="off"
@@ -44,7 +52,7 @@
                     <x-forms.input 
                         label="Fecha de nacimiento" 
                         type="text" 
-                        wire:model="tenant.birthday"
+                        wire:model.debounce.900ms="tenant.birthday"
                         placeholder="Fecha"
                         validate="{{$this->showValidate('tenant.birthday') ?? null}}"
                         autocomplete="off"
@@ -63,8 +71,13 @@
                     </x-forms.input>
 
                     <div class="d-grid gap-2 d-sm-block my-3 text-end">
-                        <button type="submit" class="btn btn-primary ms-sm-2">Agregar</button>
-                        <a class="btn btn-light-secondary ms-sm-2" href="/tenants">Cancelar</a>
+                        @if($tenant->id)
+                            <button type="submit" class="btn btn-primary ms-sm-2">Actualizar datos</button>
+                            <a class="btn btn-light-secondary ms-sm-2" href="{{$tenant->href}}">Cancelar</a>
+                        @else
+                            <button type="submit" class="btn btn-primary ms-sm-2">Agregar</button>
+                            <a class="btn btn-light-secondary ms-sm-2" href="/tenants">Cancelar</a>
+                        @endif
                     </div>
                 </form>
             </div>

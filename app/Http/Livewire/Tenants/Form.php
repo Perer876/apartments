@@ -12,9 +12,9 @@ class Form extends Component
 
     public Tenant $tenant;
 
-    public function mount()
+    public function mount($tenant = null)
     {
-        $this->tenant = new Tenant();
+        $this->tenant = $tenant ?? new Tenant();
     }
 
     protected function rules()
@@ -34,6 +34,18 @@ class Form extends Component
         
         $this->tenant->save();
 
+        # When you need to update data
+        if($this->tenant->id)
+        {
+            session()->push('messages', [
+                'text' => 'Datos actualizados satisfactoriamente.',
+                'color' => 'light-success',
+                'icon' => 'bi bi-hand-thumbs-up'
+            ]);
+            return redirect($this->tenant->href); 
+        }
+
+        # When you add new tenant
         session()->push('messages', [
             'text' => 'Inquilino agregado exitosamente.',
             'link' => [

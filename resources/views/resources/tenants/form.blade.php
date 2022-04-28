@@ -15,7 +15,12 @@
                 <x-breadcrumb align="right">
                     <x-breadcrumb.item href="{{ route('home') }}">Dashboard</x-breadcrumb.item>
                     <x-breadcrumb.item href="/tenants">Inquilinos</x-breadcrumb.item>
-                    <x-breadcrumb.item>Nuevo Inquilino</x-breadcrumb.item>
+                    @isset($tenant)
+                        <x-breadcrumb.item href="{{$tenant->href}}">{{$tenant->name}}</x-breadcrumb.item>
+                        <x-breadcrumb.item>Editar información</x-breadcrumb.item>
+                    @else
+                        <x-breadcrumb.item>Nuevo Inquilino</x-breadcrumb.item>
+                    @endisset
                 </x-breadcrumb>
             </div>
         </div>
@@ -23,7 +28,11 @@
     <div class="page-content">
         <section class="row justify-content-center">
             <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-                @livewire('tenants.form')
+                @isset($tenant)
+                    @livewire('tenants.form', ['tenant' => $tenant])
+                @else
+                    @livewire('tenants.form')
+                @endisset
             </div>
         </section>
     </div>
