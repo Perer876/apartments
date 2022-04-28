@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
         \App\Models\Tenant::factory(15)->create();
 
         $this->call([
-            BuildingSeeder::class
+            BuildingSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

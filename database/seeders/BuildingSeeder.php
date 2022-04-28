@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
+use App\Models\Building;
+use App\Models\Apartment;
 
 class BuildingSeeder extends Seeder
 {
@@ -15,14 +15,12 @@ class BuildingSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('buildings')->insert([
-            'alias' => Str::random(),
-            'street' => Str::random(20),
-            'number' => strval(mt_rand(1,3000)),
-            'postcode' => strval(mt_rand(10000,99999)),
-            'city' => Str::random(12),
-            'state' => Str::random(12),
-            'builded_at' => strval(mt_rand(1902,2022)),
-        ]);
+        $buildings = Building::factory(6)->create();
+        foreach($buildings as $building)
+        {
+            Apartment::factory(rand(0, 7))->create([
+                'building_id' => $building->id
+            ]);
+        }
     }
 }
