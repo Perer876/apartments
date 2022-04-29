@@ -19,6 +19,7 @@ class CreateTenantsTable extends Migration
             $table->string('last_name');
             $table->string('phone', 20);
             $table->date('birthday');
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

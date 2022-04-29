@@ -20,6 +20,7 @@
             <div class="col-12">
                 @include('partial.messages')
             </div>
+            <!-- Tenant details -->
             <div class="col-md-6 col-sm-12">
                 <div class="card shadow-sm">
                     <div class="card-content">
@@ -60,6 +61,46 @@
                         <small class="text-muted d-flex justify-content-end">
                             Actualizado el {{ $tenant->updated_at->format('d/m/Y') }} a las {{ $tenant->updated_at->format('H:i') }}
                         </small>
+                    </div>
+                </div>
+            </div>
+            <!-- User related with tenant -->
+            <div class="col-md-6 col-sm-12">
+                <div class="card shadow-sm">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <h4 class="card-title">Usuario</h4>
+                            @if(!$tenant->user)
+                                <p class="card-text">
+                                    Este inquilino todavía no tiene una cuenta a la cual este relacionado.
+                                </p>
+                                @if ($tenant->registration_tokens()->first())
+                                    <h6 class="card-subtitle">Invitación</h6>
+                                    <p class="card-text">
+                                        @if ($tenant->registration_tokens()->latest()->first()->is_expired)
+                                            Ya se ha enviado una invitación al correo 
+                                            <strong>{{$tenant->registration_tokens()->latest()->first()->email}}</strong>, 
+                                            pero esta <span class="badge bg-light-danger">expiró</span>
+                                            el {{$tenant->registration_tokens()->latest()->first()->expires_at->format('Y/m/d')}}.
+                                            Por favor vuelva a enviar una nueva invitación.
+                                        @else 
+                                            Ya se ha enviado una invitación al correo 
+                                            <strong>{{$tenant->registration_tokens()->latest()->first()->email}}</strong>. 
+                                            Es <span class="badge bg-light-success">valida</span> hasta el
+                                            {{$tenant->registration_tokens()->latest()->first()->expires_at->format('Y/m/d')}}
+                                        @endif
+                                    </p>
+                                @endif
+                                <a class="btn btn-outline-primary" href="/tenants/{{$tenant->id}}/invite">Invitar</a>
+                            @else
+                                <p class="card-text">
+                                    Este inquilino ya tiene una cuenta de usuario asociada.
+                                </p>
+                                <hr>
+                                <h6 class="card-subtitle">Correo</h6>
+                                <p class="card-text fw-light">{{$tenant->user->email}}</p>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\TenantController;
+use App\Http\Controllers\TenantRegistrationTokenController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,10 @@ Route::get('/apartments', [ApartmentController::class, 'index']);
 Route::resource('buildings.apartments', ApartmentController::class)->shallow();
 
 Route::resource('tenants', TenantController::class)->except(['store','update']);
+Route::controller(TenantRegistrationTokenController::class)->prefix('tenants')->group(function () {
+    Route::match(['get', 'head'], '/{tenant}/invite', 'invite');
+    Route::post('/{tenant}/invite', 'send_invite');
+});
 
 Route::get('/bienvenido', function () {
     return view('bienvenido');

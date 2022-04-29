@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 use Carbon\Carbon;
 
+use App\Models\TenantRegistrationToken;
+use App\Models\User;
+
 class Tenant extends Model
 {
     use HasFactory;
@@ -24,6 +27,10 @@ class Tenant extends Model
         'birthday',
     ];
 
+    protected $casts = [
+        'birthday' => 'datetime:Y/m/d'
+    ];
+
     /**
      * Get the indexable data array for the model.
      *
@@ -37,6 +44,16 @@ class Tenant extends Model
             'birthday' => $this->birthday,
             'age' => $this->age,
         ];
+    }
+
+    public function registration_tokens()
+    {
+        return $this->hasMany(TenantRegistrationToken::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -61,8 +78,9 @@ class Tenant extends Model
     }
 
     /**
+     * Shorter way to call the reference to a single model
      * 
-     * 
+     * @return string
      */
     public function getHrefAttribute()
     {
