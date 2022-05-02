@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Tenant::factory(15)->create();
+        \App\Models\Tenant::factory(20)->create();
 
         $this->call([
             BuildingSeeder::class,

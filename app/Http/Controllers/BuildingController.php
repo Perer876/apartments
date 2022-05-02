@@ -52,7 +52,6 @@ class BuildingController extends Controller
 
         session()->push('messages', [
             'text' => 'Edificio agregado correctamente.',
-            'color' => 'light-primary',
             'icon' => 'bi bi-check2-circle'
         ]);
         
@@ -106,7 +105,7 @@ class BuildingController extends Controller
 
         session()->push('messages', [
             'text' => 'Datos actualizados satisfactoriamente.',
-            'color' => 'light-success',
+            'color' => 'success',
             'icon' => 'bi bi-hand-thumbs-up'
         ]);
 
@@ -125,7 +124,7 @@ class BuildingController extends Controller
 
         session()->push('messages', [
             'text' => 'Edificio eliminado',
-            'color' => 'light-warning',
+            'color' => 'warning',
             'icon' => 'bi bi-exclamation-circle'
         ]);
 

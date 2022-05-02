@@ -61,4 +61,16 @@ class Apartment extends Model
     {
         return route('apartments.show', ['apartment' => $this], false);
     }
+
+    public function scopeSearching($query, $term)
+    {
+        if(strlen($term) !== 0)
+        {
+            $query->whereIn('apartments.id', 
+                Apartment::search($term)->query(function ($query) {
+                    $query->select('id');
+                })->get()
+            );
+        }
+    }
 }

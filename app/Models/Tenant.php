@@ -73,8 +73,7 @@ class Tenant extends Model
      */
     public function getAgeAttribute()
     {
-        if ($this->birthday != null) 
-            return Carbon::create($this->birthday)->diffInYears(Carbon::now());
+        if ($this->birthday) return $this->birthday->diffInYears(now());
     }
 
     /**
@@ -86,5 +85,17 @@ class Tenant extends Model
     {
         /* return '/tenants/' . $this->id; */
         return route('tenants.show', ['tenant' => $this], false);
+    }
+
+    public function scopeSearching($query, $term)
+    {
+        if(strlen($term) !== 0)
+        {
+            $query->whereIn('tenants.id', 
+                Tenant::search($term)->query(function ($query) {
+                    $query->select('id')->limit(50);
+                })->get()
+            );
+        }
     }
 }

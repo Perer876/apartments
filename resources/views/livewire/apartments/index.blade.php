@@ -14,7 +14,8 @@
                     </button>
                     <ul class="dropdown-menu shadow">
                         <li><button class="dropdown-item{{$this->sortByIs('building_alias', ' active')}}" 
-                            type="button" wire:click="sort('building_alias')">Alias del edificio</button></li>
+                            type="button" wire:click="sort('building_alias')">Alias del edificio
+                        </button></li>
                         <li><button class="dropdown-item{{$this->sortByIs('number', ' active')}}" 
                             type="button" wire:click="sort('number')">Número departamento</button></li>
                         <li><button class="dropdown-item{{$this->sortByIs('floor', ' active')}}"
@@ -49,44 +50,44 @@
                             <thead>
                                 <tr>
                                     <th wire:click="sort('building_alias')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            Edificio
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Edificio</span>
                                             <i class="{{ $this->sortIcon('building_alias') }}"></i>
                                         </div>
                                     </th>
                                     <th wire:click="sort('number')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            Número
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Número</span>
                                             <i class="{{ $this->sortIcon('number') }}"></i>
                                         </div>
                                     </th>
                                     <th wire:click="sort('floor')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            Piso
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Piso</span>
                                             <i class="{{ $this->sortIcon('floor') }}"></i>
                                         </div>
                                     </th>
                                     <th wire:click="sort('garages')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            Cocheras
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Cocheras</span>
                                             <i class="{{ $this->sortIcon('garages') }}"></i>
                                         </div>
                                     </th>
                                     <th wire:click="sort('bathrooms')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            Baños
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Baños</span>
                                             <i class="{{ $this->sortIcon('bathrooms') }}"></i>
                                         </div>
                                     </th>
                                     <th wire:click="sort('bedrooms')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            Dormitorios
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Dormitorios</span>
                                             <i class="{{ $this->sortIcon('bedrooms') }}"></i>
                                         </div>
                                     </th>
                                     <th wire:click="sort('monthly_rent')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            Renta mensual
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Renta mensual</span>
                                             <i class="{{ $this->sortIcon('monthly_rent') }}"></i>
                                         </div>
                                     </th>
@@ -95,13 +96,21 @@
                             <tbody>
                                 @foreach ($apartments as $apartment)
                                     <tr>
-                                        <td><a href="{{$apartment->building->href }}" class="link-secondary">{{$apartment->building->alias}}</a></td>
-                                        <td><a href="{{ $apartment->href }}" class="link-secondary">{{$apartment->number}}</a></td>
+                                        <td>
+                                            <a href="/buildings/{{$apartment->building_id }}" class="link-secondary text-underline-hover">
+                                                {{$apartment->building_alias}}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ $apartment->href }}" class="link-secondary text-underline-hover">
+                                                {{$apartment->number}}
+                                            </a>
+                                        </td>
                                         <td>{{$apartment->floor}}</td>
                                         <td>{{$apartment->garages}}</td>
                                         <td>{{$apartment->bathrooms}}</td>
                                         <td>{{$apartment->bedrooms}}</td>
-                                        <td>{{$apartment->monthly_rent}}</td>
+                                        <td>$ {{$apartment->monthly_rent}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -111,52 +120,9 @@
             </div>
         @elseif ($this->view == 'list')
             <div class="row justify-content-center">
-                <div class="col-sm-12 col-md-8 col-xl-12">
+                <div class="col-sm-12 col-md-8 col-xl-6">
                     <div class="card shadow-sm">
-                        <div class="list-group">
-                            @foreach ($apartments as $apartment)
-                            <a href="{{$apartment->href}}" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">{{$apartment->number}}</h5>
-                                    <small>$ {{$apartment->monthly_rent}}</small>
-                                </div>
-                                <span class="badge bg-light-success">
-                                    @if ($apartment->floor == 0)
-                                    Planta baja
-                                    @else
-                                    {{$apartment->floor}}° piso
-                                    @endif
-                                </span>
-                                <span class="badge bg-light-warning">
-                                    @if ($apartment->garages == 0)
-                                        Sin cocheras
-                                    @elseif ($apartment->garages == 1)
-                                        1 cochera
-                                    @else
-                                        {{$apartment->garages}} cocheras
-                                    @endif
-                                </span>
-                                <span class="badge bg-light-info">
-                                    @if ($apartment->bathrooms == 0)
-                                        Sin baños
-                                    @elseif ($apartment->bathrooms == 1)
-                                        1 baño
-                                    @else
-                                        {{$apartment->bathrooms}} baños
-                                    @endif
-                                </span>
-                                <span class="badge bg-light-danger">
-                                    @if ($apartment->bedrooms == 0)
-                                        Sin dormitorios :c
-                                    @elseif ($apartment->bedrooms == 1)
-                                        1 dormitorio
-                                    @else
-                                        {{$apartment->bedrooms}} dormitorios
-                                    @endif
-                                </span>
-                            </a>
-                            @endforeach
-                        </div>
+                        @include('resources.apartments.views.list', compact('apartments'))
                     </div>
                 </div>
             </div>

@@ -52,20 +52,20 @@
                             <thead>
                                 <tr>
                                     <th wire:click="sort('first_name')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            Nombre
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Nombre</span>
                                             <i class="{{ $this->sortIcon('first_name') }}"></i>
                                         </div>
                                     </th>
                                     <th wire:click="sort('phone')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            Telefono
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Telefono</span>
                                             <i class="{{ $this->sortIcon('phone') }}"></i>
                                         </div>
                                     </th>
                                     <th wire:click="sort('birthday')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            Edad
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Edad</span>
                                             <i class="{{ $this->sortIcon('birthday') }}"></i>
                                         </div>
                                     </th>
@@ -74,9 +74,23 @@
                             <tbody>
                                 @foreach ($tenants as $tenant)
                                     <tr>
-                                        <td><a href="{{ $tenant->href }}" class="link-secondary">{{ $tenant->name }}</a></td>
-                                        <td>{{ $tenant->phone }}</td>
-                                        <td>{{ $tenant->age }}</td>
+                                        <td>
+                                            <a href="{{ $tenant->href }}" class="link-secondary text-underline-hover">{{ $tenant->name }}</a>
+                                        </td>
+                                        <td>
+                                            @if($tenant->phone)
+                                                {{ $tenant->phone }}
+                                            @else
+                                                <span class="badge bg-light-danger">Sin teléfono</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($tenant->birthday)
+                                                {{$tenant->age}}
+                                            @else
+                                                <span class="badge bg-light-danger">Desconocida</span>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -94,9 +108,17 @@
                                     <a class="stretched-link" href="{{ $tenant->href }}">
                                         <h4 class="card-title">{{ $tenant->name }}</h4>
                                     </a>
-                                    <strong>Tel.</strong> {{ $tenant->phone }}
+                                    @if($tenant->phone)
+                                        <strong>Tel.</strong> {{ $tenant->phone }}
+                                    @else
+                                        <span class="badge bg-light-warning">Sin teléfono</span>
+                                    @endif
                                     <p class="card-text text-end">
-                                        <small class="">{{ $tenant->age }} años</small>
+                                        @if($tenant->birthday)
+                                            <small>{{ $tenant->age }} años</small>
+                                        @else
+                                            <span class="badge bg-light-danger">Edad desconocida</span>
+                                        @endif
                                     </p>
                                 </div>
                             </div>

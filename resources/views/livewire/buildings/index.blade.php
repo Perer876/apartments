@@ -55,50 +55,50 @@
                             <thead>
                                 <tr>
                                     <th wire:click="sort('alias')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            Alias
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Alias</span>
                                             <i class="{{ $this->sortIcon('alias') }}"></i>
                                         </div>
                                     </th>
                                     <th wire:click="sort('street')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            Calle
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Calle</span>
                                             <i class="{{ $this->sortIcon('street') }}"></i>
                                         </div>
                                     </th>
                                     <th wire:click="sort('number')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            Número
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Número</span>
                                             <i class="{{ $this->sortIcon('number') }}"></i>
                                         </div>
                                     </th>
                                     <th wire:click="sort('city')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            Ciudad
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Ciudad</span>
                                             <i class="{{ $this->sortIcon('city') }}"></i>
                                         </div>
                                     </th>
                                     <th wire:click="sort('state')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            Estado
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Estado</span>
                                             <i class="{{ $this->sortIcon('state') }}"></i>
                                         </div>
                                     </th>
                                     <th wire:click="sort('postcode')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            CP
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">CP</span>
                                             <i class="{{ $this->sortIcon('postcode') }}"></i>
                                         </div>
                                     </th>
                                     <th wire:click="sort('builded_at')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            Año
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Año</span>
                                             <i class="{{ $this->sortIcon('builded_at') }}"></i>
                                         </div>
                                     </th>
                                     <th wire:click="sort('apartments_count')" role="button" scope="col">
-                                        <div class="d-flex w-100 justify-content-between lh-1">
-                                            Departamentos
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Departamentos</span>
                                             <i class="{{ $this->sortIcon('apartments_count') }}"></i>
                                         </div>
                                     </th>
@@ -107,17 +107,23 @@
                             <tbody>
                                 @foreach ($buildings as $building)
                                     <tr>
-                                        <td><a href="{{ $building->href }}" class="link-secondary">{{ $building->alias }}</a></td>
+                                        <td>
+                                            <a href="{{ $building->href }}" class="link-secondary text-underline-hover">
+                                                {{ $building->alias }}
+                                            </a>
+                                        </td>
                                         <td>{{$building->street}}</td>
                                         <td>{{$building->number}}</td>
                                         <td>{{$building->city}}</td>
                                         <td>{{$building->state}}</td>
                                         <td>{{$building->postcode}}</td>
-                                        @if ($building->builded_at)
-                                        <td>{{$building->builded_at}}</td>
-                                        @else
-                                        <td><span class="badge bg-light-warning">Sin fecha</span></td>
-                                        @endif
+                                        <td>
+                                            @if ($building->builded_at)
+                                                {{$building->builded_at}}
+                                            @else
+                                                <span class="badge bg-light-danger">Sin fecha</span>
+                                            @endif
+                                        </td>
                                         <td>{{$building->apartments_count}}</td>
                                     </tr>
                                 @endforeach
@@ -132,11 +138,14 @@
                     <div class="col-xl-4 col-md-6 col-sm-12">
                         <div class="card shadow-sm">
                             <div class="card-header bg-light-success">
-                                <div class="d-flex w-100 justify-content-between">
+                                <div class="d-flex justify-content-between align-items-start">
                                     <a class="stretched-link" href="{{ $building->href }}">
                                         <h4 class="card-title">{{ $building->alias }}</h4>
                                     </a>
-                                    <span class="badge bg-success fs-6">{{ $building->apartments_count}} <i class="bi bi-door-closed-fill"></i></span>
+                                    <span class="badge bg-success fs-6">
+                                        {{ $building->apartments_count}}
+                                        <i class="bi bi-door-closed-fill"></i>
+                                    </span>
                                 </div>
                             </div>
                             <div class="card-content">

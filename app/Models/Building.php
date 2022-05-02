@@ -59,4 +59,16 @@ class Building extends Model
     {
         return route('buildings.show', ['building' => $this], false);
     }
+
+    public function scopeSearching($query, $term)
+    {
+        if(strlen($term) !== 0)
+        {
+            $query->whereIn('buildings.id', 
+                Building::search($term)->query(function ($query) {
+                    $query->select('id');
+                })->get()
+            );
+        }
+    }
 }

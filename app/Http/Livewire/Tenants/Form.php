@@ -22,8 +22,8 @@ class Form extends Component
         return [
             'tenant.first_name' => ['required'],
             'tenant.last_name' => ['required'],
-            'tenant.phone' => ['required','string','min:4'],
-            'tenant.birthday' => ['required','date', 'before:now'],
+            'tenant.phone' => ['nullable','string','min:4'],
+            'tenant.birthday' => ['nullable','date','before:now'],
         ];
     }
 
@@ -32,14 +32,15 @@ class Form extends Component
         $this->validateAll = true;
         $this->validate();
         
+        $isUpdatingTenant = $this->tenant->id;
         $this->tenant->save();
 
         # When you need to update data
-        if($this->tenant->id)
+        if($isUpdatingTenant)
         {
             session()->push('messages', [
                 'text' => 'Datos actualizados satisfactoriamente.',
-                'color' => 'light-success',
+                'color' => 'success',
                 'icon' => 'bi bi-hand-thumbs-up'
             ]);
             return redirect($this->tenant->href); 
@@ -47,12 +48,12 @@ class Form extends Component
 
         # When you add new tenant
         session()->push('messages', [
-            'text' => 'Inquilino agregado exitosamente.',
+            'text' => 'Inquilino agregado exitosamente. Ver',
             'link' => [
                 'href' => '/tenants/'. $this->tenant->id, 
-                'text' => 'Ver inquilino.'
+                'text' => $this->tenant->name
             ],
-            'color' => 'light-success',
+            'color' => 'success',
             'icon' => 'bi bi-check-circle',
         ]);
         return redirect('tenants');

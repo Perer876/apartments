@@ -44,13 +44,7 @@ class Index extends Component
 
     public function render()
     {
-        # Retrieve only the ids of the records according to the search term
-        $tenants = Tenant::search($this->search)->query(function ($query) {
-            $query->select('id');
-        })->get();
-
-        # Get all the records, and now they can be sorted at database level.
-        $tenants = Tenant::whereIn('id', $tenants)
+        $tenants = Tenant::searching($this->search)
             ->orderBy($this->sortBy, $this->sortDirection())
             ->paginate(12);
 

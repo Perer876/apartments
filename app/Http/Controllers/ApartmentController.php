@@ -66,7 +66,7 @@ class ApartmentController extends Controller
 
         session()->push('messages', [
             'text' => 'Departamento agregado satisfactoriamente.',
-            'color' => 'light-primary',
+            'color' => 'primary',
             'icon' => 'bi bi-check2-circle'
         ]);
 
@@ -127,7 +127,7 @@ class ApartmentController extends Controller
 
         session()->push('messages', [
             'text' => 'Datos actualizados satisfactoriamente.',
-            'color' => 'light-success',
+            'color' => 'success',
             'icon' => 'bi bi-hand-thumbs-up'
         ]);
 
@@ -146,7 +146,7 @@ class ApartmentController extends Controller
 
         session()->push('messages', [
             'text' => 'Departamento eliminado',
-            'color' => 'light-warning',
+            'color' => 'warning',
             'icon' => 'bi bi-exclamation-circle'
         ]);
 

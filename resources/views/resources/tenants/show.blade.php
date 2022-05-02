@@ -30,9 +30,17 @@
                             <h6 class="card-subtitle">Nombre</h6>
                             <p class="card-text">{{ $tenant->name }}</p>
                             <h6 class="card-subtitle">Número de teléfono</h6>
-                            <p class="card-text">{{ $tenant->phone }}</p>
+                            @if($tenant->phone)
+                                <p class="card-text">{{ $tenant->phone }}</p>
+                            @else
+                                <p class="badge bg-light-danger">No registrado</p>
+                            @endif
                             <h6 class="card-subtitle">Edad</h6>
-                            <p class="card-text">{{ $tenant->age }}</p>
+                            @if($tenant->birthday)
+                                <p class="card-text">{{$tenant->age}}</p>
+                            @else
+                                <p class="badge bg-light-danger">Desconocida</p>
+                            @endif
                             <div class="buttons text-center">
                                 <a href="/tenants/{{$tenant->id}}/edit" class="btn btn-outline-warning">Editar</a>
                                 <x-modal name="confirm-delete" type="danger" class="btn btn-outline-danger">
@@ -76,20 +84,21 @@
                                 </p>
                                 @if ($tenant->registration_tokens()->first())
                                     <h6 class="card-subtitle">Invitación</h6>
-                                    <p class="card-text">
-                                        @if ($tenant->registration_tokens()->latest()->first()->is_expired)
-                                            Ya se ha enviado una invitación al correo 
-                                            <strong>{{$tenant->registration_tokens()->latest()->first()->email}}</strong>, 
-                                            pero esta <span class="badge bg-light-danger">expiró</span>
-                                            el {{$tenant->registration_tokens()->latest()->first()->expires_at->format('Y/m/d')}}.
-                                            Por favor vuelva a enviar una nueva invitación.
-                                        @else 
-                                            Ya se ha enviado una invitación al correo 
-                                            <strong>{{$tenant->registration_tokens()->latest()->first()->email}}</strong>. 
-                                            Es <span class="badge bg-light-success">valida</span> hasta el
-                                            {{$tenant->registration_tokens()->latest()->first()->expires_at->format('Y/m/d')}}
-                                        @endif
-                                    </p>
+                                    @foreach ($tenant->registration_tokens()->latest()->get() as $invitation)
+                                        <p class="card-text">   
+                                            Ya se ha enviado una invitación al correo: 
+                                            @if ($invitation->is_expired)
+                                                <br><strong>&emsp;{{$invitation->email}}</strong><br>
+                                                <span class="badge bg-light-danger">Expiró</span>
+                                                el {{$invitation->expires_at->format('Y/m/d')}}.
+                                                Por favor vuelva a enviar una nueva invitación.
+                                            @else 
+                                                <br><strong>&emsp;{{$invitation->email}}</strong><br>
+                                                Es <span class="badge bg-light-success">valida</span> hasta el
+                                                {{$invitation->expires_at->format('Y/m/d')}}.
+                                            @endif
+                                        </p>
+                                    @endforeach
                                 @endif
                                 <a class="btn btn-outline-primary" href="/tenants/{{$tenant->id}}/invite">Invitar</a>
                             @else

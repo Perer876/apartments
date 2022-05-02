@@ -61,7 +61,7 @@ class TenantController extends Controller
 
         session()->push('messages', [
             'text' => 'Inquilino borrado con exito.',
-            'color' => 'light-warning',
+            'color' => 'warning',
             'icon' => 'bi bi-exclamation-circle'
         ]);
 

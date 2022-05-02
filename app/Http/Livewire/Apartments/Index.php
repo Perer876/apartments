@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Apartments;
 
 use Livewire\Component;
 use App\Models\Apartment;
+use App\Models\Building;
 use Livewire\WithPagination;
 use App\Traits\Views\WithSorting;
 use App\Traits\Views\WithSearch;
@@ -48,18 +49,12 @@ class Index extends Component
 
     public function render()
     {
-        # Retrieve only the ids of the records according to the search term
-        $apartments = Apartment::search($this->search)->query(function ($query) {
-            $query->select('id');
-        })->get();
-
-        # Get all the records, and now they can be sorted at database level.
         $apartments = Apartment::select('apartments.*' ,'buildings.alias as building_alias')
             ->join('buildings', 'buildings.id', '=', 'building_id')
-            ->whereIn('apartments.id', $apartments)
+            ->searching($this->search)
             ->orderBy($this->sortBy, $this->sortDirection())
             ->paginate(12);
-            
+                    
         return view('livewire.apartments.index', [
             'apartments' => $apartments,
         ]);

@@ -49,13 +49,7 @@ class Index extends Component
 
     public function render()
     {
-        # Retrieve only the ids of the records according to the search term
-        $buildings = Building::search($this->search)->query(function ($query) {
-            $query->select('id');
-        })->get();
-
-        # Get all the records, and now they can be sorted at database level.
-        $buildings = Building::whereIn('id', $buildings)
+        $buildings = Building::searching($this->search)
             ->withCount('apartments')
             ->orderBy($this->sortBy, $this->sortDirection())
             ->paginate(12);

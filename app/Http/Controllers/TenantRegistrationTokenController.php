@@ -29,7 +29,6 @@ class TenantRegistrationTokenController extends Controller
 
         session()->push('messages', [
             'text' => 'Se ha enviado la invitación.',
-            'color' => 'light-primary',
             'icon' => 'bi bi-send',
         ]);
         return redirect('/tenants/' . $tenant->id);
