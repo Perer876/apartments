@@ -83,22 +83,27 @@
                                     Este inquilino todavía no tiene una cuenta a la cual este relacionado.
                                 </p>
                                 @if ($tenant->registration_tokens()->first())
-                                    <h6 class="card-subtitle">Invitación</h6>
-                                    @foreach ($tenant->registration_tokens()->latest()->get() as $invitation)
-                                        <p class="card-text">   
-                                            Ya se ha enviado una invitación al correo: 
-                                            @if ($invitation->is_expired)
-                                                <br><strong>&emsp;{{$invitation->email}}</strong><br>
-                                                <span class="badge bg-light-danger">Expiró</span>
-                                                el {{$invitation->expires_at->format('Y/m/d')}}.
-                                                Por favor vuelva a enviar una nueva invitación.
-                                            @else 
-                                                <br><strong>&emsp;{{$invitation->email}}</strong><br>
-                                                Es <span class="badge bg-light-success">valida</span> hasta el
-                                                {{$invitation->expires_at->format('Y/m/d')}}.
-                                            @endif
-                                        </p>
-                                    @endforeach
+                                    <h6 class="card-subtitle">Invitaciones</h6>
+                                    <ul class="list-group my-2">
+                                        @foreach ($tenant->registration_tokens()->latest()->get() as $invitation)
+                                            <li class="list-group-item">   
+                                                <small>Ya se ha enviado una invitación al correo: </small>
+                                                <br>
+                                                @if ($invitation->is_expired)
+                                                    <div class="text-center">
+                                                        <span class="badge bg-light-danger">{{$invitation->email}}</span>
+                                                    </div>
+                                                    Expiró el {{$invitation->expires_at->format('Y/m/d')}}.
+                                                    Por favor vuelva a enviar una nueva invitación.
+                                                @else
+                                                    <div class="text-center">
+                                                        <span class="badge bg-light-success">{{$invitation->email}}</span>
+                                                    </div>
+                                                    Valida hasta el {{$invitation->expires_at->format('Y/m/d')}}.
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    </ul>
                                 @endif
                                 <a class="btn btn-outline-primary" href="/tenants/{{$tenant->id}}/invite">Invitar</a>
                             @else

@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Tenant;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RegisterTenantLink;
+use App\Models\TenantRegistrationToken;
+use Illuminate\Support\Carbon;
 
 class TenantRegistrationTokenController extends Controller
 {
@@ -21,16 +25,28 @@ class TenantRegistrationTokenController extends Controller
         ]);
 
         $token = Str::random(32);
-        $validated['token'] = bcrypt($token);
+        $validated['token'] = hash('sha256', $token);
 
         $tenant->registration_tokens()->create($validated);
 
         # Send email
+        Mail::to($validated['email'])
+            ->queue(new RegisterTenantLink($token, Carbon::create($validated['expires_at'])));
 
         session()->push('messages', [
             'text' => 'Se ha enviado la invitación.',
             'icon' => 'bi bi-send',
         ]);
         return redirect('/tenants/' . $tenant->id);
+    }
+
+    public function register(Request $request, $token) {
+        if (! $request->hasValidSignature()) {
+            abort(401);
+        }
+        
+        $tenantToken = TenantRegistrationToken::where('token', hash('sha256', $token))->first();
+
+        return view('auth.register', ['email' => $tenantToken->email]);
     }
 }

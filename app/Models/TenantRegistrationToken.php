@@ -12,9 +12,8 @@ class TenantRegistrationToken extends Model
 
     protected $guarded = [];
 
-    protected $casts = [
-        'expires_at' => 'datetime:Y/m/d',
-        'consumed_at' => 'datetime:Y/m/d',
+    protected $dates = [
+        'expires_at', 'consumed_at',
     ];
 
     public function tenant()
