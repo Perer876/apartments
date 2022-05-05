@@ -49,7 +49,8 @@ class Index extends Component
 
     public function render()
     {
-        $buildings = Building::searching($this->search)
+        $buildings = Building::ofCurrentUser()
+            ->searching($this->search)
             ->withCount('apartments')
             ->orderBy($this->sortBy, $this->sortDirection())
             ->paginate(12);

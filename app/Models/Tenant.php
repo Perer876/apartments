@@ -9,6 +9,7 @@ use Carbon\Carbon;
 
 use App\Models\TenantRegistrationToken;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class Tenant extends Model
 {
@@ -25,6 +26,8 @@ class Tenant extends Model
         'last_name',
         'phone',
         'birthday',
+        'user_id',
+        'renter_user_id',
     ];
 
     protected $casts = [
@@ -56,6 +59,11 @@ class Tenant extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function lessor()
+    {
+        return $this->belongsTo(User::class, 'lessor_user_id');
+    }
+
     /**
      * Accesor to the computed attribute name
      * 
@@ -85,6 +93,16 @@ class Tenant extends Model
     {
         /* return '/tenants/' . $this->id; */
         return route('tenants.show', ['tenant' => $this], false);
+    }
+
+    public function scopeOfLessor($query, $user_id)
+    {
+        return $query->where('lessor_user_id', $user_id);
+    }
+
+    public function scopeOfCurrentUser($query)
+    {
+        return $query->ofLessor(Auth::id());
     }
 
     public function scopeSearching($query, $term)

@@ -26,13 +26,13 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::resource('buildings', BuildingController::class);
+Route::resource('buildings', BuildingController::class)->middleware('auth');
 
-Route::get('/apartments', [ApartmentController::class, 'index']);
-Route::resource('buildings.apartments', ApartmentController::class)->shallow();
+Route::get('/apartments', [ApartmentController::class, 'index'])->middleware('auth');
+Route::resource('buildings.apartments', ApartmentController::class)->shallow()->middleware('auth');
 
-Route::resource('tenants', TenantController::class)->except(['store','update']);
-Route::controller(TenantRegistrationTokenController::class)->prefix('tenants')->group(function () {
+Route::resource('tenants', TenantController::class)->except(['store','update'])->middleware('auth');
+Route::controller(TenantRegistrationTokenController::class)->prefix('tenants')->middleware('auth')->group(function () {
     Route::match(['get', 'head'], '/{tenant}/invite', 'invite');
     Route::post('/{tenant}/invite', 'send_invite');
     Route::match(['get', 'head'], '/register/{token}', 'register')->name('tenant.register');

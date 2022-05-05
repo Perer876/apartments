@@ -20,6 +20,7 @@ class CreateTenantsTable extends Migration
             $table->string('phone', 20)->nullable();
             $table->date('birthday')->nullable();
             $table->foreignId('user_id')->nullable();
+            $table->foreignId('lessor_user_id')->nullable()->onDelete('cascade');
             $table->timestamps();
         });
     }

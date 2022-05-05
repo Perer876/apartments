@@ -22,6 +22,7 @@ class CreateBuildingsTable extends Migration
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->year('builded_at')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -46,9 +46,10 @@ class BuildingController extends Controller
             'builded_at' => 'nullable|integer|min:1902|max:2022'
         ];
 
-        $request->validate($form_rules);
+        $validated = $request->validate($form_rules);
+        $validated['user_id'] = $request->user()->id;
         
-        Building::create($request->all());
+        Building::create($validated);
 
         session()->push('messages', [
             'text' => 'Edificio agregado correctamente.',
@@ -99,9 +100,9 @@ class BuildingController extends Controller
             'builded_at' => 'nullable|integer|min:1902|max:2022',
         ];
 
-        $request->validate($form_rules);
+        $validated = $request->validate($form_rules);
         
-        Building::where('id', $building->id)->update($request->except(['_method', '_token']));
+        Building::where('id', $building->id)->update($validated);
 
         session()->push('messages', [
             'text' => 'Datos actualizados satisfactoriamente.',

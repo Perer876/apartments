@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Apartment;
 use Laravel\Scout\Searchable;
+use Illuminate\Support\Facades\Auth;
 
 class Building extends Model
 {
@@ -20,6 +21,7 @@ class Building extends Model
         'city',
         'state',
         'builded_at',
+        'user_id',
     ];
 
     /**
@@ -45,6 +47,11 @@ class Building extends Model
         return $this->hasMany(Apartment::class);
     }
 
+    public function renter()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function getAddressAttribute()
     {
         return $this->street . ' #' . $this->number;
@@ -58,6 +65,16 @@ class Building extends Model
     public function getHrefAttribute()
     {
         return route('buildings.show', ['building' => $this], false);
+    }
+
+    public function scopeOfLessor($query, $user_id)
+    {
+        return $query->where('user_id', $user_id);
+    }
+
+    public function scopeOfCurrentUser($query)
+    {
+        return $query->ofLessor(Auth::id());
     }
 
     public function scopeSearching($query, $term)

@@ -57,6 +57,11 @@ class Apartment extends Model
         return $this->belongsTo(Building::class);
     }
 
+    public function renter()
+    {
+        return $this->building->renter();
+    }
+
     public function getHrefAttribute()
     {
         return route('apartments.show', ['apartment' => $this], false);

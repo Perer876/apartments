@@ -44,7 +44,8 @@ class Index extends Component
 
     public function render()
     {
-        $tenants = Tenant::searching($this->search)
+        $tenants = Tenant::ofCurrentUser()
+            ->searching($this->search)
             ->orderBy($this->sortBy, $this->sortDirection())
             ->paginate(12);
 

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Tenants;
 use Livewire\Component;
 use App\Models\Tenant;
 use App\Traits\Forms\WithValidateChanges;
+use Illuminate\Support\Facades\Auth;
 
 class Form extends Component
 {
@@ -33,11 +34,12 @@ class Form extends Component
         $this->validate();
         
         $isUpdatingTenant = $this->tenant->id;
-        $this->tenant->save();
-
+        
         # When you need to update data
         if($isUpdatingTenant)
         {
+            $this->tenant->save();
+
             session()->push('messages', [
                 'text' => 'Datos actualizados satisfactoriamente.',
                 'color' => 'success',
@@ -47,6 +49,10 @@ class Form extends Component
         }
 
         # When you add new tenant
+        $this->tenant->lessor_user_id = Auth::id();
+
+        $this->tenant->save();
+
         session()->push('messages', [
             'text' => 'Inquilino agregado exitosamente. Ver',
             'link' => [
