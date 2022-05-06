@@ -5,7 +5,6 @@ use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\TenantRegistrationTokenController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +36,6 @@ Route::controller(TenantRegistrationTokenController::class)->prefix('tenants')->
     Route::post('/{tenant}/invite', 'send_invite');
     Route::match(['get', 'head'], '/register/{token}', 'register')->name('tenant.register');
 });
-
 
 Route::get('/bienvenido', function () {
     return view('bienvenido');

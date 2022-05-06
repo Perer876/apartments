@@ -6,7 +6,7 @@
 <div id="sidebar" class="active">
     <div class="sidebar-wrapper shadow-sm active">
         <div class="logo px-5 pt-3">
-            <a href="/"><img src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo" class="img-fluid"></a>
+            <a href="/"><img src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo" class="img-fluid w-75  mx-auto d-block"></a>
         </div>
         <div class="sidebar-menu">
             <ul class="menu">
