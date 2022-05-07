@@ -1,22 +1,21 @@
-<header class="mb-3">
+<header>
     <a href="#" class="burger-btn d-block d-xl-none">
         <i class="bi bi-justify fs-3"></i>
     </a>
 </header>
 <div id="sidebar" class="active">
     <div class="sidebar-wrapper shadow-sm active">
-        <div class="logo px-5 pt-3">
-            <a href="/"><img src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo" class="img-fluid w-75  mx-auto d-block"></a>
-        </div>
         <div class="sidebar-menu">
             <ul class="menu">
+                @include('partial.profile-settings')
+
                 <li class="sidebar-title">Menu</li>
 
-                <x-sidebar.item icon="bi bi-egg-fill" route="bienvenido" href="/bienvenido">
+                <x-sidebar.item icon="bi-grid-fill" route="home" href="/home">
                     Home
                 </x-sidebar.item>
 
-                <x-sidebar.item icon="bi bi-house-fill" route="buildings" href="/buildings">
+                <x-sidebar.item icon="bi-house-fill" route="buildings" href="/buildings">
                     Edificios
                     <x-slot name="submenu">
                         <x-sidebar.submenu-item href="/buildings">
@@ -28,14 +27,17 @@
                     </x-slot>
                 </x-sidebar.item>
 
-                <x-sidebar.item icon="bi bi-door-closed-fill" route="apartments" href="/apartments">
+                <x-sidebar.item icon="bi-door-closed-fill" route="apartments" href="/apartments">
                     Departamentos
                 </x-sidebar.item>
 
-                <x-sidebar.item icon="bi bi-person-fill" route="tenants" href="/tenants">
+                <x-sidebar.item icon="bi-person-fill" route="tenants" href="/tenants">
                     Inquilinos
                 </x-sidebar.item>
             </ul>
+            {{-- <div class="logo px-5 pt-3">
+                <a href="/"><img src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo" class="img-fluid w-50  mx-auto d-block"></a>
+            </div> --}}
         </div>
     </div>
 </div>

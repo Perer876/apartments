@@ -1,11 +1,11 @@
 <x-guest title="Registrarse">
-    <div class="page-content">
+    <div class="page-content px-3">
         <section class="row justify-content-center align-items-center vh-100">
             <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4">
-                <a href="/"><img src="assets/images/logo/logo.png" class="img-fluid w-25 mx-auto d-block" alt="Logo"></a>
-                <div class="card shadow-lg mt-5">
+                <a href="/"><img src="assets/images/logo/logo.png" class="img-fluid w-25 mx-auto d-block my-4" alt="Logo"></a>
+                <div class="card shadow-lg">
                     <div class="card-header bg-light-primary">
-                        <h4 class="card-title text-center fs-2">Registrarse</h4>
+                        <h4 class="card-title text-center fs-2 m-0">Registrarse</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -51,7 +51,7 @@
                                     placeholder="Contraseña"
                                 >
                                     <x-slot name="addonsLeft">
-                                        <x-forms.input.addon icon="bi-key"/>
+                                        <x-forms.input.addon icon="bi-key-fill"/>
                                     </x-slot>
                                 </x-forms.input>
 

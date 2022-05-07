@@ -126,7 +126,7 @@ class BuildingController extends Controller
         session()->push('messages', [
             'text' => 'Edificio eliminado',
             'color' => 'warning',
-            'icon' => 'bi bi-exclamation-circle'
+            'icon' => 'bi-trash'
         ]);
 
         return redirect('/buildings');

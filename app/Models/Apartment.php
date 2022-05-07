@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Building;
 use Laravel\Scout\Searchable;
+use Illuminate\Support\Facades\Auth;
 
 class Apartment extends Model
 {
@@ -57,14 +58,30 @@ class Apartment extends Model
         return $this->belongsTo(Building::class);
     }
 
-    public function renter()
+    public function lessor()
     {
-        return $this->building->renter();
+        return $this->building->lessor();
     }
 
     public function getHrefAttribute()
     {
         return route('apartments.show', ['apartment' => $this], false);
+    }
+
+    public function scopeOfLessor($query, $user_id)
+    {
+        return $query->leftJoin('buildings', 'apartments.building_id', '=', 'buildings.id')
+            ->where('user_id', $user_id);
+    }
+
+    public function scopeOfCurrentUser($query)
+    {
+        return $query->ofLessor(Auth::id());
+    }
+
+    public function scopeJoinBuildings($query)
+    {
+        return $query->leftJoin('buildings', 'buildings.id', '=', 'building_id');
     }
 
     public function scopeSearching($query, $term)

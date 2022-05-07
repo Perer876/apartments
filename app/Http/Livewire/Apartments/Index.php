@@ -10,6 +10,7 @@ use App\Traits\Views\WithSorting;
 use App\Traits\Views\WithSearch;
 use App\Traits\Views\WithViewTypes;
 use App\Traits\Views\RememberQueryString;
+use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
@@ -50,7 +51,7 @@ class Index extends Component
     public function render()
     {
         $apartments = Apartment::select('apartments.*' ,'buildings.alias as building_alias')
-            ->join('buildings', 'buildings.id', '=', 'building_id')
+            ->ofCurrentUser()
             ->searching($this->search)
             ->orderBy($this->sortBy, $this->sortDirection())
             ->paginate(12);

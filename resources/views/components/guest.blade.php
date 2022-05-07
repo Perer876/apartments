@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +9,12 @@
         <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
         <link rel="stylesheet" href="assets/css/app.css">
         <link rel="shortcut icon" href="{{ $attributes['icon-href'] ?? asset('assets/images/favicon.svg') }}" type="image/x-icon">
+        @stack('stylesheets')
     </head>
     <body>
-        <div class="app mx-3">
+        <div class="app">
             {{ $slot }}
         </div>
+        @stack('scripts')
     </body>
 </html>

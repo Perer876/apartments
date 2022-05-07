@@ -47,7 +47,7 @@ class Building extends Model
         return $this->hasMany(Apartment::class);
     }
 
-    public function renter()
+    public function lessor()
     {
         return $this->belongsTo(User::class);
     }

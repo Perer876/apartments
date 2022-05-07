@@ -165,13 +165,17 @@
             </div>
         @endif
     @else
-        <div class="card shadow-sm">
-            <div class="card-content">
-                <div class="card-body">
-                    <p>No hay edificios</p>
-                </div>
+        @if( strlen($this->search) == 0 )
+            <div class="alert alert-light-info shadow-sm">
+                <i class="bi-exclamation-circle-fill"></i> 
+                No tienes edificios.
             </div>
-        </div>
+        @else            
+            <div class="alert alert-light-warning shadow-sm">
+                <i class="bi-search"></i> 
+                No se encontraron edificios con esa información.
+            </div>
+        @endif
     @endif
     <div class="text-center">
         {{ $buildings->links() }}
