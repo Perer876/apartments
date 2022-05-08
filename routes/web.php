@@ -27,4 +27,4 @@ Route::controller(TenantRegistrationTokenController::class)->prefix('tenants')->
     Route::match(['get', 'head'], '/register/{token}', 'register')->name('tenant.register');
 });
 
-Route::get('/home', HomePage::class)->name('home');
+Route::get('/home', HomePage::class)->middleware('auth')->name('home');
