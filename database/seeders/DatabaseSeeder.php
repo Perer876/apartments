@@ -13,11 +13,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Tenant::factory(20)->create();
-
         $this->call([
-            BuildingSeeder::class,
+            RoleSeeder::class,
             UserSeeder::class,
+            BuildingSeeder::class,
+        ]);
+
+        \App\Models\Tenant::factory(15)->create([
+            'lessor_user_id' => 1,
         ]);
     }
 }

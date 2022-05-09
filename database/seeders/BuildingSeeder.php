@@ -15,7 +15,9 @@ class BuildingSeeder extends Seeder
      */
     public function run()
     {
-        $buildings = Building::factory(6)->create();
+        $buildings = Building::factory(6)->create([
+            'user_id' => 1,
+        ]);
         foreach($buildings as $building)
         {
             Apartment::factory(rand(0, 7))->create([
