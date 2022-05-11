@@ -44,6 +44,7 @@
             ) 
         }}
         {{ $attributes->whereStartsWith('wire:model') }}
+        {{ $attributes->whereStartsWith('x-') }}
         @if ($attributes->has('readonly'))
             readonly 
         @endif

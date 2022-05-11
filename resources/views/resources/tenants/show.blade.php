@@ -46,9 +46,20 @@
                                     @else
                                         <p class="badge bg-light-danger">Desconocida</p>
                                     @endif
-                                    <div class="buttons text-center">
-                                        <a href="/tenants/{{$tenant->id}}/edit" class="btn btn-outline-warning">Editar</a>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-md-flex w-100 justify-content-between">
+                                    <div class="buttons text-center text-md-left">
+                                        <a href="/tenants/{{$tenant->id}}/edit" class="btn btn-outline-warning">
+                                            <i class="bi bi-pencil"></i>
+                                            Editar
+                                        </a>
                                         <x-modal name="confirm-delete" type="danger" class="btn btn-outline-danger">
+                                            <x-slot name="trigger">
+                                                <i class="bi bi-trash"></i>
+                                                Eliminar
+                                            </x-slot>
                                             <x-slot name="title">
                                                 Eliminar inquilino
                                             </x-slot>
@@ -60,20 +71,22 @@
                                                 <form action="/tenants/{{$tenant->id}}" method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <input class="btn btn-danger" type="submit" value="Eliminar">
+                                                    <button type="submit" class="btn btn-danger">
+                                                        Confirmar
+                                                    </button>
                                                 </form>
                                             </x-slot>
                                         </x-modal>
                                     </div>
+                                    <div>
+                                        <small class="text-muted d-flex justify-content-end">
+                                            Creado el {{ $tenant->created_at->format('d/m/Y') }} a las {{ $tenant->created_at->format('H:i') }}
+                                        </small>
+                                        <small class="text-muted d-flex justify-content-end">
+                                            Actualizado el {{ $tenant->updated_at->format('d/m/Y') }} a las {{ $tenant->updated_at->format('H:i') }}
+                                        </small>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted d-flex justify-content-end">
-                                    Creado el {{ $tenant->created_at->format('d/m/Y') }} a las {{ $tenant->created_at->format('H:i') }}
-                                </small>
-                                <small class="text-muted d-flex justify-content-end">
-                                    Actualizado el {{ $tenant->updated_at->format('d/m/Y') }} a las {{ $tenant->updated_at->format('H:i') }}
-                                </small>
                             </div>
                         </div>
                     </div>
@@ -83,14 +96,15 @@
                 <div class="row">
                     <!-- Contracts with the tenant -->
                     <div class="col-12">
-                        <div class="card shadow-sm">
+                        <div class="card shadow-sm mb-4">
                             <div class="card-content">
                                 <div class="card-body">
                                     <h4 class="card-title">
                                         <i class="bi bi-clipboard me-2"></i>
-                                        Contratos
+                                        Contrato
                                     </h4>
                                     <hr>
+                                    
                                     <a class="btn btn-outline-info" href="/contracts/tenants/{{$tenant->id}}/create">Generar contrato</a>
                                 </div>
                             </div>

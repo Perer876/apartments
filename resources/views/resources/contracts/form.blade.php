@@ -37,19 +37,20 @@
                 </div>
                 <div class="w-100"></div>
                 <div class="col-sm-12 col-md-8 col-xl-6">
-                    <div class="card shadow-sm" x-data="{ open: false }">
-                        <div role="button" class="card-header bg-light-warning" @click="open = true">
+                    <div class="card shadow-sm" x-data="{ open: false, toggle() { this.open = ! this.open } }">
+                        <div role="button" class="card-header bg-light-warning" @click="toggle()">
                             <h3 class="card-title user-select-none m-0">
                                 <i class="bi bi-door-closed-fill me-2"></i>
                                 Selecionar departamento
-                                <i class="bi bi-chevron-down"></i>
+                                <i x-show="!open" class="bi bi-chevron-down"></i>
+                                <i x-show="open" class="bi bi-chevron-up"></i>
                             </h3>
                         </div>
                         <div class="card-content">
                             <div class="card-body m-0">
                                 <span class="card-text">Por favor, seleccione un departamento</span>
                             </div>
-                            <div class="card-body" x-show="open" x-transition @click.outside="open = false">
+                            <div class="card-body" x-show="open" x-transition>
                                 @livewire('contracts.select-apartment')
                             </div>
                             @error('apartment_id')
@@ -77,6 +78,7 @@
                                     name="start_at"
                                     placeholder="aaaa/mm/dd"
                                     autocomplete="off"
+                                    value="{{now()->format('Y/m/d')}}"
                                 >
                                     <x-slot name="datepicker"
                                         data-date-autoclose="true"    
@@ -91,14 +93,31 @@
                                     </x-slot>
                                 </x-forms.input>
 
-                                <div class="row">
+                                <div class="row" x-data="{
+                                    amount: {{old('amount') ?? 1}}, 
+                                    addOne() { this.amount += 1 }, 
+                                    subtractOne() {  if(this.amount > 1) this.amount -= 1 } 
+                                }">
                                     <x-forms.input 
                                         label="Cantidad"
                                         name="amount"
                                         type="number"
                                         value="1"
                                         size="4"
-                                    />
+                                        class="form-control text-center"
+                                        x-bind:value="amount"
+                                    >
+                                        <x-slot name="addonsLeft">
+                                            <x-forms.input.addon>
+                                                <i class="bi-dash-circle-fill" role="button" @click="subtractOne()"></i>
+                                            </x-forms.input.addon>
+                                        </x-slot>
+                                        <x-slot name="addonsRight">
+                                            <x-forms.input.addon>
+                                                <i class="bi-plus-circle-fill" role="button" @click="addOne()"></i>
+                                            </x-forms.input.addon>
+                                        </x-slot>
+                                    </x-forms.input>
 
                                     <div class="form-group col-md-8">
                                         <label for="period">Periodo</label>
