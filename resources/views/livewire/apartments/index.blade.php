@@ -5,39 +5,8 @@
         </div>
         <div class="col-12 col-md-6 text-end">
             <div class="d-grid gap-2 d-md-block mb-4">
-                <div class="btn-group mb-md-2 ms-md-2">
-                    <button class="btn btn-info lh-1" type="button" wire:click="swapSortDirection">
-                        <i class="{{ $this->sortIcon() }}"></i>
-                    </button>
-                    <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        Ordenar por
-                    </button>
-                    <ul class="dropdown-menu shadow">
-                        <li><button class="dropdown-item{{$this->sortByIs('building_alias', ' active')}}" 
-                            type="button" wire:click="sort('building_alias')">Alias del edificio
-                        </button></li>
-                        <li><button class="dropdown-item{{$this->sortByIs('number', ' active')}}" 
-                            type="button" wire:click="sort('number')">Número departamento</button></li>
-                        <li><button class="dropdown-item{{$this->sortByIs('floor', ' active')}}"
-                            type="button" wire:click="sort('floor')">Piso</button></li>
-                        <li><button class="dropdown-item{{$this->sortByIs('garages', ' active')}}"
-                            type="button" wire:click="sort('garages')">Cocheras</button></li>
-                        <li><button class="dropdown-item{{$this->sortByIs('bathrooms', ' active')}}"
-                            type="button" wire:click="sort('bathrooms')">Baños</button></li>
-                        <li><button class="dropdown-item{{$this->sortByIs('bedrooms', ' active')}}"
-                            type="button" wire:click="sort('bedrooms')">Dormitorios</button></li>
-                        <li><button class="dropdown-item{{$this->sortByIs('monthly_rent', ' active')}}"
-                            type="button" wire:click="sort('monthly_rent')">Renta mensual</button></li>
-                    </ul>
-                </div>
-                <div class="btn-group mb-md-2 ms-md-2" role="group" aria-label="View type check group">
-                    <input type="radio" wire:click="view('table')" class="btn-check" name="view-type-options"
-                        id="table-view" autocomplete="off" {{ $this->viewIs('table', ' checked') }}>
-                    <label class="btn btn-outline-warning" for="table-view">Tabla</label>
-                    <input type="radio" wire:click="view('list')" class="btn-check" name="view-type-options"
-                        id="card-view" autocomplete="off" {{ $this->viewIs('list', ' checked') }}>
-                    <label class="btn btn-outline-warning" for="card-view">Lista</label>
-                </div>
+                @include('resources.apartments.components.sortby-dropdown')
+                @include('resources.apartments.components.viewtype-radio')
             </div>
         </div>
     </div>
@@ -122,7 +91,13 @@
             <div class="row justify-content-center">
                 <div class="col-sm-12 col-md-8 col-xl-6">
                     <div class="card shadow-sm">
-                        @include('resources.apartments.views.list', compact('apartments'))
+                        <div class="card-content">
+                            <div class="card-body">
+                                <h4 class="card-title text-center fs-3">Lista</h4>
+                                <hr>
+                                @include('resources.apartments.views.list', compact('apartments'))
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

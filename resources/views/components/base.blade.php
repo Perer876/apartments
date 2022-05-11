@@ -16,7 +16,7 @@
     </head>
     <body>
         <div id="app">
-            <div id="main">
+            <div id="main" class="p-3 p-md-4">
                 {{ $slot }}
             </div>
         </div>

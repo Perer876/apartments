@@ -1,28 +1,23 @@
 <?php
 
-namespace App\Http\Livewire\Apartments;
+namespace App\Http\Livewire\Contracts;
 
 use Livewire\Component;
 use App\Models\Apartment;
-use Livewire\WithPagination;
 use App\Traits\Views\WithSorting;
 use App\Traits\Views\WithSearch;
-use App\Traits\Views\WithViewTypes;
-use App\Traits\Views\RememberQueryString;
+use Livewire\WithPagination;
 
-class Index extends Component
+class SelectApartment extends Component
 {
-    use WithPagination;
     use WithSorting;
     use WithSearch;
-    use WithViewTypes;
-    use RememberQueryString;
+    use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
 
     protected $defaultValue = [
         'sortBy' => 'number',
-        'view' => 'list',
     ];
 
     protected $validSortByValues = [
@@ -35,15 +30,9 @@ class Index extends Component
         'monthly_rent',
     ];
 
-    protected $validViewValues = [
-        'table',
-        'list',
-    ];
-
     protected $rememberQueryInput = [
         'sortBy',
         'sortDesc',
-        'view',
     ];
 
     public function render()
@@ -54,7 +43,7 @@ class Index extends Component
             ->orderBy($this->sortBy, $this->sortDirection())
             ->paginate(12);
                     
-        return view('livewire.apartments.index', [
+        return view('livewire.contracts.select-apartment', [
             'apartments' => $apartments,
         ]);
     }

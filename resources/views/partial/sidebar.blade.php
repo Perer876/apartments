@@ -34,6 +34,10 @@
                 <x-sidebar.item icon="bi-person-fill" route="tenants" href="/tenants">
                     Inquilinos
                 </x-sidebar.item>
+                
+                <x-sidebar.item icon="bi-clipboard-fill" route="contracts" href="/contracts">
+                    Contratos
+                </x-sidebar.item>
             </ul>
             {{-- <div class="logo px-5 pt-3">
                 <a href="/"><img src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo" class="img-fluid w-50  mx-auto d-block"></a>

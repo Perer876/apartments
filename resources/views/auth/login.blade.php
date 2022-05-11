@@ -2,7 +2,7 @@
     <div class="page-content px-3">
         <section class="row justify-content-center align-items-center vh-100">
             <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4">
-                <a href="/"><img src="assets/images/logo/logo.png" class="img-fluid w-25 mx-auto d-block my-4" alt="Logo"></a>
+                <a href="/"><img src="{{asset('assets/images/logo/logo.png')}}" class="img-fluid w-25 mx-auto d-block my-4" alt="Logo"></a>
                 <div class="card shadow-lg">
                     <div class="card-header bg-light-success">
                         <h4 class="card-title text-center fs-2 m-0">Inicio de sesión</h4>

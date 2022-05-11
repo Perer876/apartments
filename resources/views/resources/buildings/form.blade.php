@@ -55,7 +55,7 @@
                                     :object="isset($building) ? $building : null" 
                                 >
                                     <x-slot name="addonsLeft">
-                                        <x-forms.input.addon icon="bi bi-house" />
+                                        <x-forms.input.addon icon="bi-house" />
                                     </x-slot>
                                 </x-forms.input>
 
@@ -118,7 +118,7 @@
                                         size="6"
                                     >
                                         <x-slot name="addonsRight">
-                                            <x-forms.input.addon icon="bi bi-calendar-event" />
+                                            <x-forms.input.addon icon="bi-calendar-event" />
                                         </x-slot>
                                     </x-forms.input>
                                 </div>
