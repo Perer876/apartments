@@ -35,4 +35,11 @@ class ContractController extends Controller
 
         return redirect()->route('tenants.show', $validated['tenant_id']);
     }
+
+    public function cancel(Contract $contract)
+    {
+        $contract->cancelled_at = now();
+        $contract->save();
+        return redirect()->route('tenants.show', $contract->tenant_id);
+    }
 }

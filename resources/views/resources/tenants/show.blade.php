@@ -104,8 +104,112 @@
                                         Contrato
                                     </h4>
                                     <hr>
-                                    
-                                    <a class="btn btn-outline-info" href="/contracts/tenants/{{$tenant->id}}/create">Generar contrato</a>
+                                    @if( $tenant->lastestContract )
+                                        <div class="d-md-flex w-100 justify-content-between">
+                                            <div class="mb-3">
+                                                <h6 class="card-subtitle">
+                                                    Dirección
+                                                </h6>
+                                                @include('resources.buildings.components.address-show', [
+                                                    'building' => $tenant->lastestContract->apartment->building
+                                                ])
+                                            </div>
+                                            <div class="text-md-end mb-3">
+                                                <h6 class="card-subtitle">
+                                                    Departamento
+                                                </h6>
+                                                <p class="card-text fs-3 fw-lighter">
+                                                    <a href="/apartments/{{$tenant->lastestContract->apartment->id}}" class="link-secondary text-underline-hover">
+                                                        {{ $tenant->lastestContract->apartment->number }}
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="d-md-flex w-100 justify-content-between">
+                                            <div class="mb-3">
+                                                <h6 class="card-subtitle">Estatus</h6>
+                                                <p class="card-text fs-5">
+                                                    @if( $tenant->lastestContract->active )
+                                                        <span class="badge bg-light-success">Activo</span>
+                                                    @else
+                                                        @if( $tenant->lastestContract->cancelled_at )
+                                                            <span class="badge bg-light-danger">Cancelado</span>
+                                                        @else
+                                                            <span class="badge bg-light-warning">Concluido</span>
+                                                        @endif
+                                                    @endif
+                                                </p>
+                                            </div>
+                                            <div class="text-md-end mb-3">
+                                                <h6 class="card-subtitle">Renta mensual</h6>
+                                                <p class="card-text fs-4">
+                                                    <span class="badge bg-light-info">
+                                                        ${{ $tenant->lastestContract->monthly_rent }}
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="d-md-flex w-100 justify-content-between">
+                                            <div class="mb-3">
+                                                <h6 class="card-subtitle">Comenzó</h6>
+                                                <p class="card-text fs-5 fw-lighter">
+                                                    <span>{{ $tenant->lastestContract->start_at->format('Y/m/d')}}</span>
+                                                </p>
+                                            </div>
+                                            <div class="mb-3">
+                                                @if( $tenant->lastestContract->active)
+                                                    <h6 class="card-subtitle">Concluye</h6>
+                                                @else
+                                                    @if( $tenant->lastestContract->cancelled_at )
+                                                        <h6 class="card-subtitle">Concluia</h6>
+                                                    @else    
+                                                        <h6 class="card-subtitle">Concluyo</h6>
+                                                    @endif
+                                                @endif
+                                                <p class="card-text fs-5 fw-lighter">
+                                                    <span>{{ $tenant->lastestContract->end_at->format('Y/m/d')}}</span>
+                                                </p>
+                                            </div>
+                                            @if($tenant->lastestContract->cancelled_at)
+                                            <div class="mb-3">
+                                                <h6 class="card-subtitle">Cancelado</h6>
+                                                <p class="card-text fs-5 fw-lighter">
+                                                    <span>{{ $tenant->lastestContract->cancelled_at->format('Y/m/d')}}</span>
+                                                </p>
+                                            </div>
+                                            @endif
+                                        </div>
+                                        @if ($tenant->lastestContract->active)
+                                            <x-modal name="confirm-cancell-contract" type="danger" class="btn btn-outline-danger">
+                                                <x-slot name="trigger">
+                                                    Cancelar contrato
+                                                </x-slot>
+                                                <x-slot name="title">
+                                                    Cancelar contrato
+                                                </x-slot>
+                                                ¿Estás seguro de que quieres cancelar el contrato activo con <span class="fw-bold">{{$tenant->name}}</span>? 
+                                                <x-slot name="footer">
+                                                    <x-modal.dismiss-button class="btn btn-light-secondary">
+                                                        Cancelar
+                                                    </x-modal.dismiss-button>
+                                                    <form action="/contracts/{{$tenant->lastestContract->id}}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">
+                                                            Confirmar
+                                                        </button>
+                                                    </form>
+                                                </x-slot>
+                                            </x-modal>
+                                        @else
+                                            <a class="btn btn-outline-info" href="/contracts/tenants/{{$tenant->id}}/create">Generar contrato</a>
+                                        @endif
+                                    @else
+                                        <p class="card-text">
+                                            No tiene ningún contrato contigo.
+                                        </p>
+                                        <a class="btn btn-outline-info" href="/contracts/tenants/{{$tenant->id}}/create">Generar contrato</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -133,13 +237,19 @@
                                                         <br>
                                                         @if ($invitation->is_expired)
                                                             <div class="text-center">
-                                                                <span class="badge bg-light-danger">{{$invitation->email}}</span>
+                                                                <span class="badge bg-light-danger">
+                                                                    <i class="bi bi-envelope-exclamation pe-1"></i>
+                                                                    {{$invitation->email}}
+                                                                </span>
                                                             </div>
                                                             Expiró el {{$invitation->expires_at->format('Y/m/d')}}.
                                                             Por favor vuelva a enviar una nueva invitación.
                                                         @else
                                                             <div class="text-center">
-                                                                <span class="badge bg-light-success">{{$invitation->email}}</span>
+                                                                <span class="badge bg-light-success">
+                                                                    <i class="bi bi-envelope-check pe-1"></i>
+                                                                    {{$invitation->email}}
+                                                                </span>
                                                             </div>
                                                             Valida hasta el {{$invitation->expires_at->format('Y/m/d')}}.
                                                         @endif

@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
-use Carbon\Carbon;
-
-use App\Models\TenantRegistrationToken;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+
+use App\Models\User;
+use App\Models\Apartment;
+use App\Models\Contract;
+use App\Models\TenantRegistrationToken;
 
 class Tenant extends Model
 {
@@ -63,6 +64,23 @@ class Tenant extends Model
     {
         return $this->belongsTo(User::class, 'lessor_user_id');
     }
+
+    public function lastestContract()
+    {
+        return $this->hasOne(Contract::class)->ofMany('start_at', 'MAX');
+    }
+
+    public function currentContract()
+    {
+        return $this->hasOne(Contract::class)->ofMany(['start_at' => 'MAX'], function ($query){
+            $query->where('end_at', '>', now());
+        });
+    }
+
+/*     public function contracts()
+    {
+        return $this->belongsToMany(Apartment::class, 'contract');
+    } */
 
     /**
      * Accesor to the computed attribute name

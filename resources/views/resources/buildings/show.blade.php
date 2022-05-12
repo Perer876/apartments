@@ -22,7 +22,10 @@
                 <div class="card shadow-sm">
                     <div class="card-content">
                         <div class="card-body">
-                            <h4 class="card-title">Detalles</h4>
+                            <h4 class="card-title">
+                                <i class="bi-house me-2"></i>
+                                Detalles
+                            </h4>
                             <hr>
                             <h6 class="card-subtitle">Alias</h6>
                             <p class="card-text">{{ $building->alias }}</p>
@@ -42,9 +45,20 @@
                             @else
                                 <span class="badge bg-light-warning">Sin fecha</span>
                             @endif
-                            <div class="buttons text-center">
-                                <a href="/buildings/{{$building->id}}/edit" class="btn btn-outline-warning">Editar</a>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-md-flex w-100 justify-content-between">
+                            <div class="buttons text-center text-md-left">
+                                <a href="/buildings/{{$building->id}}/edit" class="btn btn-outline-warning">
+                                    <i class="bi bi-pencil"></i>
+                                    Editar
+                                </a>
                                 <x-modal name="confirm-delete" type="danger" class="btn btn-outline-danger">
+                                    <x-slot name="trigger">
+                                        <i class="bi bi-trash"></i>
+                                        Eliminar
+                                    </x-slot>
                                     <x-slot name="title">
                                         Eliminar edificio
                                     </x-slot>
@@ -61,15 +75,16 @@
                                     </x-slot>
                                 </x-modal>
                             </div>
+                            <div>
+                                <small class="text-muted d-flex justify-content-end">
+                                    Creado el {{ $building->created_at->format('d/m/Y') }} a las {{ $building->created_at->format('H:i') }}
+                                </small>
+                                <small class="text-muted d-flex justify-content-end">
+                                    Actualizado el {{ $building->updated_at->format('d/m/Y') }} a las {{ $building->updated_at->format('H:i') }}
+                                </small>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted d-flex justify-content-end">
-                            Creado el {{ $building->created_at->format('d/m/Y') }} a las {{ $building->created_at->format('H:i') }}
-                        </small>
-                        <small class="text-muted d-flex justify-content-end">
-                            Actualizado el {{ $building->updated_at->format('d/m/Y') }} a las {{ $building->updated_at->format('H:i') }}
-                        </small>
+
                     </div>
                 </div>
             </div>
@@ -77,7 +92,10 @@
                 <div class="card shadow-sm">
                     <div class="card-content">
                         <div class="card-body">
-                            <h4 class="card-title">Departamentos</h4>
+                            <h4 class="card-title">
+                                <i class="bi-door-closed me-2"></i>
+                                Departamentos
+                            </h4>
                             <hr>
                             @if (!$building->apartments->count()) 
                             <p>No hay ningun departamento<p>

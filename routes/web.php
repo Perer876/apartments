@@ -29,7 +29,8 @@ Route::controller(TenantRegistrationTokenController::class)->prefix('tenants')->
     Route::match(['get', 'head'], '/register/{token}', 'register')->name('register');
 });
 
-Route::controller(ContractController::class)->prefix('contracts/tenants/{tenant}')->middleware('auth')->group(function (){
-    Route::match(['get', 'head'], '/create', 'create');
-    Route::post('/', 'store');
+Route::controller(ContractController::class)->prefix('contracts')->middleware('auth')->group(function (){
+    Route::match(['get', 'head'], '/tenants/{tenant}/create', 'create');
+    Route::post('/tenants/{tenant}/', 'store');
+    Route::delete('/{contract}', 'cancel');
 });
