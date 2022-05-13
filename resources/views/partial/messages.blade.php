@@ -1,7 +1,7 @@
 @foreach (session()->pull('messages', []) as $message)
 <div class="alert alert-light-{{$message['color'] ?? 'primary'}} alert-dismissible show fade shadow-sm">
     @isset($message['icon'])
-        <i class="{{$message['icon']}}"></i>
+        <i class="{{$message['icon']}} me-2"></i>
     @endisset
     <strong>{{$message['text']}}</strong>
     @isset($message['link'])

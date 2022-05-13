@@ -44,9 +44,9 @@ class StoreContractRequest extends FormRequest
             'apartment_id' => [
                 'required', 
                 'integer', 
-                Rule::in(Apartment::ofCurrentUser()->pluck('apartments.id')),
+                Rule::in(Apartment::available()->ofCurrentUser()->pluck('id')),
             ],
-            'start_at' => ['required', 'after_or_equal:' . now()->format('Y/m/d')],
+            'start_at' => ['required', 'after_or_equal:' . today()->format('Y/m/d')],
             'amount' => ['required', 'integer', 'min:1'],
             'period' => [
                 'required', 

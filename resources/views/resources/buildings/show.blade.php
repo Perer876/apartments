@@ -100,7 +100,10 @@
                             @if (!$building->apartments->count()) 
                             <p>No hay ningun departamento<p>
                             @endif
-                            @include('resources.apartments.views.list', ['apartments' => $building->apartments])
+                            @include('resources.apartments.views.list', [
+                                'hide' => ['building'],
+                                'apartments' => $building->apartments
+                            ])
                             <div class="text-center">
                                 <a href="/buildings/{{$building->id}}/apartments/create" class="btn btn-outline-primary mt-3">+ Agregar departamento</a>
                             </div>

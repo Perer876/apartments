@@ -37,7 +37,7 @@
                 </div>
                 <div class="w-100"></div>
                 <div class="col-sm-12 col-md-8 col-xl-6">
-                    <div class="card shadow-sm" x-data="{ open: false, toggle() { this.open = ! this.open } }">
+                    <div class="card shadow-sm" x-data="{ open: true, toggle() { this.open = ! this.open } }">
                         <div role="button" class="card-header bg-light-warning" @click="toggle()">
                             <h3 class="card-title user-select-none m-0">
                                 <i class="bi bi-door-closed-fill me-2"></i>

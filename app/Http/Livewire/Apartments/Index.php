@@ -49,6 +49,7 @@ class Index extends Component
     public function render()
     {
         $apartments = Apartment::select('apartments.*' ,'buildings.alias as building_alias')
+            ->joinBuilding()
             ->ofCurrentUser()
             ->searching($this->search)
             ->orderBy($this->sortBy, $this->sortDirection())

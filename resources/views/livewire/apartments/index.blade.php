@@ -89,11 +89,11 @@
             </div>
         @elseif ($this->view == 'list')
             <div class="row justify-content-center">
-                <div class="col-sm-12 col-md-8 col-xl-6">
+                <div class="col-sm-12 col-md-10 col-xl-8">
                     <div class="card shadow-sm">
                         <div class="card-content">
                             <div class="card-body">
-                                <h4 class="card-title text-center fs-3">Lista</h4>
+                                <h4 class="card-title text-center fs-3">Lista de departamentos</h4>
                                 <hr>
                                 @include('resources.apartments.views.list', compact('apartments'))
                             </div>

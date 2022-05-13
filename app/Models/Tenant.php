@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
 use App\Models\Apartment;
@@ -67,17 +68,38 @@ class Tenant extends Model
 
     public function lastestContract()
     {
-        return $this->hasOne(Contract::class)->ofMany('start_at', 'MAX');
+        return $this->hasOne(Contract::class)->latestOfMany();
     }
 
-    public function currentContract()
+/*     public function currentContract()
     {
         return $this->hasOne(Contract::class)->ofMany(['start_at' => 'MAX'], function ($query){
             $query->where('end_at', '>', now());
         });
+    } */
+
+/*     public function scopeJoinContract($query)
+    {
+        return $query->leftJoin('contract', 'tenants.id', '=', 'contract.tenant_id');
+    } */
+
+    public function scopeWithStatus($query)
+    {
+        $now = now()->format("'Y-m-d'");
+        return $query->addSelect(['status' => Contract::select(
+                DB::raw('IF(cancelled_at is not null, 0, 
+                    IF('.$now.' < start_at, 1, 
+                        IF('.$now.' >= end_at, 2, 3)
+                    )
+                )')
+            )
+            ->whereColumn('tenant_id', 'tenants.id')
+            ->orderByDesc('updated_at')
+            ->limit(1)
+        ]);
     }
 
-/*     public function contracts()
+    /*public function contracts()
     {
         return $this->belongsToMany(Apartment::class, 'contract');
     } */
@@ -109,7 +131,6 @@ class Tenant extends Model
      */
     public function getHrefAttribute()
     {
-        /* return '/tenants/' . $this->id; */
         return route('tenants.show', ['tenant' => $this], false);
     }
 

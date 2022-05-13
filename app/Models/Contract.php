@@ -43,8 +43,38 @@ class Contract extends Pivot
         return $this->belongsTo(User::class);
     }
     
-    public function getActiveAttribute()
+    public function getIsActiveAttribute()
     {
-        return $this->start_at < now() && $this->end_at > now() && !$this->cancelled_at;
+        return $this->start_at <= today() && $this->end_at > today() && !$this->cancelled_at;
+    }
+
+    public function getIsFinishedAttribute()
+    {
+        return $this->end_at <= today() && !$this->cancelled_at;
+    }
+
+    public function getIsComingAttribute()
+    {
+        return $this->start_at > today() && !$this->cancelled_at;
+    }
+
+    public function getStatusAttribute()
+    {
+        if($this->cancelled_at)
+        {
+            return "cancelled";
+        }
+        else
+        {
+            if(today() < $this->start_at)
+            {
+                return "coming";
+            }
+            else if(today() >= $this->end_at)
+            {
+                return "finished";
+            }
+            return "active";
+        }
     }
 }

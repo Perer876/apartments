@@ -129,15 +129,7 @@
                                             <div class="mb-3">
                                                 <h6 class="card-subtitle">Estatus</h6>
                                                 <p class="card-text fs-5">
-                                                    @if( $tenant->lastestContract->active )
-                                                        <span class="badge bg-light-success">Activo</span>
-                                                    @else
-                                                        @if( $tenant->lastestContract->cancelled_at )
-                                                            <span class="badge bg-light-danger">Cancelado</span>
-                                                        @else
-                                                            <span class="badge bg-light-warning">Concluido</span>
-                                                        @endif
-                                                    @endif
+                                                    @include('resources.contracts.components.status-show', ['contract' => $tenant->lastestContract])
                                                 </p>
                                             </div>
                                             <div class="text-md-end mb-3">
@@ -151,35 +143,27 @@
                                         </div>
                                         <div class="d-md-flex w-100 justify-content-between">
                                             <div class="mb-3">
-                                                <h6 class="card-subtitle">Comenzó</h6>
+                                                <h6 class="card-subtitle">Comienzo</h6>
                                                 <p class="card-text fs-5 fw-lighter">
                                                     <span>{{ $tenant->lastestContract->start_at->format('Y/m/d')}}</span>
                                                 </p>
                                             </div>
                                             <div class="mb-3">
-                                                @if( $tenant->lastestContract->active)
-                                                    <h6 class="card-subtitle">Concluye</h6>
-                                                @else
-                                                    @if( $tenant->lastestContract->cancelled_at )
-                                                        <h6 class="card-subtitle">Concluia</h6>
-                                                    @else    
-                                                        <h6 class="card-subtitle">Concluyo</h6>
-                                                    @endif
-                                                @endif
+                                                <h6 class="card-subtitle">Conclución</h6>
                                                 <p class="card-text fs-5 fw-lighter">
                                                     <span>{{ $tenant->lastestContract->end_at->format('Y/m/d')}}</span>
                                                 </p>
                                             </div>
                                             @if($tenant->lastestContract->cancelled_at)
-                                            <div class="mb-3">
-                                                <h6 class="card-subtitle">Cancelado</h6>
-                                                <p class="card-text fs-5 fw-lighter">
-                                                    <span>{{ $tenant->lastestContract->cancelled_at->format('Y/m/d')}}</span>
-                                                </p>
-                                            </div>
+                                                <div class="mb-3">
+                                                    <h6 class="card-subtitle">Cancelado</h6>
+                                                    <p class="card-text fs-5 fw-lighter">
+                                                        <span>{{ $tenant->lastestContract->cancelled_at->format('Y/m/d')}}</span>
+                                                    </p>
+                                                </div>
                                             @endif
                                         </div>
-                                        @if ($tenant->lastestContract->active)
+                                        @if ($tenant->lastestContract->isActive || $tenant->lastestContract->isComing)
                                             <x-modal name="confirm-cancell-contract" type="danger" class="btn btn-outline-danger">
                                                 <x-slot name="trigger">
                                                     Cancelar contrato
@@ -202,13 +186,13 @@
                                                 </x-slot>
                                             </x-modal>
                                         @else
-                                            <a class="btn btn-outline-info" href="/contracts/tenants/{{$tenant->id}}/create">Generar contrato</a>
+                                            <a class="btn btn-outline-info" href="/contracts/tenants/{{$tenant->id}}/create">Nuevo contrato</a>
                                         @endif
                                     @else
                                         <p class="card-text">
                                             No tiene ningún contrato contigo.
                                         </p>
-                                        <a class="btn btn-outline-info" href="/contracts/tenants/{{$tenant->id}}/create">Generar contrato</a>
+                                        <a class="btn btn-outline-info" href="/contracts/tenants/{{$tenant->id}}/create">Nuevo contrato</a>
                                     @endif
                                 </div>
                             </div>

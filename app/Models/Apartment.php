@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Building;
+use Illuminate\Database\Eloquent\Builder;
 use Laravel\Scout\Searchable;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Building;
+use App\Models\Contract;
 
 class Apartment extends Model
 {
@@ -63,6 +65,11 @@ class Apartment extends Model
         return $this->building->lessor();
     }
 
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class);
+    }
+
     public function getHrefAttribute()
     {
         return route('apartments.show', ['apartment' => $this], false);
@@ -70,8 +77,7 @@ class Apartment extends Model
 
     public function scopeOfLessor($query, $user_id)
     {
-        return $query->leftJoin('buildings', 'apartments.building_id', '=', 'buildings.id')
-            ->where('user_id', $user_id);
+        return $query->whereRelation('building', 'user_id', $user_id);
     }
 
     public function scopeOfCurrentUser($query)
@@ -79,9 +85,28 @@ class Apartment extends Model
         return $query->ofLessor(Auth::id());
     }
 
-    public function scopeJoinBuildings($query)
+    public function scopeJoinBuilding($query)
     {
-        return $query->leftJoin('buildings', 'buildings.id', '=', 'building_id');
+        return $query->leftJoin('buildings', 'buildings.id', '=', 'apartments.building_id');
+    }
+    
+    public function scopeAvailable($query)
+    {
+        return $query->doesntHave('contracts')
+            ->orWhereHas('contracts', function (Builder $query) {
+                $query->whereNotNull('cancelled_at')
+                    ->orWhere('end_at', '<=', today());
+            });
+    }
+
+    public function scopeUnavailable($query)
+    {
+        return $query->has('contracts');
+    }
+
+    public function scopeJoinContract($query)
+    {
+        return $query->leftJoin('contract', 'contract.apartment_id', '=', 'apartments.id');
     }
 
     public function scopeSearching($query, $term)

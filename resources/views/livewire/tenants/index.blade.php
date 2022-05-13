@@ -26,6 +26,10 @@
                             type="button" wire:click="sort('birthday')">
                             Edad
                         </button></li>
+                        <li><button @class(['dropdown-item', 'active' => $this->sortByIs('status')]) 
+                            type="button" wire:click="sort('status')">
+                            Estado
+                        </button></li>
                     </ul>
                 </div>
                 <div class="btn-group mb-md-2 ms-md-2" role="group" aria-label="View type check group">
@@ -69,6 +73,12 @@
                                             <i class="{{ $this->sortIcon('birthday') }}"></i>
                                         </div>
                                     </th>
+                                    <th wire:click="sort('status')" role="button" scope="col">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Estado</span>
+                                            <i class="{{ $this->sortIcon('status') }}"></i>
+                                        </div>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -90,6 +100,9 @@
                                             @else
                                                 <span class="badge bg-light-danger">Desconocida</span>
                                             @endif
+                                        </td>
+                                        <td>
+                                            @include('resources.contracts.components.status-show', ['contract' => $tenant->lastestContract])
                                         </td>
                                     </tr>
                                 @endforeach

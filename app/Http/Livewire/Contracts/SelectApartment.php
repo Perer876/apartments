@@ -37,7 +37,7 @@ class SelectApartment extends Component
 
     public function render()
     {
-        $apartments = Apartment::select('apartments.*' ,'buildings.alias as building_alias')
+        $apartments = Apartment::available()
             ->ofCurrentUser()
             ->searching($this->search)
             ->orderBy($this->sortBy, $this->sortDirection())

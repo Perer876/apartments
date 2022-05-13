@@ -6,6 +6,7 @@ use App\Models\Contract;
 use App\Models\Tenant;
 use App\Http\Requests\StoreContractRequest;
 use App\Models\Apartment;
+use Carbon\Carbon;
 
 class ContractController extends Controller
 {
@@ -18,7 +19,7 @@ class ContractController extends Controller
     {
         $validated = $request->validated();
 
-        $end_at = now();
+        $end_at = new Carbon($validated['start_at']);
         if($validated['period'] == 'months')
         {
             $end_at->addMonths($validated['amount']);
@@ -33,6 +34,11 @@ class ContractController extends Controller
 
         Contract::create($validated);
 
+        session()->push('messages', [
+            'text' => 'Se creo el nuevo contrato correctamente',
+            'icon' => 'bi bi-check2-circle'
+        ]);
+
         return redirect()->route('tenants.show', $validated['tenant_id']);
     }
 
@@ -40,6 +46,13 @@ class ContractController extends Controller
     {
         $contract->cancelled_at = now();
         $contract->save();
+
+        session()->push('messages', [
+            'text' => 'Se cancelo el contrato',
+            'color' => 'warning',
+            'icon' => 'bi-emoji-frown'
+        ]);
+
         return redirect()->route('tenants.show', $contract->tenant_id);
     }
 }

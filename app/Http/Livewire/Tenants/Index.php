@@ -29,6 +29,7 @@ class Index extends Component
         'first_name',
         'phone',
         'birthday',
+        'status',
     ];
 
     protected $validViewValues = [
@@ -44,7 +45,9 @@ class Index extends Component
 
     public function render()
     {
-        $tenants = Tenant::ofCurrentUser()
+        $tenants = Tenant::select('tenants.*')
+            ->withStatus()
+            ->ofCurrentUser()
             ->searching($this->search)
             ->orderBy($this->sortBy, $this->sortDirection())
             ->paginate(12);
