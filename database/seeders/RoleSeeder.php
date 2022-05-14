@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -16,35 +15,40 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $permissions = [
-            'create buildings',
-            'update buildings',
-            'delete buildings',
-            'show buildings',
+        // Reset cached roles and permissions
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-            'create apartments',
-            'update apartments',
-            'delete apartments',
-            'show apartments',
-
-            'create tenants',
-            'update tenants',
-            'delete tenants',
-            'show tenants',
-        ];
-
-        foreach($permissions as $permission)
+        foreach(config('roles') as $role => $permissions)
         {
-            Permission::create(['name' => $permission]);
+            Role::create(['name' => $role]);
+            $this->createPermissions($role, $permissions);
         }
+    }
 
-        $lessor = Role::create(['name' => 'lessor']);
-        $lessor->givePermissionTo($permissions);
+    public function createPermissions(&$role, $permissions)
+    {
+        $this->createPermission('', $permissions, $role);
+    }
 
-        $tenant = Role::create(['name' => 'tenant']);
-        $tenant->givePermissionTo([
-            'show buildings',
-            'show apartments',
-        ]);
+    public function createPermission($before, $permissions, &$role)
+    {
+        foreach($permissions as $keyPermission => $valuePermission)
+        {
+            $newBefore = (strlen($before) > 0 ? $before . '.' : '');
+            
+            if(is_string($keyPermission))
+            {
+                $this->createPermission(
+                    $newBefore . $keyPermission, 
+                    $valuePermission, 
+                    $role
+                );
+            }
+            else
+            {
+                Permission::firstOrCreate(['name' => $newBefore . $valuePermission])
+                    ->assignRole($role);
+            }
+        }
     }
 }
