@@ -108,6 +108,7 @@
                                 @foreach ($buildings as $building)
                                     <tr>
                                         <td>
+                                            <i class="bi bi-house"></i>
                                             <a href="{{ $building->href }}" class="link-secondary text-underline-hover">
                                                 {{ $building->alias }}
                                             </a>
@@ -140,7 +141,10 @@
                             <div class="card-header bg-light-success">
                                 <div class="d-flex justify-content-between align-items-start">
                                     <a class="stretched-link" href="{{ $building->href }}">
-                                        <h4 class="card-title">{{ $building->alias }}</h4>
+                                        <h4 class="card-title">
+                                            <i class="bi bi-house-fill me-1"></i>
+                                            {{ $building->alias }}
+                                        </h4>
                                     </a>
                                     <span class="badge bg-success fs-6">
                                         {{ $building->apartments_count}}

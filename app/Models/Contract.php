@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\Tenant;
 use App\Models\Apartment;
 
@@ -76,5 +76,15 @@ class Contract extends Pivot
             }
             return "active";
         }
+    }
+
+    public function scopeOfLessor($query, $user_id)
+    {
+        return $query->where('user_id', $user_id);
+    }
+
+    public function scopeOfCurrentUser($query)
+    {
+        return $query->ofLessor(Auth::id());
     }
 }

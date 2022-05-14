@@ -33,6 +33,7 @@ class Index extends Component
         'bathrooms',
         'bedrooms',
         'monthly_rent',
+        'status',
     ];
 
     protected $validViewValues = [
@@ -49,8 +50,10 @@ class Index extends Component
     public function render()
     {
         $apartments = Apartment::select('apartments.*' ,'buildings.alias as building_alias')
+            ->withStatus()
             ->joinBuilding()
             ->ofCurrentUser()
+            ->with('lastestContract')
             ->searching($this->search)
             ->orderBy($this->sortBy, $this->sortDirection())
             ->paginate(12);

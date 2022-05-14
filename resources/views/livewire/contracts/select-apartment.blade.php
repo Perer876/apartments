@@ -15,7 +15,10 @@
                     <input type="radio" class="btn-check" name="apartment_id"
                         id="apartment_{{$apartment->id}}" autocomplete="off" value="{{$apartment->id}}">
                     <label class="btn btn-outline-secondary list-group-item" for="apartment_{{$apartment->id}}">
-                        @include('resources.apartments.components.list-item-show', compact('apartment'))
+                        @include('resources.apartments.components.list-item-show', [
+                            'apartment' => $apartment,
+                            'hide' => ['contract']
+                        ])
                     </label>
                 @endforeach
                 </div>

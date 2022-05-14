@@ -48,6 +48,7 @@ class Index extends Component
         $tenants = Tenant::select('tenants.*')
             ->withStatus()
             ->ofCurrentUser()
+            ->with('lastestContract')
             ->searching($this->search)
             ->orderBy($this->sortBy, $this->sortDirection())
             ->paginate(12);

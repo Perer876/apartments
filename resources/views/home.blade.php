@@ -74,7 +74,7 @@
                             </div>
                             <div class="col-md-8">
                                 <h6 class="text-muted font-semibold">Contratos</h6>
-                                <h6 class="font-extrabold mb-0 fs-5">112</h6>
+                                <h6 class="font-extrabold mb-0 fs-5">{{ $contracts_count }}</h6>
                             </div>
                         </div>
                     </div>

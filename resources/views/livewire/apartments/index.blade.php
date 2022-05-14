@@ -60,26 +60,39 @@
                                             <i class="{{ $this->sortIcon('monthly_rent') }}"></i>
                                         </div>
                                     </th>
+                                    <th wire:click="sort('status')" role="button" scope="col">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="me-1">Contrato</span>
+                                            <i class="{{ $this->sortIcon('status') }}"></i>
+                                        </div>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($apartments as $apartment)
                                     <tr>
                                         <td>
+                                            <i class="bi bi-house"></i>
                                             <a href="/buildings/{{$apartment->building_id }}" class="link-secondary text-underline-hover">
                                                 {{$apartment->building_alias}}
                                             </a>
                                         </td>
                                         <td>
+                                            <i class="bi bi-door-closed"></i>
                                             <a href="{{ $apartment->href }}" class="link-secondary text-underline-hover">
                                                 {{$apartment->number}}
                                             </a>
                                         </td>
-                                        <td>{{$apartment->floor}}</td>
+                                        <td>{{$apartment->floor == 0 ? 'Planta baja' : $apartment->floor . '° piso'}}</td>
                                         <td>{{$apartment->garages}}</td>
                                         <td>{{$apartment->bathrooms}}</td>
                                         <td>{{$apartment->bedrooms}}</td>
                                         <td>$ {{$apartment->monthly_rent}}</td>
+                                        <td>
+                                            @include('resources.contracts.components.status-show', [
+                                                'contract' => $apartment->lastestContract
+                                            ])
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

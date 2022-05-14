@@ -106,19 +106,12 @@
                                     <hr>
                                     @if( $tenant->lastestContract )
                                         <div class="d-md-flex w-100 justify-content-between">
-                                            <div class="mb-3">
-                                                <h6 class="card-subtitle">
-                                                    Dirección
-                                                </h6>
-                                                @include('resources.buildings.components.address-show', [
-                                                    'building' => $tenant->lastestContract->apartment->building
-                                                ])
-                                            </div>
                                             <div class="text-md-end mb-3">
                                                 <h6 class="card-subtitle">
                                                     Departamento
                                                 </h6>
                                                 <p class="card-text fs-3 fw-lighter">
+                                                    <i class="bi bi-door-closed"></i>
                                                     <a href="/apartments/{{$tenant->lastestContract->apartment->id}}" class="link-secondary text-underline-hover">
                                                         {{ $tenant->lastestContract->apartment->number }}
                                                     </a>

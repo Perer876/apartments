@@ -21,5 +21,7 @@
             type="button" wire:click="sort('bedrooms')">Dormitorios</button></li>
         <li><button class="dropdown-item{{$this->sortByIs('monthly_rent', ' active')}}"
             type="button" wire:click="sort('monthly_rent')">Renta mensual</button></li>
+        <li><button class="dropdown-item{{$this->sortByIs('status', ' active')}}"
+            type="button" wire:click="sort('status')">Contrato</button></li>
     </ul>
 </div>

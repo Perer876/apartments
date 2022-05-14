@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Laravel\Scout\Searchable;
+use App\Traits\Models\HasContracts;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Building;
 use App\Models\Contract;
@@ -14,6 +14,7 @@ class Apartment extends Model
 {
     use HasFactory;
     use Searchable;
+    use HasContracts;
 
     protected $fillable = [
         'number',
@@ -90,20 +91,6 @@ class Apartment extends Model
         return $query->leftJoin('buildings', 'buildings.id', '=', 'apartments.building_id');
     }
     
-    public function scopeAvailable($query)
-    {
-        return $query->doesntHave('contracts')
-            ->orWhereHas('contracts', function (Builder $query) {
-                $query->whereNotNull('cancelled_at')
-                    ->orWhere('end_at', '<=', today());
-            });
-    }
-
-    public function scopeUnavailable($query)
-    {
-        return $query->has('contracts');
-    }
-
     public function scopeJoinContract($query)
     {
         return $query->leftJoin('contract', 'contract.apartment_id', '=', 'apartments.id');

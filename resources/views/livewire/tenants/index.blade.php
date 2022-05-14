@@ -85,7 +85,10 @@
                                 @foreach ($tenants as $tenant)
                                     <tr>
                                         <td>
-                                            <a href="{{ $tenant->href }}" class="link-secondary text-underline-hover">{{ $tenant->name }}</a>
+                                            <i class="bi bi-person"></i>
+                                            <a href="{{ $tenant->href }}" class="link-secondary text-underline-hover">
+                                                {{ $tenant->name }}
+                                            </a>
                                         </td>
                                         <td>
                                             @if($tenant->phone)
@@ -119,7 +122,13 @@
                             <div class="card-content">
                                 <div class="card-body">
                                     <a class="stretched-link" href="{{ $tenant->href }}">
-                                        <h4 class="card-title">{{ $tenant->name }}</h4>
+                                        <div class="d-flex w-100 justify-content-between align-items-center">
+                                            <h4 class="card-title">
+                                                <i class="bi bi-person-fill"></i>
+                                                {{ $tenant->name }}
+                                            </h4>
+                                            @include('resources.contracts.components.status-show', ['contract' => $tenant->lastestContract])
+                                        </div>
                                     </a>
                                     @if($tenant->phone)
                                         <strong>Tel.</strong> {{ $tenant->phone }}
