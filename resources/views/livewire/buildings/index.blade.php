@@ -171,12 +171,12 @@
     @else
         @if( strlen($this->search) == 0 )
             <div class="alert alert-light-info shadow-sm">
-                <i class="bi-exclamation-circle-fill"></i> 
+                <i class="bi-exclamation-circle-fill me-2"></i> 
                 No tienes edificios.
             </div>
         @else            
             <div class="alert alert-light-warning shadow-sm">
-                <i class="bi-search"></i> 
+                <i class="bi-search me-2"></i> 
                 No se encontraron edificios con esa información.
             </div>
         @endif

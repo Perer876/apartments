@@ -10,6 +10,11 @@ use Carbon\Carbon;
 
 class ContractController extends Controller
 {
+    public function index()
+    {
+        return view('resources.contracts.index');
+    }
+
     public function create(Tenant $tenant)
     {
         return view('resources.contracts.form', compact('tenant'));

@@ -4,7 +4,10 @@
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Departamentos</h3>
-                <p class="text-subtitle text-muted">Aquí puedes administrar los diferentes departamentos que forman parte de tus edificios. </p>
+                <p class="text-subtitle text-muted">
+                    Aquí puedes administrar los diferentes departamentos que forman parte de tus edificios. Para agregar un nuevo departamento, dirigirse al
+                    <a href="{{route('buildings.index')}}" class="link-info">edificio</a> al cual le quieras agregar uno.
+                </p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <x-breadcrumb align="right">

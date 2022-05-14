@@ -5,9 +5,9 @@
     <div class="d-flex justify-content-between justify-content-md-start align-items-baseline">
         <h4 class="d-inline-block me-3">{{$apartment->number}}</h4>
         @if(!in_array('contract', $hide))
-            <span class="fs-5">
+            {{-- <span class="fs-5"> --}}
                 @include('resources.contracts.components.status-show', ['contract' => $apartment->lastestContract])
-            </span>
+            {{-- </span> --}}
         @endif
     </div>
     @if(!in_array('building', $hide))

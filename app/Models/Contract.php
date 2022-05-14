@@ -6,9 +6,13 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Tenant;
 use App\Models\Apartment;
+use Laravel\Scout\Searchable;
+use Illuminate\Support\Facades\DB;
 
 class Contract extends Pivot
 {
+    use Searchable;
+
     public $incrementing = true;
 
     protected $fillable = [
@@ -27,6 +31,15 @@ class Contract extends Pivot
         'end_at' => 'date:Y/m/d',
         'cancelled_at' => 'datetime:Y/m/d h:i:s',
     ];
+
+    public function toSearchableArray()
+    {
+        return [
+            'tenant_name' => $this->tenant->name,
+            'apartment_number' => $this->apartment->number,
+            'monthly_rent' => $this->monthly_rent,
+        ];
+    }
 
     public function apartment()
     {
@@ -80,11 +93,55 @@ class Contract extends Pivot
 
     public function scopeOfLessor($query, $user_id)
     {
-        return $query->where('user_id', $user_id);
+        return $query->where($this->getTable() . '.user_id', $user_id);
     }
 
     public function scopeOfCurrentUser($query)
     {
         return $query->ofLessor(Auth::id());
+    }
+
+    public function scopeJoinApartment($query)
+    {
+        return $query->leftJoin(
+            'apartments', 
+            'apartments.id', '=', $this->getTable() . '.' . $this->apartment()->getForeignKeyName()
+        );
+    }
+
+    public function scopeJoinTenant($query)
+    {
+        return $query->leftJoin(
+            'tenants', 
+            'tenants.id', '=', $this->getTable() . '.' . $this->tenant()->getForeignKeyName()
+        );
+    }
+
+    public function scopeSearching($query, $term)
+    {
+        if(strlen($term) !== 0)
+        {
+            $query->whereIn($this->getTable() . '.' . $this->getKeyName(), 
+                Contract::search($term)->query(function ($query) {
+                    $query->select('id');
+                })->get()
+            );
+        }
+    }
+
+    public static function calculatedStatus($as = null)
+    {
+        $now = now()->format("'Y-m-d'");
+        return DB::raw('IF(cancelled_at is not null, 0, 
+                    IF('.$now.' < start_at, 1, 
+                        IF('.$now.' >= end_at, 2, 3)
+                    )
+                )' . ($as ? (' as ' . $as) : '')
+            );
+    }
+
+    public static function calculatedPeriod($as = null)
+    {
+        return DB::raw("IF(period = 'years', amount * 12, amount)" . ($as ? (' as ' . $as) : ''));
     }
 }

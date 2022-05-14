@@ -15,14 +15,7 @@ trait HasContracts
 
     public function scopeWithStatus($query)
     {
-        $now = now()->format("'Y-m-d'");
-        return $query->addSelect(['status' => Contract::select(
-                DB::raw('IF(cancelled_at is not null, 0, 
-                    IF('.$now.' < start_at, 1, 
-                        IF('.$now.' >= end_at, 2, 3)
-                    )
-                )')
-            )
+        return $query->addSelect(['status' => Contract::select(Contract::calculatedStatus())
             ->whereColumn($this->getForeignKey(), $this->getTable() . '.' . $this->getKeyName())
             ->orderByDesc('updated_at')
             ->limit(1)
