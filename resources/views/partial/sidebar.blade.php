@@ -33,9 +33,11 @@
                     Departamentos
                 </x-sidebar.item>
 
-                <x-sidebar.item icon="bi-person-fill" route="tenants" href="/tenants">
-                    Inquilinos
-                </x-sidebar.item>
+                @can('create', App\Models\Tenant::class)
+                    <x-sidebar.item icon="bi-person-fill" route="tenants" href="/tenants">
+                        Inquilinos
+                    </x-sidebar.item>
+                @endcan
                 
                 <x-sidebar.item icon="bi-clipboard-fill" route="contracts" href="/contracts">
                     Contratos

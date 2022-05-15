@@ -107,71 +107,73 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row-12">
-                        <div class="card shadow-sm mb-4">
-                            <div class="card-content">
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <i class="bi bi-clipboard me-2"></i>
-                                        Contrato
-                                    </h4>
-                                    <hr>
-                                    @if( $apartment->lastestContract )
-                                        <h6 class="card-subtitle">
-                                            Inquilino
-                                        </h6>
-                                        <p class="card-text fs-3 fw-lighter">
-                                            <i class="bi bi-person"></i>
-                                            <a href="/tenants/{{$apartment->lastestContract->tenant->id}}" class="link-secondary text-underline-hover">
-                                                {{ $apartment->lastestContract->tenant->name }}
-                                            </a>
-                                        </p>
-                                        <div class="d-md-flex w-100 justify-content-between">
-                                            <div class="mb-3">
-                                                <h6 class="card-subtitle">Estatus</h6>
-                                                <p class="card-text fs-5">
-                                                    @include('resources.contracts.components.status-show', ['contract' => $apartment->lastestContract])
-                                                </p>
-                                            </div>
-                                            <div class="text-md-end mb-3">
-                                                <h6 class="card-subtitle">Renta mensual</h6>
-                                                <p class="card-text fs-4">
-                                                    <span class="badge bg-light-info">
-                                                        ${{ $apartment->lastestContract->monthly_rent }}
-                                                    </span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="d-md-flex w-100 justify-content-between">
-                                            <div class="mb-3">
-                                                <h6 class="card-subtitle">Comienzo</h6>
-                                                <p class="card-text fs-5 fw-lighter">
-                                                    <span>{{ $apartment->lastestContract->start_at->format('Y/m/d')}}</span>
-                                                </p>
-                                            </div>
-                                            <div class="mb-3">
-                                                <h6 class="card-subtitle">Conclución</h6>
-                                                <p class="card-text fs-5 fw-lighter">
-                                                    <span>{{ $apartment->lastestContract->end_at->format('Y/m/d')}}</span>
-                                                </p>
-                                            </div>
-                                            @if($apartment->lastestContract->cancelled_at)
+                    <div class="col-12">
+                        @can('view', [App\Models\Contract::class, $apartment])
+                            <div class="card shadow-sm mb-4">
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <h4 class="card-title">
+                                            <i class="bi bi-clipboard me-2"></i>
+                                            Contrato
+                                        </h4>
+                                        <hr>
+                                        @if( $apartment->lastestContract )
+                                            <h6 class="card-subtitle">
+                                                Inquilino
+                                            </h6>
+                                            <p class="card-text fs-3 fw-lighter">
+                                                <i class="bi bi-person"></i>
+                                                <a href="/tenants/{{$apartment->lastestContract->tenant->id}}" class="link-secondary text-underline-hover">
+                                                    {{ $apartment->lastestContract->tenant->name }}
+                                                </a>
+                                            </p>
+                                            <div class="d-md-flex w-100 justify-content-between">
                                                 <div class="mb-3">
-                                                    <h6 class="card-subtitle">Cancelado</h6>
-                                                    <p class="card-text fs-5 fw-lighter">
-                                                        <span>{{ $apartment->lastestContract->cancelled_at->format('Y/m/d')}}</span>
+                                                    <h6 class="card-subtitle">Estatus</h6>
+                                                    <p class="card-text fs-5">
+                                                        @include('resources.contracts.components.status-show', ['contract' => $apartment->lastestContract])
                                                     </p>
                                                 </div>
-                                            @endif
-                                        </div>
-                                    @else
-                                        <p class="card-text">
-                                            No tiene ningún contrato.
-                                        </p>
-                                    @endif
+                                                <div class="text-md-end mb-3">
+                                                    <h6 class="card-subtitle">Renta mensual</h6>
+                                                    <p class="card-text fs-4">
+                                                        <span class="badge bg-light-info">
+                                                            ${{ $apartment->lastestContract->monthly_rent }}
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="d-md-flex w-100 justify-content-between">
+                                                <div class="mb-3">
+                                                    <h6 class="card-subtitle">Comienzo</h6>
+                                                    <p class="card-text fs-5 fw-lighter">
+                                                        <span>{{ $apartment->lastestContract->start_at->format('Y/m/d')}}</span>
+                                                    </p>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <h6 class="card-subtitle">Conclución</h6>
+                                                    <p class="card-text fs-5 fw-lighter">
+                                                        <span>{{ $apartment->lastestContract->end_at->format('Y/m/d')}}</span>
+                                                    </p>
+                                                </div>
+                                                @if($apartment->lastestContract->cancelled_at)
+                                                    <div class="mb-3">
+                                                        <h6 class="card-subtitle">Cancelado</h6>
+                                                        <p class="card-text fs-5 fw-lighter">
+                                                            <span>{{ $apartment->lastestContract->cancelled_at->format('Y/m/d')}}</span>
+                                                        </p>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        @else
+                                            <p class="card-text">
+                                                No tiene ningún contrato.
+                                            </p>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endcan
                     </div>
                 </div>
             </div>

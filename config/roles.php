@@ -51,6 +51,7 @@ return [
         ],
   
         'contracts' => [
+            'index',
             'show',
         ],
 

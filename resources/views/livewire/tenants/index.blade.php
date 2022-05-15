@@ -40,7 +40,9 @@
                         id="card-view" autocomplete="off" {{ $this->viewIs('cards', ' checked') }}>
                     <label class="btn btn-outline-warning" for="card-view">Tarjetas</label>
                 </div>
-                <a href="/tenants/create" class="btn btn-primary mb-md-2 ms-md-2">+ Nuevo Inquilino</a>
+                @can('create', App\Models\Tenant::class)
+                    <a href="/tenants/create" class="btn btn-primary mb-md-2 ms-md-2">+ Nuevo Inquilino</a>
+                @endcan
             </div>
         </div>
     </div>

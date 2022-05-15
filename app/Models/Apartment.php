@@ -83,7 +83,8 @@ class Apartment extends Model
 
     public function scopeOfCurrentUser($query)
     {
-        return $query->when(Auth::user()->hasRole('lessor'), function ($query) {
+        $user = User::find(Auth::id());
+        return $query->when($user->hasRole('lessor'), function ($query) {
             $query->ofLessor(Auth::id());
         });
     }

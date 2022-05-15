@@ -51,32 +51,36 @@
                             <div class="card-footer">
                                 <div class="d-md-flex w-100 justify-content-between">
                                     <div class="buttons text-center text-md-left">
-                                        <a href="/tenants/{{$tenant->id}}/edit" class="btn btn-outline-warning">
-                                            <i class="bi bi-pencil"></i>
-                                            Editar
-                                        </a>
-                                        <x-modal name="confirm-delete" type="danger" class="btn btn-outline-danger">
-                                            <x-slot name="trigger">
-                                                <i class="bi bi-trash"></i>
-                                                Eliminar
-                                            </x-slot>
-                                            <x-slot name="title">
-                                                Eliminar inquilino
-                                            </x-slot>
-                                            ¿Estas seguro que quieres eliminar este inquilino? Se borraran también los contratos que tengas registrados que esten relacionados con este inquilino.
-                                            <x-slot name="footer">
-                                                <x-modal.dismiss-button class="btn btn-light-secondary">
-                                                    Cancelar
-                                                </x-modal.dismiss-button>
-                                                <form action="/tenants/{{$tenant->id}}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">
-                                                        Confirmar
-                                                    </button>
-                                                </form>
-                                            </x-slot>
-                                        </x-modal>
+                                        @can('update', $tenant)
+                                            <a href="/tenants/{{$tenant->id}}/edit" class="btn btn-outline-warning">
+                                                <i class="bi bi-pencil"></i>
+                                                Editar
+                                            </a>
+                                        @endcan
+                                        @can('delete', $tenant)
+                                            <x-modal name="confirm-delete" type="danger" class="btn btn-outline-danger">
+                                                <x-slot name="trigger">
+                                                    <i class="bi bi-trash"></i>
+                                                    Eliminar
+                                                </x-slot>
+                                                <x-slot name="title">
+                                                    Eliminar inquilino
+                                                </x-slot>
+                                                ¿Estas seguro que quieres eliminar este inquilino? Se borraran también los contratos que tengas registrados que esten relacionados con este inquilino.
+                                                <x-slot name="footer">
+                                                    <x-modal.dismiss-button class="btn btn-light-secondary">
+                                                        Cancelar
+                                                    </x-modal.dismiss-button>
+                                                    <form action="/tenants/{{$tenant->id}}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">
+                                                            Confirmar
+                                                        </button>
+                                                    </form>
+                                                </x-slot>
+                                            </x-modal>
+                                        @endcan
                                     </div>
                                     <div>
                                         <small class="text-muted d-flex justify-content-end">
@@ -234,7 +238,9 @@
                                                 @endforeach
                                             </ul>
                                         @endif
-                                        <a class="btn btn-outline-primary" href="/tenants/{{$tenant->id}}/invite">Invitar</a>
+                                        @can('invite', $tenant)
+                                            <a class="btn btn-outline-primary" href="/tenants/{{$tenant->id}}/invite">Invitar</a>
+                                        @endcan
                                     @else
                                         <p class="card-text">
                                             Este inquilino ya tiene una cuenta de usuario asociada.

@@ -12,16 +12,20 @@ class ContractController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny', Contract::class);
         return view('resources.contracts.index');
     }
 
     public function create(Tenant $tenant)
     {
+        $this->authorize('create', [Contract::class, $tenant]);
         return view('resources.contracts.form', compact('tenant'));
     }
 
-    public function store(StoreContractRequest $request)
+    public function store(StoreContractRequest $request, Tenant $tenant)
     {
+        $this->authorize('create', [Contract::class, $tenant]);
+
         $validated = $request->validated();
 
         $end_at = new Carbon($validated['start_at']);
@@ -49,6 +53,8 @@ class ContractController extends Controller
 
     public function cancel(Contract $contract)
     {
+        $this->authorize('cancel', $contract);
+
         $contract->cancelled_at = now();
         $contract->save();
 

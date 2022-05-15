@@ -96,9 +96,23 @@ class Contract extends Pivot
         return $query->where($this->getTable() . '.user_id', $user_id);
     }
 
+    public function scopeOfTenant($query, $user_id)
+    {
+        $tenant = Tenant::where('user_id', $user_id)->first();
+        return $query->where($this->getTable() . '.tenant_id', ($tenant ? $tenant->id : null));
+    }
+
     public function scopeOfCurrentUser($query)
     {
-        return $query->ofLessor(Auth::id());
+        $user = User::find(Auth::id());
+        if($user->hasRole('lessor') )
+        {
+            $query->ofLessor(Auth::id());
+        }
+        else if($user->hasRole('tenant'))
+        {
+            $query->ofTenant(Auth::id());
+        }
     }
 
     public function scopeJoinApartment($query)

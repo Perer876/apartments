@@ -28,7 +28,7 @@ class StoreContractRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'tenant_id' => $this->route('tenant'),
+            'tenant_id' => $this->route('tenant')->id,
             'user_id' => Auth::id(),
         ]);
     }

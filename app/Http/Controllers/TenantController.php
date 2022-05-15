@@ -14,6 +14,7 @@ class TenantController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Tenant::class);
         return view('resources.tenants.index');
     }
 
@@ -24,6 +25,7 @@ class TenantController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Tenant::class);
         return view('resources.tenants.form');
     }
 
@@ -35,6 +37,7 @@ class TenantController extends Controller
      */
     public function show(Tenant $tenant)
     {
+        $this->authorize('view', $tenant);
         return view('resources.tenants.show', compact('tenant'));
     }
 
@@ -46,6 +49,7 @@ class TenantController extends Controller
      */
     public function edit(Tenant $tenant)
     {
+        $this->authorize('update', $tenant);
         return view('resources.tenants.form', compact('tenant'));
     }
 
@@ -57,6 +61,8 @@ class TenantController extends Controller
      */
     public function destroy(Tenant $tenant)
     {
+        $this->authorize('delete', $tenant);
+
         $tenant->delete();
 
         session()->push('messages', [
