@@ -16,6 +16,8 @@ class ApartmentController extends Controller
      */
     public function index(Building $building)
     {
+        $this->authorize('viewAny', Apartment::class);
+
         if ($building->id) 
         {
             return view('resources.apartments.index', [
@@ -35,6 +37,7 @@ class ApartmentController extends Controller
      */
     public function create(Building $building)
     {
+        $this->authorize('create', [Apartment::class, $building]);
         return view('resources.apartments.form', compact('building'));
     }
 
@@ -46,6 +49,8 @@ class ApartmentController extends Controller
      */
     public function store(Request $request, Building $building)
     {
+        $this->authorize('create', [Apartment::class, $building]);
+        
         $form_rules = [
             'number' => [
                 'required',
@@ -81,6 +86,7 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
+        $this->authorize('view', Apartment::class);
         return view('resources.apartments.show', compact('apartment'));
     }
 
@@ -92,6 +98,7 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
+        $this->authorize('update', $apartment);
         $building = $apartment->building;
         return view('resources.apartments.form', compact('apartment', 'building'));
     }
@@ -105,6 +112,8 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
+        $this->authorize('update', $apartment);
+
         $form_rules = [
             'number' => [
                 'required',
@@ -142,6 +151,8 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
+        $this->authorize('delete', $apartment);
+
         $apartment->delete();
 
         session()->push('messages', [

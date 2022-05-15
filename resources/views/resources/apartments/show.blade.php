@@ -46,30 +46,34 @@
                     <div class="card-footer">
                         <div class="d-md-flex w-100 justify-content-between">
                             <div class="buttons text-center text-md-left">
-                                <a href="/apartments/{{$apartment->id}}/edit" class="btn btn-outline-warning">
-                                    <i class="bi bi-pencil"></i>
-                                    Editar
-                                </a>
-                                <x-modal name="confirm-delete" type="danger" class="btn btn-outline-danger">
-                                    <x-slot name="trigger">
-                                        <i class="bi bi-trash"></i>
-                                        Eliminar
-                                    </x-slot>
-                                    <x-slot name="title">
-                                        Eliminar departamento
-                                    </x-slot>
-                                    ¿Estas seguro que quieres eliminar este este departamento?
-                                    <x-slot name="footer">
-                                        <x-modal.dismiss-button class="btn btn-light-secondary">
-                                            Cancelar
-                                        </x-modal.dismiss-button>
-                                        <form action="/apartments/{{$apartment->id}}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input class="btn btn-danger" type="submit" value="Eliminar">
-                                        </form>
-                                    </x-slot>
-                                </x-modal>
+                                @can('update', $apartment)
+                                    <a href="/apartments/{{$apartment->id}}/edit" class="btn btn-outline-warning">
+                                        <i class="bi bi-pencil"></i>
+                                        Editar
+                                    </a>
+                                @endcan
+                                @can('delete', $apartment)
+                                    <x-modal name="confirm-delete" type="danger" class="btn btn-outline-danger">
+                                        <x-slot name="trigger">
+                                            <i class="bi bi-trash"></i>
+                                            Eliminar
+                                        </x-slot>
+                                        <x-slot name="title">
+                                            Eliminar departamento
+                                        </x-slot>
+                                        ¿Estas seguro que quieres eliminar este este departamento?
+                                        <x-slot name="footer">
+                                            <x-modal.dismiss-button class="btn btn-light-secondary">
+                                                Cancelar
+                                            </x-modal.dismiss-button>
+                                            <form action="/apartments/{{$apartment->id}}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input class="btn btn-danger" type="submit" value="Eliminar">
+                                            </form>
+                                        </x-slot>
+                                    </x-modal>
+                                @endcan
                             </div>
                             <div>
                                 <small class="text-muted d-flex justify-content-end">

@@ -39,7 +39,9 @@
                         id="card-view" autocomplete="off" {{ $this->viewIs('cards', ' checked') }}>
                     <label class="btn btn-outline-warning" for="card-view">Tarjetas</label>
                 </div>
-                <a href="{{route('buildings.create')}}" class="btn btn-primary mb-md-2 ms-md-2">+ Nuevo Edificio</a>
+                @can('create', App\Models\Building::class)
+                    <a href="{{route('buildings.create')}}" class="btn btn-primary mb-md-2 ms-md-2">+ Nuevo Edificio</a>
+                @endcan
             </div>
         </div>
     </div>
@@ -172,7 +174,7 @@
         @if( strlen($this->search) == 0 )
             <div class="alert alert-light-info shadow-sm">
                 <i class="bi-exclamation-circle-fill me-2"></i> 
-                No tienes edificios.
+                No hay edificios.
             </div>
         @else            
             <div class="alert alert-light-warning shadow-sm">

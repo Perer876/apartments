@@ -21,9 +21,11 @@
                         <x-sidebar.submenu-item href="/buildings">
                             Lista
                         </x-sidebar.submenu-item>
-                        <x-sidebar.submenu-item href="/buildings/create">
-                            Añadir
-                        </x-sidebar.submenu-item>
+                        @can('create', App\Models\Building::class)
+                            <x-sidebar.submenu-item href="/buildings/create">
+                                Añadir
+                            </x-sidebar.submenu-item>
+                        @endcan
                     </x-slot>
                 </x-sidebar.item>
 

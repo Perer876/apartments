@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-icons/bootstrap-icons.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
         <link rel="shortcut icon" href="{{ $attributes['icon-href'] ?? asset('assets/images/favicon.svg') }}" type="image/x-icon">
+        <script src="{{ mix('js/app.js') }}" defer></script>
         @stack('stylesheets')
     </head>
     <body>

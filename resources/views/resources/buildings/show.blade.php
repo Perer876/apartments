@@ -3,7 +3,7 @@
     <div class="page-heading">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Edificio: {{ $building->alias }}</h3>
+                <h3>Edificio - {{ $building->alias }}</h3>
                 <p class="text-subtitle text-muted">Mostrando detalle.</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
@@ -50,30 +50,34 @@
                     <div class="card-footer">
                         <div class="d-md-flex w-100 justify-content-between">
                             <div class="buttons text-center text-md-left">
-                                <a href="/buildings/{{$building->id}}/edit" class="btn btn-outline-warning">
-                                    <i class="bi bi-pencil"></i>
-                                    Editar
-                                </a>
-                                <x-modal name="confirm-delete" type="danger" class="btn btn-outline-danger">
-                                    <x-slot name="trigger">
-                                        <i class="bi bi-trash"></i>
-                                        Eliminar
-                                    </x-slot>
-                                    <x-slot name="title">
-                                        Eliminar edificio
-                                    </x-slot>
-                                    ¿Estas seguro que quieres eliminar este edificio?
-                                    <x-slot name="footer">
-                                        <x-modal.dismiss-button class="btn btn-light-secondary">
-                                            Cancelar
-                                        </x-modal.dismiss-button>
-                                        <form action="/buildings/{{$building->id}}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input class="btn btn-danger" type="submit" value="Eliminar">
-                                        </form>
-                                    </x-slot>
-                                </x-modal>
+                                @can('update', $building)
+                                    <a href="/buildings/{{$building->id}}/edit" class="btn btn-outline-warning">
+                                        <i class="bi bi-pencil"></i>
+                                        Editar
+                                    </a>
+                                @endcan
+                                @can('delete', $building)
+                                    <x-modal name="confirm-delete" type="danger" class="btn btn-outline-danger">
+                                        <x-slot name="trigger">
+                                            <i class="bi bi-trash"></i>
+                                            Eliminar
+                                        </x-slot>
+                                        <x-slot name="title">
+                                            Eliminar edificio
+                                        </x-slot>
+                                        ¿Estas seguro que quieres eliminar este edificio?
+                                        <x-slot name="footer">
+                                            <x-modal.dismiss-button class="btn btn-light-secondary">
+                                                Cancelar
+                                            </x-modal.dismiss-button>
+                                            <form action="/buildings/{{$building->id}}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input class="btn btn-danger" type="submit" value="Eliminar">
+                                            </form>
+                                        </x-slot>
+                                    </x-modal>
+                                @endcan
                             </div>
                             <div>
                                 <small class="text-muted d-flex justify-content-end">
@@ -84,33 +88,36 @@
                                 </small>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12">
-                <div class="card shadow-sm">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <i class="bi-door-closed me-2"></i>
-                                Departamentos
-                            </h4>
-                            <hr>
-                            @if (!$building->apartments->count()) 
-                            <p>No hay ningun departamento<p>
-                            @endif
-                            @include('resources.apartments.views.list', [
-                                'hide' => ['building'],
-                                'apartments' => $building->apartments
-                            ])
-                            <div class="text-center">
-                                <a href="/buildings/{{$building->id}}/apartments/create" class="btn btn-outline-primary mt-3">+ Agregar departamento</a>
+            @can('viewAny', App\Models\Apartment::class)
+                <div class="col-md-6 col-sm-12">
+                    <div class="card shadow-sm">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <i class="bi-door-closed me-2"></i>
+                                    Departamentos
+                                </h4>
+                                <hr>
+                                @if (!$building->apartments->count()) 
+                                <p>No hay ningun departamento<p>
+                                @endif
+                                @include('resources.apartments.views.list', [
+                                    'hide' => ['building'],
+                                    'apartments' => $building->apartments
+                                ])
+                                @can('create', [App\Models\Apartment::class, $building])
+                                    <div class="text-center">
+                                        <a href="/buildings/{{$building->id}}/apartments/create" class="btn btn-outline-primary mt-3">+ Agregar departamento</a>
+                                    </div>
+                                @endcan
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endcan
         </section>
     </div>    
 </x-base>

@@ -54,6 +54,7 @@ class Index extends Component
             ->joinBuilding()
             ->ofCurrentUser()
             ->with('lastestContract')
+            ->with('building')
             ->searching($this->search)
             ->orderBy($this->sortBy, $this->sortDirection())
             ->paginate(12);

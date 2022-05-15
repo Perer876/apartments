@@ -74,7 +74,9 @@ class Building extends Model
 
     public function scopeOfCurrentUser($query)
     {
-        return $query->ofLessor(Auth::id());
+        return $query->when(Auth::user()->hasRole('lessor'), function ($query) {
+            $query->ofLessor(Auth::id());
+        });
     }
 
     public function scopeSearching($query, $term)

@@ -15,6 +15,7 @@ class BuildingController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Building::class);
         return view('resources.buildings.index');
     }
 
@@ -25,6 +26,7 @@ class BuildingController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Building::class);
         return view('resources.buildings.form');
     }
 
@@ -36,6 +38,8 @@ class BuildingController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Building::class);
+
         $form_rules = [
             'alias' => ['required','max:255','unique:App\Models\Building'],
             'street' => 'required|max:255',
@@ -56,7 +60,7 @@ class BuildingController extends Controller
             'icon' => 'bi bi-check2-circle'
         ]);
         
-        return redirect('/buildings');
+        return redirect()->route('buildings.index');
     }
 
     /**
@@ -67,6 +71,7 @@ class BuildingController extends Controller
      */
     public function show(Building $building)
     {
+        $this->authorize('view', Building::class);
         return view('resources.buildings.show', compact('building'));
     }
 
@@ -78,6 +83,7 @@ class BuildingController extends Controller
      */
     public function edit(Building $building)
     {
+        $this->authorize('update', $building);
         return view('resources.buildings.form', compact('building'));
     }
 
@@ -90,6 +96,8 @@ class BuildingController extends Controller
      */
     public function update(Request $request, Building $building)
     {
+        $this->authorize('update', $building);
+
         $form_rules = [
             'alias' => ['required','max:255', Rule::unique('buildings')->ignore($building->id),],
             'street' => 'required|max:255',
@@ -110,7 +118,7 @@ class BuildingController extends Controller
             'icon' => 'bi bi-hand-thumbs-up'
         ]);
 
-        return redirect('/buildings/'.$building->id);
+        return redirect()->route('buildings.show', $building);
     }
 
     /**
@@ -121,6 +129,8 @@ class BuildingController extends Controller
      */
     public function destroy(Building $building)
     {
+        $this->authorize('delete', $building);
+
         $building->delete();
 
         session()->push('messages', [
@@ -129,6 +139,6 @@ class BuildingController extends Controller
             'icon' => 'bi-trash'
         ]);
 
-        return redirect('/buildings');
+        return redirect()->route('buildings.index');
     }
 }
