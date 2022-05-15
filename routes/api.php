@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Building;
+use App\Http\Resources\BuildingResource;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,4 +19,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/buildings', function (){
+    return BuildingResource::collection(Building::all());
+});
+
+Route::get('/buildings/{building}', function (Building $building){
+    return new BuildingResource($building);
 });
