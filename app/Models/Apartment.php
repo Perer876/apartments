@@ -8,6 +8,7 @@ use Laravel\Scout\Searchable;
 use App\Traits\Models\HasContracts;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Building;
+use App\Models\Image;
 use App\Models\Contract;
 
 class Apartment extends Model
@@ -59,6 +60,11 @@ class Apartment extends Model
     public function building()
     {
         return $this->belongsTo(Building::class);
+    }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 
     public function lessor()

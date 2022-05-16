@@ -120,7 +120,7 @@
             <div class="row">
                 @foreach ($tenants as $tenant)
                     <div class="col-xl-4 col-md-6 col-sm-12">
-                        <div class="card shadow-sm">
+                        <div class="card shadow-sm mb-4">
                             <div class="card-content">
                                 <div class="card-body">
                                     <a class="stretched-link" href="{{ $tenant->href }}">

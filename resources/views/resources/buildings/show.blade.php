@@ -31,7 +31,7 @@
                             <p class="card-text">{{ $building->alias }}</p>
                             <h6 class="card-subtitle">Calle</h6>
                             <p class="card-text">{{ $building->street }}</p>
-                            <h6 class="card-subtitle">Numero</h6>
+                            <h6 class="card-subtitle">Número</h6>
                             <p class="card-text">{{ $building->number }}</p>
                             <h6 class="card-subtitle">Código Postal</h6>
                             <p class="card-text">{{ $building->postcode }}</p>

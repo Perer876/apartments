@@ -3,7 +3,7 @@
     <div class="page-heading">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Inquilino - {{ $tenant->name }}</h3>
+                <h3>Inquilino</h3>
                 <p class="text-subtitle text-muted">Mostrando detalle.</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
@@ -24,16 +24,29 @@
                 <div class="row">
                     <!-- Tenant details -->
                     <div class="col-12">
+                        <div class="card shadow-sm mb-4">
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <i class="bi bi-person me-2"></i>
+                                        Nombre
+                                    </h4>
+                                    <p class="card-text text-md-start fs-4">
+                                        {{ $tenant->name }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
                         <div class="card shadow-sm">
                             <div class="card-content">
                                 <div class="card-body">
                                     <h4 class="card-title">
-                                        <i class="bi-person me-2"></i>
+                                        <i class="bi-card-text me-2"></i>
                                         Detalles
                                     </h4>
                                     <hr>
-                                    <h6 class="card-subtitle">Nombre</h6>
-                                    <p class="card-text">{{ $tenant->name }}</p>
                                     <h6 class="card-subtitle">Número de teléfono</h6>
                                     @if($tenant->phone)
                                         <p class="card-text">{{ $tenant->phone }}</p>
@@ -110,7 +123,7 @@
                                     <hr>
                                     @if( $tenant->lastestContract )
                                         <div class="d-md-flex w-100 justify-content-between">
-                                            <div class="text-md-end mb-3">
+                                            <div class="mb-3">
                                                 <h6 class="card-subtitle">
                                                     Departamento
                                                 </h6>
@@ -197,7 +210,7 @@
                     </div>
                     <!-- User related with tenant -->
                     <div class="col-12">
-                        <div class="card shadow-sm">
+                        <div class="card shadow-sm mb-0">
                             <div class="card-content">
                                 <div class="card-body">
                                     <h4 class="card-title">

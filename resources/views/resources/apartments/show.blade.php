@@ -3,7 +3,7 @@
     <div class="page-heading">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Departamento: {{ $apartment->number }}</h3>
+                <h3>Departamento</h3>
                 <p class="text-subtitle text-muted">Mostrando detalle.</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
@@ -21,16 +21,46 @@
     <div class="page-content">
         <section class="row">
             <div class="col-md-6 col-sm-12">
-                <div class="card shadow-sm">
+                <div class="row">
+                    <div class="col-sm-6 col-12">
+                        <div class="card shadow-sm mb-4">
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <i class="bi bi-cash me-2"></i>
+                                        Renta mensual
+                                    </h4>
+                                    <p class="card-text text-md-start fs-4">
+                                        $ {{ $apartment->monthly_rent }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-12">
+                        <div class="card shadow-sm mb-4">
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <i class="bi bi-door-closed me-2"></i>
+                                        Número interior
+                                    </h4>
+                                    <p class="card-text text-md-start fs-4">
+                                        {{ $apartment->number }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow-sm mb-4">
                     <div class="card-content">
                         <div class="card-body">
                             <h4 class="card-title">
-                                <i class="bi bi-door-closed me-2"></i>
+                                <i class="bi bi-card-text me-2"></i>
                                 Detalles
                             </h4>
                             <hr>
-                            <h6 class="card-subtitle">Número</h6>
-                            <p class="card-text">{{ $apartment->number }}</p>
                             <h6 class="card-subtitle">Piso</h6>
                             <p class="card-text">{{$apartment->floor == 0 ? 'Planta baja' : $apartment->floor . '° piso'}}</p>
                             <h6 class="card-subtitle">Cocheras</h6>
@@ -39,8 +69,6 @@
                             <p class="card-text">{{ $apartment->bathrooms }}</p>
                             <h6 class="card-subtitle">Dormitorios</h6>
                             <p class="card-text">{{ $apartment->bedrooms }}</p>
-                            <h6 class="card-subtitle">Renta mensual</h6>
-                            <p class="card-text">$ {{ $apartment->monthly_rent }}</p>
                         </div>
                     </div>
                     <div class="card-footer">
@@ -90,7 +118,7 @@
             <div class="col-md-6 col-sm-12">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card shadow-sm">
+                        <div class="card shadow-sm mb-4">
                             <div class="card-content">
                                 <div class="card-body">
                                     <h4 class="card-title">
@@ -109,7 +137,7 @@
                     </div>
                     <div class="col-12">
                         @can('view', [App\Models\Contract::class, $apartment])
-                            <div class="card shadow-sm mb-4">
+                            <div class="card shadow-sm mb-4 mb-4">
                                 <div class="card-content">
                                     <div class="card-body">
                                         <h4 class="card-title">
@@ -178,5 +206,10 @@
                 </div>
             </div>
         </section>
-    </div>    
+        <div class="row">
+            <div class="col-12">
+                @livewire('apartments.photos-galery', compact('apartment'))
+            </div>
+        </div>
+    </div>
 </x-base>
