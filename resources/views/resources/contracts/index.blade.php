@@ -5,8 +5,12 @@
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Contratos</h3>
                 <p class="text-subtitle text-muted">
-                    Aquí puedes ver los contratos que tengas o hayas tenido anteriormente. Para agregar un nuevo contrato, dirigite a un
-                    <a href="{{route('tenants.index')}}" class="link-info">inquilino</a>.
+                    @can('contracts.create')
+                        Aquí puedes ver los contratos que tengas o hayas tenido anteriormente. Para agregar un nuevo contrato, dirigite a un
+                        <a href="{{route('tenants.index')}}" class="link-info">inquilino</a>.
+                    @else
+                        Aquí puedes ver los contratos que tengas en cativcon tus arrendadores.
+                    @endcan
                 </p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">

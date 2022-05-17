@@ -5,9 +5,12 @@ namespace App\Http\Livewire\Apartments;
 use Livewire\Component;
 use App\Models\Apartment;
 use App\Models\Image;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class PhotosGalery extends Component
 {
+    use AuthorizesRequests;
+
     public $apartment;
 
     protected $listeners = ['imagesValidated' => 'render'];
@@ -19,6 +22,7 @@ class PhotosGalery extends Component
 
     public function deletePhoto($image)
     {
+        $this->authorize('update', $this->apartment);
         Image::find($image)->delete();
         $this->apartment->refresh();
     }

@@ -41,12 +41,13 @@ class TenantRegistrationTokenController extends Controller
     }
 
     public function register(Request $request, $token) {
-        if (! $request->hasValidSignature()) {
-            abort(401);
+        if(! $request->hasValidSignature()) 
+        {
+            abort(401, "Token de registro invalido");
         }
         
         $tenantToken = TenantRegistrationToken::where('token', hash('sha256', $token))->first();
 
-        return view('auth.register', ['email' => $tenantToken->email]);
+        return view('auth.register', compact('tenantToken'));
     }
 }

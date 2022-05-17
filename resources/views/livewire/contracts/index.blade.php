@@ -72,11 +72,15 @@
                                 @foreach ($contracts as $contract)
                                     <tr>
                                         <td>
-                                            <i class="bi bi-person"></i>
-                                            <a 
-                                                href="{{route('tenants.show', [$contract->tenant])}}" 
-                                                class="link-secondary text-underline-hover">{{ $contract->tenant->name }}
-                                            </a>
+                                            @can('view', $contract->tenant)
+                                                <i class="bi bi-person"></i>
+                                                <a 
+                                                    href="{{route('tenants.show', [$contract->tenant])}}" 
+                                                    class="link-secondary text-underline-hover">{{ $contract->tenant->name }}
+                                                </a>
+                                            @else
+                                                {{ $contract->tenant->name }}
+                                            @endcan
                                         </td>
                                         <td>
                                             <i class="bi bi-door-closed"></i>

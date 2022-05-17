@@ -9,8 +9,18 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body">
+                            @isset($tenantToken)
+                                <p class="card-text">
+                                    Tu arrendador 
+                                    <span class="fw-bold">{{$tenantToken->tenant->lessor->name}}</span>
+                                    te ha invitado a registrate para que puedas ver tus contratos con el.
+                                </p>
+                            @endisset
                             <form method="POST" action="{{ route('register') }}">
                                 @csrf
+                                @isset($tenantToken)
+                                    <input type="hidden" name="tenant_id" value="{{$tenantToken->tenant_id}}">
+                                @endisset
                                 <x-forms.input 
                                     label="Nombre"
                                     name="name"
@@ -27,6 +37,7 @@
                                     name="email"
                                     type="email"
                                     placeholder="Correo electronico"
+                                    value="{{isset($tenantToken) ? $tenantToken->email : null}}"
                                 >
                                     <x-slot name="addonsLeft">
                                         <x-forms.input.addon icon="bi-envelope"/>
@@ -58,14 +69,17 @@
                                 <label for="user_type">Tipo de usuario</label>
                                 <div class="d-grid gap-2">
                                     <div class="btn-group" role="group" aria-label="Select user type">
+                                        @if(! isset($tenantToken))
+                                            <input type="radio" class="btn-check" name="role"
+                                                id="role_lessor" autocomplete="off" value="lessor" checked>
+                                            <label class="btn btn-outline-warning" for="role_lessor">
+                                                <i class="bi-house-heart"></i>
+                                                Arrendador
+                                            </label>
+                                        @endif
                                         <input type="radio" class="btn-check" name="role"
-                                            id="role_lessor" autocomplete="off" value="lessor" checked>
-                                        <label class="btn btn-outline-warning" for="role_lessor">
-                                            <i class="bi-house-heart"></i>
-                                            Arrendador
-                                        </label>
-                                        <input type="radio" class="btn-check" name="role"
-                                        id="role_tenant" autocomplete="off" value="tenant">
+                                            id="role_tenant" autocomplete="off" value="tenant"
+                                            @isset($tenantToken) checked @endisset>
                                         <label class="btn btn-outline-info" for="role_tenant">
                                             Inquilino
                                             <i class="bi-person-badge"></i>

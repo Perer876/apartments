@@ -11,10 +11,12 @@
                 @forelse ($apartment->images as $image)
                     <div class="col-6 col-sm-6 col-lg-3 mt-2 mt-md-0 mb-2 p-2 text-end">
                         <img class="w-100 rounded active mb-1" src="{{asset('storage/'. $image->file_path)}}">
-                        <button wire:click="deletePhoto({{$image->id}})" class="btn btn-sm btn-light-danger">
-                            <i class="bi bi-trash"></i>
-                            Borrar
-                        </button>
+                        @can('update', $apartment)
+                            <button wire:click="deletePhoto({{$image->id}})" class="btn btn-sm btn-light-danger">
+                                <i class="bi bi-trash"></i>
+                                Borrar
+                            </button>
+                        @endcan
                     </div>
                 @empty
                     <p class="card-text">Este departamento no tiene ninguna fotografia</p>

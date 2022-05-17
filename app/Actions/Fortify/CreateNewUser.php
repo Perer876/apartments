@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -27,8 +28,9 @@ class CreateNewUser implements CreatesNewUsers
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
             'role' => ['nullable', Rule::in(
-                Role::all()->pluck('name')
+                    Role::all()->pluck('name')
                 )],
+            'tenant_id' => ['nullable', 'integer'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
@@ -41,6 +43,13 @@ class CreateNewUser implements CreatesNewUsers
         if($input['role'])
         {
             $user->assignRole($input['role']);
+        }
+
+        if($input['tenant_id'])
+        {
+            $tenant = Tenant::where('id', $input['tenant_id'])->first();
+            $tenant->user_id = $user->id;
+            $tenant->save();
         }
 
         return $user;
