@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Apartment;
+use App\Models\Building;
+use App\Models\Image;
+use App\Observers\ApartmentObserver;
+use App\Observers\BuildingObserver;
+use App\Observers\ImageObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -27,6 +33,8 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Image::observe(ImageObserver::class);
+        Apartment::observe(ApartmentObserver::class);
+        Building::observe(BuildingObserver::class);
     }
 }

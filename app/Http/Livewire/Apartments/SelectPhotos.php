@@ -31,13 +31,9 @@ class SelectPhotos extends Component
     {
         $this->validate();
 
-        foreach ($this->images as $key => $file) {
-            $image = new Image();
-
-            $image->file_name = $file->getClientOriginalName();
-            $image->file_extension = $file->extension();
-            $image->file_path = $file->store('files', 'public');
-
+        foreach ($this->images as $file)
+        {
+            $image = Image::fromFile($file, 'files/images', 'public');
             $this->apartment->images()->save($image);
         }
         

@@ -15,6 +15,17 @@ class Image extends Model
         'file_path',
     ];
 
+    public static function fromFile($file, $path = null, $options = [])
+    {
+        $image = new Image();
+
+        $image->file_name = $file->getClientOriginalName();
+        $image->file_extension = $file->extension();
+        $image->file_path = $file->store($path, $options);
+
+        return $image;
+    }
+
     public function imageable()
     {
         return $this->morphTo();

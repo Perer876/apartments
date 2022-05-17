@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Apartments;
 
 use Livewire\Component;
 use App\Models\Apartment;
+use App\Models\Image;
 
 class PhotosGalery extends Component
 {
@@ -16,8 +17,14 @@ class PhotosGalery extends Component
         $this->apartment = $apartment;
     }
 
+    public function deletePhoto($image)
+    {
+        Image::find($image)->delete();
+        $this->apartment->refresh();
+    }
+
     public function render()
     {
-        return view('livewire.apartments.photos-galery', ['apartment' => $this->apartment]);
+        return view('livewire.apartments.photos-galery');
     }
 }
