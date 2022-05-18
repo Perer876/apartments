@@ -70,24 +70,24 @@
                                                 Editar
                                             </a>
                                         @endcan
-                                        @can('delete', $tenant)
-                                            <x-modal name="confirm-delete" type="danger" class="btn btn-outline-danger">
+                                        @can('archive', $tenant)
+                                            <x-modal name="confirm-delete" type="info" class="btn btn-outline-info">
                                                 <x-slot name="trigger">
-                                                    <i class="bi bi-trash"></i>
-                                                    Eliminar
+                                                    <i class="bi bi-archive"></i>
+                                                    Archivar
                                                 </x-slot>
                                                 <x-slot name="title">
-                                                    Eliminar inquilino
+                                                    Archivar inquilino
                                                 </x-slot>
-                                                ¿Estas seguro que quieres eliminar este inquilino? Se borraran también los contratos que tengas registrados que esten relacionados con este inquilino.
+                                                Archivarlo no hara que se borren sus contratos, solo se ocultará de la lista ¿Deseas continuar?
                                                 <x-slot name="footer">
                                                     <x-modal.dismiss-button class="btn btn-light-secondary">
                                                         Cancelar
                                                     </x-modal.dismiss-button>
-                                                    <form action="/tenants/{{$tenant->id}}" method="post">
+                                                    <form action="{{route('tenants.archive', $tenant)}}" method="post">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">
+                                                        <button type="submit" class="btn btn-info">
                                                             Confirmar
                                                         </button>
                                                     </form>
@@ -174,27 +174,7 @@
                                             @endif
                                         </div>
                                         @if ($tenant->lastestContract->isActive || $tenant->lastestContract->isComing)
-                                            <x-modal name="confirm-cancell-contract" type="danger" class="btn btn-outline-danger">
-                                                <x-slot name="trigger">
-                                                    Cancelar contrato
-                                                </x-slot>
-                                                <x-slot name="title">
-                                                    Cancelar contrato
-                                                </x-slot>
-                                                ¿Estás seguro de que quieres cancelar el contrato activo con <span class="fw-bold">{{$tenant->name}}</span>? 
-                                                <x-slot name="footer">
-                                                    <x-modal.dismiss-button class="btn btn-light-secondary">
-                                                        Cancelar
-                                                    </x-modal.dismiss-button>
-                                                    <form action="/contracts/{{$tenant->lastestContract->id}}" method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">
-                                                            Confirmar
-                                                        </button>
-                                                    </form>
-                                                </x-slot>
-                                            </x-modal>
+                                            @include('resources.contracts.components.cancel-modal', compact('tenant'))
                                         @else
                                             <a class="btn btn-outline-info" href="/contracts/tenants/{{$tenant->id}}/create">Nuevo contrato</a>
                                         @endif

@@ -64,6 +64,6 @@ class ContractController extends Controller
             'icon' => 'bi-emoji-frown'
         ]);
 
-        return redirect()->route('tenants.show', $contract->tenant_id);
+        return redirect(url()->previous());
     }
 }

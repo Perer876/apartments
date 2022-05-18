@@ -150,10 +150,7 @@
                                                 Inquilino
                                             </h6>
                                             <p class="card-text fs-3 fw-lighter">
-                                                <i class="bi bi-person"></i>
-                                                <a href="/tenants/{{$apartment->lastestContract->tenant->id}}" class="link-secondary text-underline-hover">
-                                                    {{ $apartment->lastestContract->tenant->name }}
-                                                </a>
+                                                @include('resources.tenants.components.link-name-show', ['tenant' => $apartment->lastestContract->tenant])
                                             </p>
                                             <div class="d-md-flex w-100 justify-content-between">
                                                 <div class="mb-3">

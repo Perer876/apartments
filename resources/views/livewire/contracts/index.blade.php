@@ -72,15 +72,7 @@
                                 @foreach ($contracts as $contract)
                                     <tr>
                                         <td>
-                                            @can('view', $contract->tenant)
-                                                <i class="bi bi-person"></i>
-                                                <a 
-                                                    href="{{route('tenants.show', [$contract->tenant])}}" 
-                                                    class="link-secondary text-underline-hover">{{ $contract->tenant->name }}
-                                                </a>
-                                            @else
-                                                {{ $contract->tenant->name }}
-                                            @endcan
+                                            @include('resources.tenants.components.link-name-show', ['tenant' => $contract->tenant])
                                         </td>
                                         <td>
                                             <i class="bi bi-door-closed"></i>
@@ -104,7 +96,13 @@
                                         </td>
                                         <td>{{ $contract->start_at->format('Y/m/d') }}</td>
                                         <td>{{ $contract->end_at->format('Y/m/d') }}</td>
-                                        <td>{{ $contract->cancelled_at ? $contract->cancelled_at->format('Y/m/d') : '' }}</td>
+                                        <td>
+                                            @if ($contract->isActive || $contract->isComing)
+                                                @include('resources.contracts.components.cancel-modal', ['tenant' => $contract->tenant])
+                                            @else
+                                                {{ $contract->cancelled_at ? $contract->cancelled_at->format('Y/m/d') : '' }}
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

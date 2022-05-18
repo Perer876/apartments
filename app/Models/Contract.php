@@ -48,7 +48,7 @@ class Contract extends Pivot
 
     public function tenant()
     {
-        return $this->belongsTo(Tenant::class);
+        return $this->belongsTo(Tenant::class)->withTrashed();
     }
 
     public function lessor()

@@ -19,9 +19,9 @@ class CreateContractTable extends Migration
     {
         Schema::create('contract', function (Blueprint $table) {
             $table->id();
-            $table->foreignidFor(User::class)->constrained();
-            $table->foreignidFor(Apartment::class)->constrained();
-            $table->foreignIdFor(Tenant::class)->constrained();
+            $table->foreignidFor(User::class)->constrained()->onDelete('cascade');
+            $table->foreignidFor(Apartment::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Tenant::class)->constrained()->onDelete('cascade');
             $table->date('start_at');
             $table->unsignedInteger('amount');
             $table->string('period', 15);

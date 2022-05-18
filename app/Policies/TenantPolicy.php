@@ -64,6 +64,19 @@ class TenantPolicy
      * @param  \App\Models\Tenant  $tenant
      * @return \Illuminate\Auth\Access\Response|bool
      */
+    public function archive(User $user, Tenant $tenant)
+    {
+        return $user->can('tenants.archive')
+            && $user->id === $tenant->lessor_user_id;
+    }
+
+    /**
+     * Determine whether the user can delete the tenant.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Tenant  $tenant
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
     public function delete(User $user, Tenant $tenant)
     {
         return $user->can('tenants.delete')

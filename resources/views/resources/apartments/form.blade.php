@@ -116,9 +116,9 @@
                                 <div class="d-grid gap-2 d-sm-block my-3 text-end">
                                     <button type="submit" class="btn btn-primary ms-sm-2">Guardar</button>
                                     @isset ($apartment)
-                                        <a class="btn btn-light-secondary ms-sm-2" href="/apartments/{{$apartment->id}}">Regresar</a>
+                                        <a class="btn btn-light-secondary ms-sm-2" href="{{route('apartments.show',$apartment->id)}}">Regresar</a>
                                     @else
-                                        <a class="btn btn-light-secondary ms-sm-2" href="/buildings/{{$building->id}}">Cancelar</a>
+                                        <a class="btn btn-light-secondary ms-sm-2" href="{{url()->previous()}}">Cancelar</a>
                                     @endisset
                                 </div>
                             </form>

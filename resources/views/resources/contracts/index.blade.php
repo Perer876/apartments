@@ -22,6 +22,11 @@
         </div>
     </div>
     <div class="page-content">
+        <div class="row">
+            <div class="col-12">
+                @include('partial.messages')
+            </div>
+        </div>
         @livewire('contracts.index')
     </div>
 </x-base>

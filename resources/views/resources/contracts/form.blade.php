@@ -133,6 +133,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-warning mt-2">Hacer contrato</button>
+                                <a class="btn btn-secondary mt-2 ms-3" href="{{url()->previous()}}">Cancelar</a>
                             </div>
                         </div>
                     </div>

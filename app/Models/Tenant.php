@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 use App\Traits\Models\HasContracts;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
 use App\Models\TenantRegistrationToken;
 
 class Tenant extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     use Searchable;
     use HasContracts;
 

@@ -19,10 +19,12 @@
                     Edificios
                     <x-slot name="submenu">
                         <x-sidebar.submenu-item href="/buildings">
+                            <i class="bi bi-list"></i>
                             Lista
                         </x-sidebar.submenu-item>
                         @can('create', App\Models\Building::class)
                             <x-sidebar.submenu-item href="/buildings/create">
+                                <i class="bi bi-plus-circle"></i>
                                 Añadir
                             </x-sidebar.submenu-item>
                         @endcan
@@ -36,6 +38,22 @@
                 @can('create', App\Models\Tenant::class)
                     <x-sidebar.item icon="bi-person-fill" route="tenants" href="/tenants">
                         Inquilinos
+                        <x-slot name="submenu">
+                            <x-sidebar.submenu-item href="/tenants">
+                                <i class="bi bi-list"></i>
+                                Lista
+                            </x-sidebar.submenu-item>
+                            @can('create', App\Models\Tenant::class)
+                                <x-sidebar.submenu-item href="/tenants/create">
+                                    <i class="bi bi-person-plus"></i>
+                                    Añadir
+                                </x-sidebar.submenu-item>
+                            @endcan
+                            <x-sidebar.submenu-item href="/tenants/archived">
+                                <i class="bi bi-archive"></i>
+                                Archivados
+                            </x-sidebar.submenu-item>
+                        </x-slot>
                     </x-sidebar.item>
                 @endcan
                 

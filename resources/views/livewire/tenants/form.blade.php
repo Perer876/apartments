@@ -76,7 +76,7 @@
                             <a class="btn btn-light-secondary ms-sm-2" href="{{$tenant->href}}">Cancelar</a>
                         @else
                             <button type="submit" class="btn btn-primary ms-sm-2">Agregar</button>
-                            <a class="btn btn-light-secondary ms-sm-2" href="/tenants">Cancelar</a>
+                            <a class="btn btn-light-secondary ms-sm-2" href="{{url()->previous()}}">Cancelar</a>
                         @endif
                     </div>
                 </form>

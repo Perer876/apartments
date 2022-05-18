@@ -18,6 +18,11 @@ Route::resource('buildings', BuildingController::class)->middleware('auth');
 Route::get('/apartments', [ApartmentController::class, 'index'])->middleware('auth')->name('apartments.index');
 Route::resource('buildings.apartments', ApartmentController::class)->shallow()->middleware('auth');
 
+Route::controller(TenantController::class)->prefix('tenants')->name('tenants.')->middleware('auth')->group( function () {
+    Route::get('archived', 'archived')->name('archived');
+    Route::delete('{tenant}/archive', 'archive')->name('archive');
+    Route::match(['patch', 'put'], '{tenant}/restore', 'restore')->name('restore');
+});
 Route::resource('tenants', TenantController::class)->except(['store','update'])->middleware('auth');
 
 Route::controller(TenantRegistrationTokenController::class)->prefix('tenants')->name('tenant.')->group(function () {

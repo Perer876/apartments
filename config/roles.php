@@ -25,6 +25,7 @@ return [
             'show',
             'create',
             'edit',
+            'archive',
             'delete',
             'invite',
         ],
