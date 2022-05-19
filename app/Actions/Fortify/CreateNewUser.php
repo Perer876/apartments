@@ -2,7 +2,7 @@
 
 namespace App\Actions\Fortify;
 
-use App\Models\Tenant;
+use App\Models\TenantRegistrationToken;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -30,7 +30,7 @@ class CreateNewUser implements CreatesNewUsers
             'role' => ['nullable', Rule::in(
                     Role::all()->pluck('name')
                 )],
-            'tenant_id' => ['nullable', 'integer'],
+            'token' => ['nullable', 'string'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
@@ -45,11 +45,10 @@ class CreateNewUser implements CreatesNewUsers
             $user->assignRole($input['role']);
         }
 
-        if($input['tenant_id'])
+        if(array_key_exists('input', $input))
         {
-            $tenant = Tenant::where('id', $input['tenant_id'])->first();
-            $tenant->user_id = $user->id;
-            $tenant->save();
+            $tenantToken = TenantRegistrationToken::hasToken($input['token']);
+            $tenantToken->consume($user->id);
         }
 
         return $user;

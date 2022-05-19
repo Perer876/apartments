@@ -34,7 +34,7 @@ class RegisterTenantLink extends Mailable
     {
         return $this->subject('Registrar Inquilino')
             ->markdown('emails.register-tenant-link', [
-                'url' => URL::temporarySignedRoute('tenant.register', $this->expiresAt, ['token' => $this->token]),
+                'url' => URL::temporarySignedRoute('tenant.register', $this->expiresAt, ['tenantToken' => $this->token]),
             ]);
     }
 }

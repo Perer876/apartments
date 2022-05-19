@@ -26,9 +26,11 @@ Route::controller(TenantController::class)->prefix('tenants')->name('tenants.')-
 Route::resource('tenants', TenantController::class)->except(['store','update'])->middleware('auth');
 
 Route::controller(TenantRegistrationTokenController::class)->prefix('tenants')->name('tenant.')->group(function () {
-    Route::match(['get', 'head'], '/{tenant}/invite', 'invite')->middleware('auth')->name('invite');
+    Route::get('/{tenant}/invite', 'invite')->middleware('auth')->name('invite');
     Route::post('/{tenant}/invite', 'send_invite')->middleware('auth')->name('send_invite');
-    Route::match(['get', 'head'], '/register/{token}', 'register')->name('register');
+    Route::get('/register/{tenantToken}', 'register')->name('register');
+    Route::get('/loging/{tenantToken}', 'login')->name('login');
+    Route::post('/invites/accept', 'accept')->middleware('auth')->name('accept');
 });
 
 Route::controller(ContractController::class)->prefix('contracts')->name('contracts.')->middleware('auth')->group(function (){

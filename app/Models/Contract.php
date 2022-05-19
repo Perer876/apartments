@@ -98,7 +98,7 @@ class Contract extends Pivot
 
     public function scopeOfTenant($query, $user_id)
     {
-        $tenant = Tenant::where('user_id', $user_id)->first();
+        $tenant = Tenant::where('user_id', $user_id)->withTrashed()->first();
         return $query->where($this->getTable() . '.tenant_id', ($tenant ? $tenant->id : null));
     }
 

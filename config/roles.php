@@ -56,5 +56,8 @@ return [
             'show',
         ],
 
+        'tenants' => [
+            'accept'
+        ],
     ],
 ];

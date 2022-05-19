@@ -98,7 +98,9 @@
                                         <td>{{ $contract->end_at->format('Y/m/d') }}</td>
                                         <td>
                                             @if ($contract->isActive || $contract->isComing)
-                                                @include('resources.contracts.components.cancel-modal', ['tenant' => $contract->tenant])
+                                                @can('cancel', $contract)
+                                                    @include('resources.contracts.components.cancel-modal', ['tenant' => $contract->tenant])
+                                                @endcan
                                             @else
                                                 {{ $contract->cancelled_at ? $contract->cancelled_at->format('Y/m/d') : '' }}
                                             @endif

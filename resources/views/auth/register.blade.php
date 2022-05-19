@@ -19,7 +19,7 @@
                             <form method="POST" action="{{ route('register') }}">
                                 @csrf
                                 @isset($tenantToken)
-                                    <input type="hidden" name="tenant_id" value="{{$tenantToken->tenant_id}}">
+                                    <input type="hidden" name="token" value="{{$tenantToken->plain_token}}">
                                 @endisset
                                 <x-forms.input 
                                     label="Nombre"
@@ -106,7 +106,15 @@
                                 @endif
 
                                 <div class="d-grid gap-2 d-sm-block text-end mt-4">
-                                    <a href="{{ route('login') }}" class="font-bold link-primary">¿Ya estás registrado?</a>
+                                    @isset($tenantToken)
+                                        <a href="{{ route('tenant.login', $tenantToken->plain_token) }}" class="font-bold link-primary">
+                                            ¿Ya estás registrado?
+                                        </a>
+                                    @else
+                                        <a href="{{ route('login') }}" class="font-bold link-primary">
+                                            ¿Ya estás registrado?
+                                        </a>
+                                    @endisset
                                     <button class="btn btn-primary shadow ms-md-4">Registrarse</button>
                                 </div>
                             </form>

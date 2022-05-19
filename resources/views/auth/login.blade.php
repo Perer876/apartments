@@ -9,8 +9,16 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body">
+                            @isset($tenantToken)
+                                <p class="card-text">
+                                    Inicia sesión para que puedas aceptar la invitación.
+                                </p>
+                            @endisset
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
+                                @isset($tenantToken)
+                                    <input type="hidden" name="target_url" value="{{ url()->previous() }}">
+                                @endisset
                                 <x-forms.input 
                                     label="Correo"
                                     name="email"
