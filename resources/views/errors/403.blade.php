@@ -20,17 +20,18 @@
         @endif
         <section class="row justify-content-center">
             <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4">
-                <img src="{{asset('assets/images/errors/error_401.png')}}" class="img-fluid w-50 mx-auto d-block mb-5" alt="Logo">
+                <img src="{{asset('assets/images/errors/error_403.png')}}" class="img-fluid w-75 mx-auto d-block mb-5" alt="Logo">
                 <div class="card shadow-lg">
                     <div class="card-header bg-danger">
-                        <h4 class="card-title text-center text-white fs-1 m-0">Error 401</h4>
+                        <h4 class="card-title text-center text-white fs-1 m-0">Error 403</h4>
                     </div>
                     <div class="card-content bg-light-danger rounded">
                         <div class="card-body text-center">
                             <span class="fs-3">
                                 Acción no autorizada
                             </span>
-                            <p>{{$exception->getMessage()}}</p>
+                            <br>
+                            <a href="{{url()->previous()}}" class="btn btn-outline-danger">Regresar</a>
                         </div>
                     </div>
                 </div>

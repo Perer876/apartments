@@ -44,25 +44,27 @@
                     </div>
                 </a>
             </div>
-            <div class="col-6 col-lg-3 col-md-6">
-                <a href="{{ route('tenants.index') }}">
-                    <div class="card shadow-sm">
-                        <div class="card-body px-2">
-                            <div class="row text-center text-md-start">
-                                <div class="col-md-4">
-                                    <div class="stats-icon green float-none float-md-end d-inline-block text-center">
-                                        <i class="bi-people-fill fs-2"></i>
+            @can('viewAny', App\Models\Tenant::class)
+                <div class="col-6 col-lg-3 col-md-6">
+                    <a href="{{ route('tenants.index') }}">
+                        <div class="card shadow-sm">
+                            <div class="card-body px-2">
+                                <div class="row text-center text-md-start">
+                                    <div class="col-md-4">
+                                        <div class="stats-icon green float-none float-md-end d-inline-block text-center">
+                                            <i class="bi-people-fill fs-2"></i>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Inquilinos</h6>
-                                    <h6 class="font-extrabold mb-0 fs-5">{{ $tenants_count }}</h6>
+                                    <div class="col-md-8">
+                                        <h6 class="text-muted font-semibold">Inquilinos</h6>
+                                        <h6 class="font-extrabold mb-0 fs-5">{{ $tenants_count }}</h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+            @endcan
             <div class="col-6 col-lg-3 col-md-6">
                 <a href="{{ route('contracts.index') }}">
                     <div class="card shadow-sm">
@@ -82,6 +84,9 @@
                     </div>
                 </a>
             </div>
+        </div>
+        <div class="row">
+            @include('resources.apartments.views.card', ['apartments' => $apartments])
         </div>
     </div>
 </x-base>

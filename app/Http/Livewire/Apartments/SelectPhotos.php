@@ -18,7 +18,7 @@ class SelectPhotos extends Component
 
     protected $rules = [
         'images.*' => [
-            'required', 'mimes:png,jpg,jpeg'
+            'required', 'mimes:png,jpg,jpeg,webp'
         ]
     ];
 
