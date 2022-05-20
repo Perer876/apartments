@@ -1,64 +1,72 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<h1 align="center">Depadmin</h1>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Acerca del proyecto
 
-## About Laravel
+Mi primer proyecto usando laravel, que permite a **arrendadores** administrar sus departamentos. Permitiendoles cosas como:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Asignar varios departamentos a un edificio / vivienda.
+- Agregar images a departamentos invividuales.
+- Agregar a tus inquilinos.
+- Generar contratos a diferentes plazos con tus inquilinos.
+- Archivar tus inquilinos.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+También permite a los **inquilinos** de los departamentos ser registrados o invitados por su arrendador para que puedan ver sus contratos e inclusive ver otros departamentos. 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Uso
 
-## Learning Laravel
+### Instalación
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Clona el repositorio con `git clone https://github.com/Perer876/apartments.git` y muevete a la carpeta.
+2. Instala los paquetes y dependencias `composer install`.
+3. Crea tu propio archivo para las variables de entorno, puedes usar `cp .env.example .env` y agrega las credenciales para tu conexión a la base de datos y al servidor de correo.
+4. Genera una llave unica para tu proyecto, puedes usar el comando `php artisan key:generate`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Configuración
 
-## Laravel Sponsors
+Para poder empezar a usar la aplicación por primera vez, primero ejecutamos las migraciones con `php artisan migrate` y después ejecutamos un seeder necesario para el correcto funcionamiento del sistema de roles `php artisan db:seed --class=RoleSeeder`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Por ultimo, para acceder a las images desde la web que se alojen en el servidor web será necesario ejecutar `php artisan storage:link`
 
-### Premium Partners
+## Vistas
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Página de incio
 
-## Contributing
+![Image](https://github.com/Perer876/apartments/blob/assets/images/home_page.png)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Listado de viviendas
 
-## Code of Conduct
+![Image](https://github.com/Perer876/apartments/blob/assets/images/buildings_page.png)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Mostrando una vivienda
 
-## Security Vulnerabilities
+![Image](https://github.com/Perer876/apartments/blob/assets/images/building_page.png)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Mostrando un departamento en concreto
+
+![Image](https://github.com/Perer876/apartments/blob/assets/images/apartment_page.png)
+
+### Listado de inquilinos
+
+![Image](https://github.com/Perer876/apartments/blob/assets/images/tenants_page.png)
+
+### Mostrando un inquilino en concreto
+
+![Image](https://github.com/Perer876/apartments/blob/assets/images/tenant_page.png)
+
+### Vista resposiva
+
+![Image](https://github.com/Perer876/apartments/blob/assets/images/phone_view.png)
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Depadmin is under [MIT License](./LICENSE).
+
+## Todo
+
+Le falta mucho para ser una herramienta útil y eficiente. Un lista incial sería:
+- [ ] Mejora en la eficiencia del full-text-search.
+- [ ] Cambio en algunas vistas para ahcer uso de Livewire y añadir más reactividad.
+- [ ] Tener un historial de las rentas mensuales que ha tenido un departamento.
+- [ ] Tener vistas únicas de un contrato y ver su progreso.
+- [ ] Cambiar método de consulta del estado de un contrato a nivel de base de datos (para poder ordenar) y hacerlo más flexible. 
+- [ ] Agregar vistas en la pagina welcome acerca de departamentos.
