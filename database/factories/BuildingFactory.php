@@ -16,8 +16,9 @@ class BuildingFactory extends Factory
         return [
             'alias' => $this->faker->company,
             'street' => $this->faker->streetName,
+            'neighborhood' => ucfirst($this->faker->word),
             'number' => $this->faker->buildingNumber,
-            'postcode' => $this->faker->numberBetween(0,99999),
+            'postcode' => $this->faker->numberBetween(10000,99999),
             'city' => $this->faker->city,
             'state' => $this->faker->city,
             'builded_at' => $this->faker->year,

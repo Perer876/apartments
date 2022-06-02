@@ -84,6 +84,14 @@
                                 </div>
 
                                 <x-forms.input 
+                                    label="Colonia"
+                                    name="neighborhood"
+                                    type="text"
+                                    placeholder="Colonia o barrio"
+                                    :object="isset($building) ? $building : null"
+                                />
+
+                                <x-forms.input 
                                     label="Municipio"
                                     name="city"
                                     type="text"

@@ -17,6 +17,7 @@ class Building extends Model
         'alias',
         'street',
         'number',
+        'neighborhood',
         'postcode',
         'city',
         'state',
