@@ -15,5 +15,4 @@ class LoginResponse implements LoginResponseContract
         }
         return redirect()->route('home');
     }
-
 }

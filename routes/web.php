@@ -38,4 +38,5 @@ Route::controller(ContractController::class)->prefix('contracts')->name('contrac
     Route::match(['get', 'head'], '/tenants/{tenant}/create', 'create')->name('create');
     Route::post('/tenants/{tenant}/', 'store')->name('store');
     Route::delete('/{contract}', 'cancel')->name('cancel');
+    Route::get('/{contract}/pdf', 'pdf')->name('pdf');
 });

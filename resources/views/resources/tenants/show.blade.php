@@ -178,6 +178,10 @@
                                         @else
                                             <a class="btn btn-outline-info" href="/contracts/tenants/{{$tenant->id}}/create">Nuevo contrato</a>
                                         @endif
+                                        <a href="{{route('contracts.pdf', ['contract' => $tenant->lastestContract])}}" target="_blank" class="btn btn-outline-primary ms-2">
+                                            <i class="bi bi-filetype-pdf me-1"></i>
+                                            Generar contrato
+                                        </a>
                                     @else
                                         <p class="card-text">
                                             No tiene ningún contrato contigo.

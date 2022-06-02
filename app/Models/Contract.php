@@ -8,6 +8,8 @@ use App\Models\Tenant;
 use App\Models\Apartment;
 use Laravel\Scout\Searchable;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
+use NumberFormatter;
 
 class Contract extends Pivot
 {
@@ -53,7 +55,19 @@ class Contract extends Pivot
 
     public function lessor()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function getSpellMonthlyRentAttribute()
+    {
+        return (new NumberFormatter("es", NumberFormatter::SPELLOUT))->format($this->monthly_rent);
+    }
+
+    public function getPdfAttribute()
+    {
+        return PDF::loadView('pdf.contract', ['contract' => $this])->setOptions([
+            'defaultFont' => 'arial'
+        ]);
     }
     
     public function getIsActiveAttribute()

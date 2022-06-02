@@ -66,4 +66,10 @@ class ContractController extends Controller
 
         return redirect(url()->previous());
     }
+
+    public function pdf(Contract $contract)
+    {
+        /* return $contract->pdf->download('contract.pdf'); */
+        return $contract->pdf->stream('hola');
+    }
 }

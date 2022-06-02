@@ -1,0 +1,1 @@
+{{dd($contract->start_at->locale('es')->day)}}
