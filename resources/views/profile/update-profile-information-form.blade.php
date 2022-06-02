@@ -1,79 +1,110 @@
-<x-jet-form-section submit="updateProfileInformation">
-    <x-slot name="title">
-        {{ __('Profile Information') }}
-    </x-slot>
+<div>
+    @php
+        if(!isset($this->firstload)) $this->firstload = true;
+        else $this->firstload = false;
+    @endphp
+    <div class="row">
+        <div class="col-12 col-md-4 order-md-1 order-last">
+            <h5>
+                {{ __('Profile Information') }}
+            </h5>
+            <p class="text-subtitle text-muted">
+                {{ __('Update your account\'s profile information and email address.') }}
+            </p>
+        </div>
+        <div class="col-12 col-md-8 order-md-2 order-first">
+            <div class="card shadow-sm">
+                <div class="card-content">
+                    <div class="card-body">
+                        <form wire:submit.prevent="updateProfileInformation">
+                            @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                                <div x-data="{photoName: null, photoPreview: null}">
+                                    <!-- Profile Photo File Input -->
+                                    <input type="file" class="visually-hidden"
+                                        wire:model="photo"
+                                        x-ref="photo"
+                                        x-on:change="
+                                            photoName = $refs.photo.files[0].name;
+                                            const reader = new FileReader();
+                                            reader.onload = (e) => {
+                                                photoPreview = e.target.result;
+                                            };
+                                            reader.readAsDataURL($refs.photo.files[0]);
+                                        "/>
 
-    <x-slot name="description">
-        {{ __('Update your account\'s profile information and email address.') }}
-    </x-slot>
+                                    <div class="form-group">
+                                        <label for="photo">
+                                            {{ __('Photo') }}
+                                        </label>
+                                        <br>
+                                        <!-- Current Profile Photo -->
+                                        <div class="text-sm-start text-center" x-show="! photoPreview">
+                                            <img src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->name }}" class="rounded-circle" width="150em">
+                                        </div>
+    
+                                        <!-- New Profile Photo Preview -->
+                                        <div class="text-sm-start text-center" x-show="photoPreview" style="display: none;">
+                                            <img x-bind:src="photoPreview" alt="{{ $this->user->name }}" class="rounded-circle" width="150em">
+                                        </div>
 
-    <x-slot name="form">
-        <!-- Profile Photo -->
-        @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-            <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 sm:col-span-4">
-                <!-- Profile Photo File Input -->
-                <input type="file" class="hidden"
-                            wire:model="photo"
-                            x-ref="photo"
-                            x-on:change="
-                                    photoName = $refs.photo.files[0].name;
-                                    const reader = new FileReader();
-                                    reader.onload = (e) => {
-                                        photoPreview = e.target.result;
-                                    };
-                                    reader.readAsDataURL($refs.photo.files[0]);
-                            " />
+                                        <div class="d-grid gap-2 d-sm-block my-3">
+                                            <button class="btn btn-outline-info " type="button" x-on:click.prevent="$refs.photo.click()">
+                                                {{ __('Select A New Photo') }}
+                                            </button>
+        
+                                            @if ($this->user->profile_photo_path)
+                                                <button type="button" class="btn btn-outline-danger ms-0 ms-sm-2" wire:click="deleteProfilePhoto">
+                                                    {{ __('Remove Photo') }}
+                                                </button>
+                                            @endif
+                                        </div>
+                                    </div>
 
-                <x-jet-label for="photo" value="{{ __('Photo') }}" />
+                                    @error('photo')
+                                        <span class="badge bg-light-danger text-wrap">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            @endif
 
-                <!-- Current Profile Photo -->
-                <div class="mt-2" x-show="! photoPreview">
-                    <img src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->name }}" class="rounded-full h-20 w-20 object-cover">
+
+                            <x-forms.input 
+                                label="{{ __('Name') }}"
+                                wire:model.defer="state.name"
+                                name="name"
+                                type="text"
+                                validate="{{$this->firstload ? null : 'yes'}}"
+                                placeholder="{{ __('Name') }}"
+                            />
+                            
+                            <x-forms.input 
+                                label="{{ __('Email') }}"
+                                wire:model.defer="state.email"
+                                name="email"
+                                type="email"
+                                validate="{{$this->firstload ? null : 'yes'}}"
+                                placeholder="{{ __('Email') }}"
+                            />
+
+                            <div class="d-flex w-100 justify-content-between align-items-start mb-1">
+                                <button class="btn btn-primary mt-2" type="submit"
+                                    wire:loading.attr="disabled" wire:target="photo">
+                                    {{ __('Save') }}
+                                </button>
+                                <x-jet-action-message class="fs-6 badge bg-light-success" on="saved">
+                                    {{ __('Saved.') }}
+                                </x-jet-action-message>
+                            </div>
+                            
+                        </form>
+                    </div>
                 </div>
-
-                <!-- New Profile Photo Preview -->
-                <div class="mt-2" x-show="photoPreview" style="display: none;">
-                    <span class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
-                          x-bind:style="'background-image: url(\'' + photoPreview + '\');'">
-                    </span>
-                </div>
-
-                <x-jet-secondary-button class="mt-2 mr-2" type="button" x-on:click.prevent="$refs.photo.click()">
-                    {{ __('Select A New Photo') }}
-                </x-jet-secondary-button>
-
-                @if ($this->user->profile_photo_path)
-                    <x-jet-secondary-button type="button" class="mt-2" wire:click="deleteProfilePhoto">
-                        {{ __('Remove Photo') }}
-                    </x-jet-secondary-button>
-                @endif
-
-                <x-jet-input-error for="photo" class="mt-2" />
             </div>
-        @endif
-
-        <!-- Name -->
-        <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="name" value="{{ __('Name') }}" />
-            <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="state.name" autocomplete="name" />
-            <x-jet-input-error for="name" class="mt-2" />
         </div>
-
-        <!-- Email -->
-        <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="email" value="{{ __('Email') }}" />
-            <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
-            <x-jet-input-error for="email" class="mt-2" />
-        </div>
-    </x-slot>
-
-    <x-slot name="actions">
-        <x-jet-action-message class="mr-3" on="saved">
-            {{ __('Saved.') }}
-        </x-jet-action-message>
-
-        <x-jet-button wire:loading.attr="disabled" wire:target="photo">
-            {{ __('Save') }}
-        </x-jet-button>
-    </x-slot>
-</x-jet-form-section>
+    </div>
+    @push('stylesheets')
+        @livewireStyles
+    @endpush
+    @push('scripts')
+        @livewireScripts
+    @endpush
+</div>

@@ -1,6 +1,7 @@
 @php
     $size = $attributes['size'] ?? ($attributes['horizontal-form'] ? 8 : 12);
-    $name = $attributes->whereStartsWith('wire:model')->first() ?? $attributes['name'];
+    $name = $attributes['name'] ?? $attributes->whereStartsWith('wire:model')->first();
+    /* if($name != 'name') { dd($errors->has($name), $name); }; */
 @endphp
 <div class="form-group {{ $attributes['horizontal-form'] ? 'row' : 'col-md-'.$size}}">
     <label
