@@ -4,7 +4,7 @@
         else $this->firstload = false;
     @endphp
     <div class="row">
-        <div class="col-12 col-md-4 order-md-1 order-last">
+        <div class="col-12 col-md-4 order-md-1">
             <h5>
                 {{ __('Profile Information') }}
             </h5>
@@ -12,8 +12,8 @@
                 {{ __('Update your account\'s profile information and email address.') }}
             </p>
         </div>
-        <div class="col-12 col-md-8 order-md-2 order-first">
-            <div class="card shadow-sm">
+        <div class="col-12 col-md-8 order-md-2">
+            <div class="card shadow-sm m-0">
                 <div class="card-content">
                     <div class="card-body">
                         <form wire:submit.prevent="updateProfileInformation">
@@ -94,17 +94,10 @@
                                     {{ __('Saved.') }}
                                 </x-jet-action-message>
                             </div>
-                            
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @push('stylesheets')
-        @livewireStyles
-    @endpush
-    @push('scripts')
-        @livewireScripts
-    @endpush
 </div>
