@@ -29,13 +29,12 @@
         <hr>
     @endif
 
-    {{-- @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
-        <div class="mt-10 sm:mt-0">
+    @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
+        <div class="py-3">
             @livewire('profile.two-factor-authentication-form')
         </div>
-
-        <x-jet-section-border />
-    @endif --}}
+        <hr>
+    @endif
 
     {{-- <div class="mt-10 sm:mt-0">
         @livewire('profile.logout-other-browser-sessions-form')
