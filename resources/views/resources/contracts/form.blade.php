@@ -84,7 +84,6 @@
                                         data-date-autoclose="true"    
                                         data-date-format="yyyy/mm/dd"
                                         data-date-today-highlight="true"
-                                        data-date-start-date="0d"
                                         data-date-immediate-updates="true"
                                         data-date-title="Inicio"
                                     ></x-slot>

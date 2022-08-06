@@ -6,7 +6,6 @@ use App\Models\Contract;
 use App\Models\Tenant;
 use App\Http\Requests\StoreContractRequest;
 use App\Models\Apartment;
-use Carbon\Carbon;
 
 class ContractController extends Controller
 {
@@ -28,19 +27,8 @@ class ContractController extends Controller
 
         $validated = $request->validated();
 
-        $end_at = new Carbon($validated['start_at']);
-        if($validated['period'] == 'months')
-        {
-            $end_at->addMonths($validated['amount']);
-        }
-        else
-        {
-            $end_at->addYears($validated['amount']);
-        }
-        
-        $validated['end_at'] = $end_at->format('Y/m/d');
         $validated['monthly_rent'] = Apartment::find($validated['apartment_id'])->monthly_rent;
-
+        
         Contract::create($validated);
 
         session()->push('messages', [

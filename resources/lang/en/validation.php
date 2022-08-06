@@ -130,6 +130,8 @@ return [
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
 
+    'apartment_available'  => 'The :attribute is not available in the selected dates.',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -158,6 +160,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'apartment_id' => 'apartment'
+    ],
 
 ];

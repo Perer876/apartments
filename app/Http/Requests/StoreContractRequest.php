@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Apartment;
-use App\Models\Tenant;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use App\Rules\ApartmentAvailable;
+use App\Utilities\Helpers;
 
 class StoreContractRequest extends FormRequest
 {
@@ -27,9 +27,26 @@ class StoreContractRequest extends FormRequest
      */
     protected function prepareForValidation()
     {
+        $this->validate([
+            'start_at' => [
+                'required',
+                'date_format:Y/m/d',
+            ],
+            'amount' => [
+                'required', 
+                'integer', 
+                'min:1',
+            ],
+            'period' => [
+                'required', 
+                Rule::in(['months', 'years']),
+            ],
+        ]);
+
         $this->merge([
             'tenant_id' => $this->route('tenant')->id,
             'user_id' => Auth::id(),
+            'end_at' => Helpers::calc_date($this->start_at, $this->amount, $this->period)->format('Y/m/d'),
         ]);
     }
 
@@ -44,16 +61,14 @@ class StoreContractRequest extends FormRequest
             'apartment_id' => [
                 'required', 
                 'integer', 
-                Rule::in(Apartment::available()->ofCurrentUser()->pluck('id')),
+                new ApartmentAvailable("start_at", "end_at"),
             ],
-            'start_at' => ['required', 'after_or_equal:' . today()->format('Y/m/d')],
-            'amount' => ['required', 'integer', 'min:1'],
-            'period' => [
-                'required', 
-                Rule::in(['months', 'years'])
-            ],
-            'tenant_id' => 'required',
-            'user_id' => 'required',
+            'start_at' => ['required'],
+            'end_at' => ['required'],
+            'tenant_id' => ['required'],
+            'user_id' => ['required'],
+            'amount' => ['required'],
+            'period' => ['required'],
         ];
-    }
+    } 
 }

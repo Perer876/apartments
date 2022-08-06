@@ -118,6 +118,8 @@ return [
     'url'                  => 'El formato del campo :attribute es inválido.',
     'uuid'                 => 'El campo :attribute debe ser un UUID válido.',
 
+    'apartment_available'  => 'El :attribute no esta disponible en las fechas seleccionadas.',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -130,8 +132,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'apartment_id' => [
+            'required' => 'Es necesario seleccionar un :attribute',
         ],
     ],
 
@@ -146,6 +148,7 @@ return [
     |
     */
 
-    'attributes' => [],
-
+    'attributes' => [
+        'apartment_id' => 'departamento'
+    ],
 ];
