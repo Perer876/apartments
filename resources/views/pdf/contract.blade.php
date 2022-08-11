@@ -15,6 +15,9 @@
             .fs-italic {
                 font-style: oblique;
             }
+            .fs-small {
+                font-size: 10px;
+            }
             .text-uppercase {
                 text-transform: uppercase;
             }
@@ -43,6 +46,19 @@
             .pt-1 { padding-top: 1em; }
             ol.bold li { font-weight:bold; }
             ol.bold li > p, ol.normal li { font-weight:normal; }
+            .column {
+                float: left;
+                width: 50%;
+            }
+            .row:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+            .page-break { page-break-after: always;}
+            hr {
+                margin: 15px;
+            }
         </style> 
         <title></title>
     </head>
@@ -59,12 +75,12 @@
                 <ol class="lower-alpha">
                     <li>
                         <p>
-                            Ser mexicano, mayor de edad, tener su domicilio para recibir todo tipo de notificaciones y pagos en la calle continuación 16 de septiembre 1474 en esta ciudad de Atotonilco el Alto Jalisco.
+                            Ser mexicano, mayor de edad, tener su domicilio para recibir todo tipo de notificaciones y pagos en la calle {{$contract->lessor->address->street}} Ext.  {{$contract->lessor->address->building_number}} en la ciudad de {{$contract->lessor->address->city}}, {{$contract->lessor->address->state}}.
                         </p>
                     </li>
                     <li>
                         <p>
-                            Ser legítimo propietario de la finca marcada con el número #{{ $contract->apartment->building->number }} interior {{ $contract->apartment->number }} de la Calle {{ $contract->apartment->building->street }}, en la colonia del Valle de esta ciudad de {{ $contract->apartment->building->city }}, {{ $contract->apartment->building->state }}.
+                            Ser legítimo propietario de la finca marcada con el número exterior {{ $contract->apartment->building->number }} y número interior {{ $contract->apartment->number }} de la Calle {{ $contract->apartment->building->street }}, en la colonia del Valle de la ciudad de {{ $contract->apartment->building->city }}, {{ $contract->apartment->building->state }}.
                         </p>
                     </li>
                     <li>
@@ -106,7 +122,7 @@
             <li>
                 <p class="text-align-justify">
                     <span class="text-uppercase fw-bold">Objeto.</span>
-                    El arrendador entrega a la firma del presente contrato en arrendamiento a el arrendatario la finca marcada con el número #{{ $contract->apartment->building->number }} interior {{ $contract->apartment->number }} de la Calle {{ $contract->apartment->building->street }}, en la colonia del Valle de esta ciudad de {{ $contract->apartment->building->city }}, {{ $contract->apartment->building->state }} que se describe en la declaración 1, inciso b). Por lo que el arrendatario recibe en estos momentos en el excelente estado en el que se encuentra el bien inmueble respectivo en tal concepto.
+                    El arrendador entrega a la firma del presente contrato en arrendamiento a el arrendatario la finca marcada marcada con el número exterior {{ $contract->apartment->building->number }} y número interior {{ $contract->apartment->number }} de la Calle {{ $contract->apartment->building->street }}, en la colonia del Valle de la ciudad de {{ $contract->apartment->building->city }}, {{ $contract->apartment->building->state }} que se describe en la declaración 1, inciso b). Por lo que el arrendatario recibe en estos momentos en el excelente estado en el que se encuentra el bien inmueble respectivo en tal concepto.
                     <br><br>
                     <span class="tab">
                         Las partes contratantes coinciden expresamente en que el destino del inmueble en materia del presente contrato es exclusivamente para casa habitación.
@@ -210,5 +226,55 @@
         <p>
             Leído que fue por las partes y habiendo quedado enteradas del contenido y los alcances legales de todas y cada una de las Cláusulas de este contrato, lo firman por duplicado ante dos Testigos en esta ciudad de {{$contract->apartment->building->location}} el día {{$contract->start_at->locale('es')->isoFormat('dddd LL')}}.
         </p>
+        <div class="page-break"></div>
+        <br>
+        <div class="row">
+            <div class="column">
+                <div class="text-align-center">
+                    El Arrendador
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <hr>
+                    <span class="fs-small">{{$contract->lessor->name}}</span>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <hr>
+                    <span class="fs-small">Testigo</span>
+                </div>
+            </div>
+            <div class="column">
+                <div class="text-align-center">
+                    El Arrendatario
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <hr>
+                    <span class="fs-small">{{$contract->tenant->name}}</span>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <hr>
+                    <span class="fs-small">Testigo</span>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

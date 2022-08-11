@@ -21,6 +21,13 @@
         </div>
         <hr>
     @endif
+    
+    @if (Auth::user()->hasRole("lessor"))
+        <div class="py-3">
+            @livewire('lessor.addresses')
+        </div>
+        <hr>
+    @endif
 
     @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
         <div class="py-3">

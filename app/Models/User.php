@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\Address;
 
 class User extends Authenticatable
 {
@@ -60,4 +61,18 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    
+    public function address()
+    {
+        return $this->hasOne(Address::class)->ofMany([
+            'updated_at' => 'max',
+        ], function ($query) {
+            $query->where('active', 1);
+        });
+    }
+    
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
 }

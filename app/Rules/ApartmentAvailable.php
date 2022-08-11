@@ -70,8 +70,6 @@ class ApartmentAvailable implements Rule, DataAwareRule
             ->whereNull("cancelled_at")
             ->whereDate("start_at", "<", $this->end_date)
             ->whereDate("end_at", ">" , $this->start_date)
-            
-            #->whereDate("start_at", "<" , $this->start_date)
             ->exists();
             
         return !$res;
